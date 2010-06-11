@@ -133,7 +133,7 @@ function _openscholar_core_modules() {
 }
 
 /**
- * Returns an array list of dsi modules.
+ * Returns an array list of openscholar custom modules.
  */
 function _openscholar_scholar_modules() {
   return array(
