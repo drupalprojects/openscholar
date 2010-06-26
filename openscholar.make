@@ -105,5 +105,16 @@ projects[og][version] = "2.1"
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.3"
 
+projects[schema][subdir] = "contrib"
+projects[schema][version] = "1.7"
+
+projects[ucreate][subdir] = "contrib"
+projects[ucreate][version] = "1.0-beta3"
+
+projects[views][subdir] = "contrib"
+projects[views][version] = "2.11"
+
+projects[views_attach][subdir] = "contrib"
+projects[views_attach][version] = "2.2"
 
 
