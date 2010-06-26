@@ -44,7 +44,7 @@ projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.6"
 
 projects[data][subdir] = "contrib"
-projects[data][version] = "1.0-alpha10"
+projects[data][version] = "1.0-alpha11"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.4"
@@ -70,7 +70,7 @@ projects[file_aliases][subdir] = "contrib"
 projects[file_aliases][version] = "1.1"
 
 projects[filefield][subdir] = "contrib"
-projects[filefield][version] = "3.2"
+projects[filefield][version] = "3.5"
 
 projects[filefield_paths][subdir] = "contrib"
 projects[filefield_paths][version] = "1.4"
@@ -85,8 +85,25 @@ projects[imagefield][subdir] = "contrib"
 projects[imagefield][version] = "3.3"
 
 projects[imagefield_crop][subdir] = "contrib"
-projects[imagefield_crop][version] = "1.0-rc1"
+projects[imagefield_crop][version] = "1.0-rc2"
 
 projects[jquery_ui][subdir] = "contrib"
 projects[jquery_ui][version] = "1.3"
+
+projects[link][subdir] = "contrib"
+projects[link][version] = "2.9"
+
+projects[mollom][subdir] = "contrib"
+projects[mollom][version] = "1.13"
+
+projects[nodereference_url][subdir] = "contrib"
+projects[nodereference_url][version] = "1.6"
+
+projects[og][subdir] = "contrib"
+projects[og][version] = "2.1"
+
+projects[pathauto][subdir] = "contrib"
+projects[pathauto][version] = "1.3"
+
+
 
