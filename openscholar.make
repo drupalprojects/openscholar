@@ -32,7 +32,7 @@ projects[calendar][subdir] = "contrib"
 projects[calendar][version] = "2.2"
 
 projects[cck][subdir] = "contrib"
-projects[cck][version] = "2.6"
+projects[cck][version] = "2.7"
 
 projects[content_profile][subdir] = "contrib"
 projects[content_profile][version] = "1.0"
@@ -41,7 +41,7 @@ projects[context][subdir] = "contrib"
 projects[context][version] = "2.0-rc4"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.3"
+projects[ctools][version] = "1.6"
 
 projects[data][subdir] = "contrib"
 projects[data][version] = "1.0-alpha10"
@@ -60,7 +60,7 @@ projects[diff][subdir] = "contrib"
 projects[diff][version] = "2.0"
 
 projects[features][subdir] = "contrib"
-projects[features][version] = "1.0-beta5"
+projects[features][version] = "1.0-beta8"
 
 projects[feeds][subdir] = "contrib"
 projects[feeds][version] = "1.0-alpha13"
