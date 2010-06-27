@@ -117,4 +117,5 @@ projects[views][version] = "2.11"
 projects[views_attach][subdir] = "contrib"
 projects[views_attach][version] = "2.2"
 
-
+projects[wysiwyg][subdir]="contrib"
+projects[wysiwyg][version]= "2.1"
