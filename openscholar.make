@@ -108,6 +108,12 @@ projects[pathauto][version] = "1.3"
 projects[schema][subdir] = "contrib"
 projects[schema][version] = "1.7"
 
+projects[token][subdir] = "contrib"
+projects[token][version] = "1.13"
+
+projects[transliteration][subdir] = "contrib"
+projects[transliteration][version] = "2.1"
+
 projects[ucreate][subdir] = "contrib"
 projects[ucreate][version] = "1.0-beta3"
 
