@@ -38,7 +38,7 @@ projects[content_profile][subdir] = "contrib"
 projects[content_profile][version] = "1.0"
 
 projects[context][subdir] = "contrib"
-projects[context][version] = "2.0-rc4"
+projects[context][version] = "2.0"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.6"
@@ -63,7 +63,7 @@ projects[features][subdir] = "contrib"
 projects[features][version] = "1.0-beta8"
 
 projects[feeds][subdir] = "contrib"
-projects[feeds][version] = "1.0-alpha13"
+projects[feeds][version] = "1.0-beta1"
 
 ;@todo local patches (svn)
 projects[file_aliases][subdir] = "contrib"
@@ -93,6 +93,9 @@ projects[jquery_ui][version] = "1.3"
 projects[link][subdir] = "contrib"
 projects[link][version] = "2.9"
 
+;projects[lightbox2][subdir] = "contrib"
+;projects[lightbox2][version] = "1.9"
+
 projects[mollom][subdir] = "contrib"
 projects[mollom][version] = "1.13"
 
@@ -102,11 +105,17 @@ projects[nodereference_url][version] = "1.6"
 projects[og][subdir] = "contrib"
 projects[og][version] = "2.1"
 
+projects[override_node_options][subdir] = "contrib"
+projects[override_node_options][version] = "1.10"
+
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.3"
 
 projects[schema][subdir] = "contrib"
 projects[schema][version] = "1.7"
+
+projects[strongarm][subdir] = "contrib"
+projects[strongarm][version] = "1.1"
 
 projects[token][subdir] = "contrib"
 projects[token][version] = "1.13"
@@ -125,3 +134,20 @@ projects[views_attach][version] = "2.2"
 
 projects[wysiwyg][subdir]="contrib"
 projects[wysiwyg][version]= "2.1"
+
+
+; patched modules
+
+projects[itweak_upload][subdir] = "contrib"
+projects[itweak_upload][version] = "2.3"
+projects[itweak_upload][patch][] = "http://scholar.svn.sourceforge.net/viewvc/scholar/trunk/sites/all/modules/contrib/itweak_upload/itweak_upload_dataPersistance.patch?revision=3654&content-type=text/plain"
+
+projects[jquery_update][subdir] = "contrib"
+projects[jquery_update][version] = "2.0-alpha1"
+projects[jquery_update][patch][] = "http://drupal.org/files/issues/draggable-329797-3.patch"
+
+projects[biblio][subdir] = "contrib"
+projects[biblio][version] = "1.13"
+projects[biblio][patch][] = "http://drupal.org/files/issues/biblio.access_patch.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
