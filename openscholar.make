@@ -1,9 +1,9 @@
 ; $Id$
 
-Core Version
+;Core Version
 core = "6.x"
    
-Drupal Core
+;Drupal Core
 projects[drupal][version] = "6.16" 
 
 ; Contrib projects 
