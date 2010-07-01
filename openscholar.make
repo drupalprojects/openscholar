@@ -53,9 +53,6 @@ projects[flag][version] = "2.0-beta3"
 projects[imageapi][subdir] = "contrib"
 projects[imageapi][version] = "1.8"
 
-projects[imagecache][subdir] = "contrib"
-projects[imagecache][version] = "1.8"
-
 projects[imagefield][subdir] = "contrib"
 projects[imagefield][version] = "3.3"
 
@@ -146,6 +143,14 @@ projects[luceneapi_biblio][subdir] = "contrib"
 projects[luceneapi_biblio][type] = "module"
 projects[luceneapi_biblio][download][type] = "svn"
 projects[luceneapi_biblio][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/branches/SCHOLAR-2-0-BETA5/sites/all/modules/contrib/luceneapi_biblio/"
+
+;This has a relase but it is too old to work with
+projects[imagecache][subdir] = "contrib"
+projects[imagecache][type] = "module"
+projects[imagecache][download][type] = "svn"
+projects[imagecache][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/branches/SCHOLAR-2-0-BETA5/sites/all/modules/contrib/imagecache/"
+
+
 
 
 
