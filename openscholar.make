@@ -62,6 +62,9 @@ projects[imagefield][version] = "3.3"
 projects[imagefield_crop][subdir] = "contrib"
 projects[imagefield_crop][version] = "1.0-rc2"
 
+projects[install_profile_api][subdir] = "contrib"
+projects[install_profile_api][version] = "2.1"
+
 projects[jquery_ui][subdir] = "contrib"
 projects[jquery_ui][version] = "1.3"
 
