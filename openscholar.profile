@@ -68,6 +68,7 @@ function _openscholar_core_modules() {
     'jquery_ui',
     'jquery_update',
     'lightbox2',
+    'lucene_api',
     'og',
     'og_access',
     'og_views',
