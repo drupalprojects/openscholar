@@ -4,7 +4,7 @@
 core = "6.x"
    
 ;Drupal Core
-projects[drupal][version] = "6.16" 
+projects[drupal][version] = "6.17" 
 
 ; Contrib projects 
 
