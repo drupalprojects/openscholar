@@ -251,9 +251,16 @@ projects[openscholar_themes][location] = "http://openscholar.harvard.edu/scholar
 projects[openscholar_themes][version] = "2.0-beta5"
 
 ; Libraries
+projects[libraries][subdir] = "libraries"
+projects[jquery_ui][subdir] = "contrib"
+
+; TinyMCE
+libraries[tinymce][download][type] = "get"
+libraries[tinymce][download][url] = "http://downloads.sourceforge.net/project/tinymce/TinyMCE/3.2.5/tinymce_3_2_5.zip"
+libraries[tinymce][directory_name] = "tinymce"
+
+; jQuery UI
 libraries[jquery_ui][download][type] = "get"
 libraries[jquery_ui][download][url] = "http://jquery-ui.googlecode.com/files/jquery-ui-1.7.2.zip"
 libraries[jquery_ui][directory_name] = "jquery.ui"
 libraries[jquery_ui][destination] = "modules/contrib/jquery_ui"
-
-; Translations for openscholar install profile
