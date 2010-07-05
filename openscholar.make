@@ -153,22 +153,20 @@ projects[luceneapi_biblio][type] = "module"
 projects[luceneapi_biblio][download][type] = "svn"
 projects[luceneapi_biblio][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/branches/SCHOLAR-2-0-BETA5/sites/all/modules/contrib/luceneapi_biblio/"
 
-;This has a relase but it is too old to work with
+; To be released
 projects[imagecache][subdir] = "contrib"
 projects[imagecache][type] = "module"
-projects[imagecache][download][type] = "svn"
-projects[imagecache][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/branches/SCHOLAR-2-0-BETA5/sites/all/modules/contrib/imagecache/"
-
-
-
+projects[imagecache][download][type] = "cvs"
+projects[imagecache][download][module] = "contributions/modules/imagecache"
+projects[imagecache][download][revision] = "DRUPAL-6--1:2010-05-26"
 
 
 ;Contrib (Non-Patched Included but not enabled by default in the profile)
 projects[devel][subdir] = "contrib"
-projects[devel][version] = "1"
+projects[devel][version] = "1.20"
 
 projects[admin_menu][subdir] = "contrib"
-projects[admin_menu][version] = "1"
+projects[admin_menu][version] = "1.5"
 
 
 
@@ -225,8 +223,8 @@ projects[spaces][patch][] = "http://drupal.org/files/issues/spaces.saving_blk_cu
 projects[spaces][patch][] = "http://drupal.org/files/issues/spaces.static_call_fix_1.patch"
 
 ; Custom modules
-projects[openscholar_iqss][location] = "http://openscholar.harvard.edu/scholar_software"
-projects[openscholar_iqss][version] = "2.0-beta5"
+;projects[openscholar_iqss][location] = "http://openscholar.harvard.edu/scholar_software"
+;projects[openscholar_iqss][version] = "2.0-beta5"
 
 projects[openscholar_features][location] = "http://openscholar.harvard.edu/scholar_software"
 projects[openscholar_features][version] = "2.0-beta5"
