@@ -214,8 +214,8 @@ projects[jquery_update][version] = "2.0-alpha1"
 projects[jquery_update][patch][] = "http://drupal.org/files/issues/draggable-329797-3.patch"
 
 projects[purl][subdir] = "contrib"
-projects[purl][version] = "1.0-beta4"
-projects[purl][patch][] = "http://drupal.org/files/issues/dynamic_modifier_validate_0.patch"
+projects[purl][version] = "1.0-beta12"
+projects[purl][patch][] = "http://drupal.org/files/issues/dynamic_modifier.Beta12.patch"
 
 projects[spaces][subdir] = "contrib"
 projects[spaces][version] = "2.0-beta6"
