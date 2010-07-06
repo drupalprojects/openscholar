@@ -137,16 +137,6 @@ projects[wysiwyg][version]= "2.1"
 
 
 ;Contrib (Drupal Modules without official Releases - Pulling from stable tested revision)
-projects[activity][subdir] = "contrib"
-;projects[activity][version] = "1.2"
-projects[activity][type] = "module"
-projects[activity][download][type] = "svn"
-projects[activity][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/branches/SCHOLAR-2-0-BETA5/sites/all/modules/contrib/activity/"
-
-projects[dialog][subdir] = "contrib"
-projects[dialog][type] = "module"
-projects[dialog][download][type] = "svn"
-projects[dialog][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/branches/SCHOLAR-2-0-BETA5/sites/all/modules/contrib/dialog/"
 
 projects[luceneapi_biblio][subdir] = "contrib"
 projects[luceneapi_biblio][type] = "module"
@@ -154,6 +144,18 @@ projects[luceneapi_biblio][download][type] = "svn"
 projects[luceneapi_biblio][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/branches/SCHOLAR-2-0-BETA5/sites/all/modules/contrib/luceneapi_biblio/"
 
 ; To be released
+projects[dialog][subdir] = "contrib"
+projects[dialog][type] = "module"
+projects[dialog][download][type] = "cvs"
+projects[dialog][download][module] = "contributions/modules/dialog"
+projects[dialog][download][revision] = "DRUPAL-6--1:2010-02-24"
+
+projects[activity][subdir] = "contrib"
+projects[activity][type] = "module"
+projects[activity][download][type] = "cvs"
+projects[activity][download][module] = "contributions/modules/activity"
+projects[activity][download][revision] = "DRUPAL-6--2:2010-06-30"
+
 projects[imagecache][subdir] = "contrib"
 projects[imagecache][type] = "module"
 projects[imagecache][download][type] = "cvs"
