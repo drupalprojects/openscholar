@@ -155,13 +155,16 @@ function _openscholar_scholar_modules() {
     
     'biblio',
     'auto_nodetitle',
-//////   'scholarboot',
     'cp',
     'bkn',
     'cite_distribute',
     'repec_meta',
     'googlescholar_meta',
     'dyntextfield',
+  
+    //Install-Wide Pages
+    'scholarregister',
+    'openscholar_front',
 
     // features
     'scholar_dvn',
