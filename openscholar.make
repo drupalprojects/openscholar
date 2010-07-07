@@ -225,17 +225,17 @@ projects[spaces][patch][] = "http://drupal.org/files/issues/spaces.saving_blk_cu
 projects[spaces][patch][] = "http://drupal.org/files/issues/spaces.static_call_fix_1.patch"
 
 ; Custom modules
-;projects[openscholar_iqss][location] = "http://openscholar.harvard.edu/scholar_software"
-;projects[openscholar_iqss][version] = "2.0-beta5"
-
 projects[openscholar_features][location] = "http://openscholar.harvard.edu/scholar_software"
-projects[openscholar_features][version] = "2.0-beta5"
+projects[openscholar_features][version] = "2.0-dev"
 
 projects[openscholar_vsite][location] = "http://openscholar.harvard.edu/scholar_software"
-projects[openscholar_vsite][version] = "2.0-beta5"
+projects[openscholar_vsite][version] = "2.0-dev"
 
 projects[openscholar_scholar][location] = "http://openscholar.harvard.edu/scholar_software"
-projects[openscholar_scholar][version] = "2.0-beta5"
+projects[openscholar_scholar][version] = "2.0-dev"
+
+projects[openscholar_sitewide][location] = "http://openscholar.harvard.edu/scholar_software"
+projects[openscholar_sitewide][version] = "2.0-dev"
 
 ; Open Atrium modules
 projects[litecal][subdir] = "contrib"
