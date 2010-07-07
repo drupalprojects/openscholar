@@ -254,10 +254,12 @@ projects[openscholar_themes][version] = "2.0-beta5"
 projects[libraries][subdir] = "libraries"
 projects[jquery_ui][subdir] = "contrib"
 
-; TinyMCE
-libraries[tinymce][download][type] = "get"
-libraries[tinymce][download][url] = "http://downloads.sourceforge.net/project/tinymce/TinyMCE/3.2.5/tinymce_3_2_5.zip?use_mirror=surfnet&35421774"
+; TinyMCE 3.2.6
+libraries[tinymce][type] = theme
+libraries[tinymce][download][type] = git
+libraries[tinymce][download][url] = git://github.com/tinymce/tinymce.git
 libraries[tinymce][directory_name] = "tinymce"
+libraries[tinymce][revision] = 2a492d7b6628ac9ac88d
 
 ; jQuery UI
 libraries[jquery_ui][download][type] = "get"
