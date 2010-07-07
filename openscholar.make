@@ -256,7 +256,7 @@ projects[jquery_ui][subdir] = "contrib"
 
 ; TinyMCE
 libraries[tinymce][download][type] = "get"
-libraries[tinymce][download][url] = "http://downloads.sourceforge.net/project/tinymce/TinyMCE/3.2.5/tinymce_3_2_5.zip"
+libraries[tinymce][download][url] = "http://downloads.sourceforge.net/project/tinymce/TinyMCE/3.2.5/tinymce_3_2_5.zip?use_mirror=surfnet&35421774"
 libraries[tinymce][directory_name] = "tinymce"
 
 ; jQuery UI
