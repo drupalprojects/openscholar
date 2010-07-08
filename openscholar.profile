@@ -70,6 +70,8 @@ function _openscholar_core_modules() {
     'lightbox2',
     //lucene_api
     'luceneapi',
+    'luceneapi_node',
+    'luceneapi_facet',
     'og',
     'og_access',
     'og_views',
