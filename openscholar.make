@@ -50,9 +50,6 @@ projects[filefield][version] = "3.5"
 projects[filefield_paths][subdir] = "contrib"
 projects[filefield_paths][version] = "1.4"
 
-projects[flag][subdir] = "contrib"
-projects[flag][version] = "2.0-beta3"
-
 projects[imageapi][subdir] = "contrib"
 projects[imageapi][version] = "1.8"
 
@@ -204,6 +201,10 @@ projects[feeds][patch][] = "http://drupal.org/files/issues/FeedsDataProcessor.Ex
 projects[file_aliases][subdir] = "contrib"
 projects[file_aliases][version] = "1.1"
 projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_alias_nodeFormDescription.patch"
+
+projects[flag][subdir] = "contrib"
+projects[flag][version] = "2.0-beta3"
+projects[flag][patch][] = "http://drupal.org/files/issues/flag-846826.patch"
 
 projects[itweak_upload][subdir] = "contrib"
 projects[itweak_upload][version] = "2.3"
