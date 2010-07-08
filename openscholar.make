@@ -140,6 +140,11 @@ projects[luceneapi_biblio][type] = "module"
 projects[luceneapi_biblio][download][type] = "svn"
 projects[luceneapi_biblio][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/branches/SCHOLAR-2-0-BETA5/sites/all/modules/contrib/luceneapi_biblio/"
 
+projects[luceneapi_og][type] = module
+projects[luceneapi_og][download][type] = cvs
+projects[luceneapi_og][download][module] = contributions/modules/luceneapi_og
+projects[luceneapi_og][download][revision] = "HEAD:2010-06-10"
+
 ; To be released
 projects[dialog][subdir] = "contrib"
 projects[dialog][type] = "module"
