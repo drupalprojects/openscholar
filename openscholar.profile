@@ -6,8 +6,8 @@
  */
 function openscholar_profile_details() {
   return array(
-    'name' => 'OpenScholar',
-    'description' => 'OpenScholar project by IQSS at Harvard University'
+    'name' => 'OpenScholar: Personal academic web sites',
+    'description' => 'Choose this options for personal academic web sites'
   );
 }
 
