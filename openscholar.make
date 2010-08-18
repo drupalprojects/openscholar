@@ -7,7 +7,7 @@ core = "6.x"
 projects[drupal][version] = "6.17" 
 
 ; Install Profile
-projects[openscholar][version] = "6.1" 
+; projects[openscholar][version] = "6.1" 
 
 ; Contrib projects 
 
