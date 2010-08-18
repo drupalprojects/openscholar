@@ -187,6 +187,11 @@ function _openscholar_scholar_modules() {
  * Implementation of hook_profile_task_list().
  */
 function openscholar_profile_task_list() {
+  global $conf;
+  $conf['site_name'] = 'OpenScholar';
+  $conf['site_footer'] = '<a href="http://openscholar.harvard.edu">OpenScholar</a> by <a href="http://iq.harvard.edu">IQSS</a> at Harvard University';
+  
+  
   $tasks = array(
     'openscholar-configure' => st('openscholar  configuration'),
   );
