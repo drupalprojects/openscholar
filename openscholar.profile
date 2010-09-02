@@ -180,6 +180,7 @@ function _openscholar_scholar_modules() {
     'scholar_reader',
     'scholar_front',
     'scholar_profiles',
+    'scholar_presentations',
   );
 }
 
@@ -277,7 +278,7 @@ function _openscholar_profile_batch_finished($success, $results) {
  */
 function _openscholar_enable_themes(){
   
-  // the default theme 
+  // the default theme
   install_default_theme('openscholar_default');
   
   $themes = array(
