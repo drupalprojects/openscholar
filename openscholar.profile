@@ -180,7 +180,6 @@ function _openscholar_scholar_modules() {
     'scholar_reader',
     'scholar_front',
     'scholar_profiles',
-    'scholar_presentations',
   );
 }
 
