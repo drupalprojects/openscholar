@@ -120,6 +120,10 @@ function _openscholar_core_modules() {
     'install_profile_api',
     'schema',
  
+   // signup
+    'signup',
+    'signup_confirm_email',
+ 
     // Optional Development Resources
     //'admin_menu',
     //'devel',
@@ -140,6 +144,7 @@ function _openscholar_scholar_modules() {
     'vsite_content',
     'vsite_domain',
     'scholar_events',
+    'scholar_events_signup',
     'vsite_ga',
     'vsite_layout',
     'vsite_menus',
