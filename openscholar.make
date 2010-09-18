@@ -170,6 +170,12 @@ projects[imagecache][download][type] = "cvs"
 projects[imagecache][download][module] = "contributions/modules/imagecache"
 projects[imagecache][download][revision] = "DRUPAL-6--1:2010-05-26"
 
+projects[signup][subdir] = "contrib"
+projects[signup][type] = "module"
+projects[signup][download][type] = "cvs"
+projects[signup][download][module] = "contributions/modules/signup"
+projects[signup][download][revision] = "DRUPAL-6--1:2010-09-17"
+projects[signup][patch][] = "http://drupal.org/files/issues/signup-fieldset-weight-915104.patch"
 
 ;Contrib (Non-Patched Included but not enabled by default in the profile)
 projects[devel][subdir] = "contrib"
