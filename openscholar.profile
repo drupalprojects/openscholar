@@ -17,7 +17,6 @@ function openscholar_profile_details() {
 function openscholar_profile_modules() {
   return array(
     'block',
-    'blog',
     'book',
     'comment',
     'contact',
