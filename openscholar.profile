@@ -40,105 +40,105 @@ function openscholar_profile_modules() {
 function _openscholar_core_modules() {
  $contrib_modules = array(
   // sites/all/contrib
-    'activity',
     'addthis',
     'advanced_help',
-    'calendar',
-    'litecal',
-    'context',
-    'context_contrib',
-    'content_profile',
-    'content_profile_registration',
-    'context_ui',
+    'install_profile_api',
     'ctools',
-    'data',
-    'data_node',
-    'data_ui',
-    'dialog',
-    'feeds',
-    'feeds_defaults',
-    'filefield_paths',
-    'file_aliases',
+    'content',
+ 
+    'biblio',
+    'auto_nodetitle',
+    'content_copy',
+    'content_profile',
+
+    'context',
+    'date_api',
+    'diff',
+    'views',
+ 
     'features',
     'flag',
     'imageapi',
     'imageapi_gd',
-    'itweak_upload',
-    'jquery_ui',
+
     'jquery_update',
+    'jquery_ui',
     'lightbox2',
-    'og',
-    'og_access',
-    'og_views',
-    'og_vocab',
-    'og_actions',
-    'override_node_options',
+    'litecal',
     'menu_node',
-    'pathauto',
-    'permissions_api',
-    'purl',
-    'spaces',
-    'spaces_og',
+    'og',
+    'override_node_options',
+    'schema',
     'stringoverrides',
     'strongarm',
     'token',
-    'trigger',
     'transliteration',
     'twitter_pull',
     'ucreate',
-    'ucreate_og',
-    'views',
-    'views_bulk_operations',
-    'views_ui',
-    'views_export',
-    'views_attach',
     'vertical_tabs',
+    'itweak_upload',
+
     'wysiwyg',
-  
-  //cck
-    'content',
-    'content_copy',
-    'diff',
+    'activity',
+
+    'content_profile_registration',
+    'context_contrib',
+    'context_ui',
+    'data',
     'date_timezone',
-    'date_api',
-    'date',
-    'date_popup',
-    'filefield',
+    'dialog',
+    'dyntextfield',
+    'feeds',
+    'feeds_defaults',
     'fieldgroup',
+    'filefield',
+    'filefield_paths',
     'imagecache',
     'imagecache_ui',
     'imagefield',
     'imagefield_crop',
     'link',
-    'text',
     'number',
+    'og_access',
+    'og_actions',
+    'og_views',
+    'og_vocab',
+    'optionwidgets',
+    'pathauto',
+    'purl',
+    'spaces',
+    'spaces_og',
+    'text',
+    'ucreate_og',
+    'views_attach', 
+    'views_bulk_operations',
+    'views_export',
+    'views_ui',
+ 
+ 
+    'data_node',
+    'data_ui',
+    'date',
+    'date_popup',
+    'file_aliases',
     'nodereference',
     'nodereference_url',
-    'optionwidgets',
 
-    'install_profile_api',
-    'schema',
- 
    // signup
     'signup',
     'signup_confirm_email',
- 
-    // Optional Development Resources
-    //'admin_menu',
-    //'devel',
-    //'devel_generate',
-    
   );
   
   return $contrib_modules;
 }
 
 /**
- * Returns an array list of dsi modules.
+ * Returns an array list of openscholar specific modules.
  */
 function _openscholar_scholar_modules() {
   return array(
     'vsite',
+    'vsite_widgets',
     'scholar',
     'vsite_content',
     'vsite_domain',
@@ -153,17 +153,16 @@ function _openscholar_scholar_modules() {
     'vsitehelp',
     'vsite_news',
     'vsite_support',
-    'vsite_widgets',
+
     'vsite_generic_settings',
+    'vsite_comments',
     
-    'biblio',
-    'auto_nodetitle',
     'cp',
     'bkn',
     'cite_distribute',
     'repec_meta',
     'googlescholar_meta',
-    'dyntextfield',
+
   
     //Install-Wide Pages
     'scholarregister',
