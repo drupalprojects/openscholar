@@ -20,9 +20,6 @@ projects[advanced_help][version] = "1.2"
 projects[auto_nodetitle][subdir] = "contrib"
 projects[auto_nodetitle][version] = "1.2"
 
-projects[calendar][subdir] = "contrib"
-projects[calendar][version] = "2.2"
-
 projects[cck][subdir] = "contrib"
 projects[cck][version] = "2.7"
 
@@ -254,7 +251,7 @@ projects[openscholar_sitewide][version] = "2.0-dev"
 ; Open Atrium modules
 projects[litecal][subdir] = "contrib"
 projects[litecal][location] = "http://code.developmentseed.org/fserver"
-projects[litecal][version] = "1.0-alpha2"
+projects[litecal][version] = "1.0-alpha4"
 
 
 ; Themes
