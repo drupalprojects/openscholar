@@ -6,8 +6,8 @@
  */
 function openscholar_profile_details() {
   return array(
-    'name' => 'OpenScholar: Personal academic web sites',
-    'description' => 'Choose this options for personal academic web sites'
+    'name' => 'OpenScholar',
+    'description' => 'OpenScholar distribution by IQSS at Harvard'
   );
 }
 
@@ -16,21 +16,39 @@ function openscholar_profile_details() {
  */
 function openscholar_profile_modules() {
   return array(
-    'block',
-    'book',
-    'comment',
-    'contact',
-    'filter',
-    'help',
-    'menu',
-    'node',
-    'system',
-    'search',
-    'user',
-    'path',
-    'php',
-    'taxonomy',
-    'upload',
+    //core 
+    'block', 'book', 'comment', 'contact', 'filter', 'help',
+    'menu', 'node', 'system', 'search', 'user', 'path', 'php', 
+    'taxonomy', 'upload',
+  
+    //admin menu
+    'admin_menu',
+    //views
+    'views',
+    //og
+    'og', 'og_access', 'og_actions', 'og_views', 'og_vocab',
+    //ctools
+    'ctools',
+    // context
+    'context', 'context_contrib', 'context_ui',
+    // date
+    'date_api', 'date_timezone',
+    // features
+    'features',
+    // image
+    'imageapi', 'imageapi_gd', 'imagecache',
+    // token
+    'token',
+    // transliteration
+    'transliteration',
+    // purl
+    'purl',
+    // spaces
+    'spaces', 'spaces_og',
+    // ucreate
+    'ucreate', 'ucreate_og',
+  
+    
   );
 }
 
@@ -39,42 +57,30 @@ function openscholar_profile_modules() {
  */
 function _openscholar_core_modules() {
  $contrib_modules = array(
-  // sites/all/contrib
+
     'addthis',
     'advanced_help',
     'install_profile_api',
-    'ctools',
     'content',
  
     'biblio',
     'auto_nodetitle',
     'content_copy',
     'content_profile',
-
-    'context',
-    'date_api',
     'diff',
-    'views',
  
-    'features',
     'flag',
-    'imageapi',
-    'imageapi_gd',
-
     'jquery_update',
     'jquery_ui',
     'lightbox2',
     'litecal',
     'menu_node',
-    'og',
     'override_node_options',
     'schema',
     'stringoverrides',
     'strongarm',
-    'token',
-    'transliteration',
     'twitter_pull',
-    'ucreate',
+
     'vertical_tabs',
     'itweak_upload',
 
@@ -82,10 +88,9 @@ function _openscholar_core_modules() {
     'activity',
 
     'content_profile_registration',
-    'context_contrib',
-    'context_ui',
+
     'data',
-    'date_timezone',
+
     'dialog',
     'dyntextfield',
     'feeds',
@@ -93,28 +98,22 @@ function _openscholar_core_modules() {
     'fieldgroup',
     'filefield',
     'filefield_paths',
-    'imagecache',
     'imagecache_ui',
     'imagefield',
     'imagefield_crop',
     'link',
     'number',
-    'og_access',
-    'og_actions',
-    'og_views',
-    'og_vocab',
+
     'optionwidgets',
     'pathauto',
-    'purl',
-    'spaces',
-    'spaces_og',
+
+
     'text',
-    'ucreate_og',
+
     'views_attach', 
     'views_bulk_operations',
     'views_export',
     'views_ui',
- 
  
     'data_node',
     'data_ui',
@@ -139,7 +138,7 @@ function _openscholar_scholar_modules() {
   return array(
     'vsite',
     'vsite_widgets',
-    'scholar',
+    //'scholar',
     'vsite_content',
     'vsite_domain',
     'scholar_events',
@@ -170,7 +169,6 @@ function _openscholar_scholar_modules() {
 
     // features
     'scholar_dvn',
-    'scholar_biocv',
     'scholar_links',
     'scholar_blog',
     'scholar_book',
@@ -196,7 +194,8 @@ function openscholar_profile_task_list() {
   
   
   $tasks = array(
-    'openscholar-configure' => st('openscholar  configuration'),
+    'openscholar-flavor' => st('OpenScholar  flavor'),
+    'openscholar-configure' => st('Openscholar  configuration'),
   );
   return $tasks;
 }
@@ -229,14 +228,31 @@ function openscholar_profile_tasks(&$task, $url) {
     batch_set($batch);
     batch_process($url, $url);
   }
+  
+  // chose an openscholar flavor to install 
+  if ($task == 'openscholar-flavor') {
+      $output = drupal_get_form('_openscholar_flavors_form', $url);
+    if (! variable_get('openscholar_flavor_form_executed', FALSE)) {
+      drupal_set_title('configuring flavors');
+      return $output;
+    }
+    else {
+      $task = 'openscholar-configure';
+    }    
+  }
 
   // Run additional configuration tasks
-  // @todo Review all the cache/rebuild options at the end, some of them may not be needed
   if ($task == 'openscholar-configure') {
     install_include(_openscholar_core_modules());
     // create roles
     _openscholar_create_roles();
-
+    
+    // create a default contact form
+    _vsite_default_contact_form();
+    
+    // disable some flags
+    _openscholar_flags();
+    
     // configure wisywig/tinymce
     _openscholar_wysiwyg_config();
 
@@ -247,20 +263,34 @@ function openscholar_profile_tasks(&$task, $url) {
     drupal_get_schema('system', TRUE); // Clear schema DB cache
     drupal_flush_all_caches();
     db_query("UPDATE {blocks} SET status = 0, region = ''"); // disable all DB blocks
-
-    //features_rebuild();
+    
+    // create a global taxonomy (not really used right now)
+    // _vsite_global_taxonomy();
+    
+    //filefield_path /alias config
+    _openscholar_filefield_paths_config();
+    
+    // biblio configuraitons
+    _openscholar_configure_biblio();
+    
+    if (function_exists('strongarm_init')) {
+      strongarm_init();
+    }
 
     // enable the themes
     _openscholar_enable_themes();
 
     variable_set('scholar_content_type', 'vsite');
-    // set default to america/new yourk
-    variable_set(date_default_timezone_name, "America/New_York");
-    
-    //_scholar_filefield_paths_config();
-    _openscholar_configure_biblio();
+    variable_set('site_frontpage', 'welcome');
 
-    // Get out of this batch and let the installer continue
+    
+        $core = array('cache', 'cache_block', 'cache_filter', 'cache_page');
+      $cache_tables = array_merge(module_invoke_all('flush_caches'), $core);
+      foreach ($cache_tables as $table) {
+        cache_clear_all('*', $table, TRUE);
+      }
+      cache_clear_all();
+    // we are done let the installer know
     $task = 'profile-finished';
   }
   return $output;
@@ -272,7 +302,8 @@ function openscholar_profile_tasks(&$task, $url) {
  * Advance installer task to language import.
  */
 function _openscholar_profile_batch_finished($success, $results) {
-  variable_set('install_task', 'openscholar-configure');
+  //variable_set('install_task', 'openscholar-configure');
+  variable_set('install_task', 'openscholar-flavor');
 }
 
 /**
@@ -309,13 +340,35 @@ function _openscholar_enable_themes(){
   db_query("UPDATE {blocks} SET status = 0, region = ''");
 }
 
-////////////////
-// PRIVATE CONFIG FUNCTIONS
-////////////////
+/**
+ * Create a default sitewide contact form using
+ * 'site_mail' variable as email recipient
+ */
+function _vsite_default_contact_form(){
+  $sitewide_contact_form = new stdClass();
+  $sitewide_contact_form -> category = 'website feedback';
+  $sitewide_contact_form -> recipients = variable_get('site_mail', '');
+  $sitewide_contact_form -> selected = 1;
+  if (strlen($sitewide_contact_form -> recipients)) {
+    drupal_write_record('contact', $sitewide_contact_form);
+  }
+}
+
+/**
+ * disable the bookmarks flag
+ */
+function _openscholar_flags(){
+  //disable the f. bookmarks flag
+  module_load_include('inc', 'flag', '/includes/flag.admin');
+  $flag = flag_get_flag('bookmarks');
+  if(!$flag) return;
+  $flag->delete();
+  //$flag->disable();
+  _flag_clear_cache();
+}
 
 /**
  *  Change the biblio Config
- *  TODO: permissions
  */
 function _openscholar_configure_biblio(){
   $s_common_string = <<<COMMON
@@ -330,59 +383,74 @@ COMMON;
    db_query("UPDATE `biblio_field_type` SET required = 0 WHERE fid = 15"); //No pub date req.
 }
 
-function   _openscholar_wysiwyg_config(){
-  $settings = array (
-    'default' => 1,
-    'user_choose' => 0,
-    'show_toggle' => 1,
-    'theme' => 'advanced',
-    'language' => 'en',
+/**
+ * wysiwyg configurations
+ */
+function _openscholar_wysiwyg_config(){
+  $settings = array(
+    'default' => 1, 
+    'user_choose' => 0, 
+    'show_toggle' => 1, 
+    'theme' => 'advanced', 
+    'language' => 'en', 
     'buttons' => array(
-      'default' => array (
-         'bold' => 1,
-         'italic' => 1,
-         'strikethrough' => 1,
-         'bullist' => 1,
-         'numlist' => 1,
-         'link' => 1,
-         'unlink' => 1,
-         'image' => 1,
-         'code' => 1,
-         'cut' => 1,
-         'copy' => 1,
-         'paste' => 1,
-         'charmap' => 1,
-       ),
-            
-       'font' => array('formatselect' => 1),
-       'fullscreen' => array('fullscreen' => 1),
-       'paste' => array('pastetext' => 1),
-       'table' => array('tablecontrols' => 1),
-       'safari' => array('safari' => 1),
-       'drupal' => array ('break' => 1),
-    ),
-
-    'toolbar_loc' => 'top',
-    'toolbar_align' => 'left',
-    'path_loc' => 'bottom',
-    'resizing' => 1,
-    'verify_html' => 1,
-    'preformatted' => 0,
-    'convert_fonts_to_spans' => 1,
-    'remove_linebreaks' => 1,
-    'apply_source_formatting' => 0,
-    'paste_auto_cleanup_on_paste' => 1,
-    'block_formats' => 'p,address,pre,h2,h3,h4,h5,h6',
-    'css_setting' => 'theme',
-    'css_path' => '',
-    'css_classes' => '',
-
-);
-
-$settings = serialize($settings);
-
+      'default' => array(
+        'bold' => 1, 
+        'italic' => 1, 
+        'strikethrough' => 1, 
+        'bullist' => 1, 
+        'numlist' => 1, 
+        'link' => 1, 
+        'unlink' => 1, 
+        'image' => 1, 
+        'code' => 1, 
+        'cut' => 1, 
+        'copy' => 1, 
+        'paste' => 1, 
+        'charmap' => 1 
+      ), 
+      
+      'font' => array(
+        'formatselect' => 1 
+      ), 
+      'fullscreen' => array(
+        'fullscreen' => 1 
+      ), 
+      'paste' => array(
+        'pastetext' => 1 
+      ), 
+      'table' => array(
+        'tablecontrols' => 1 
+      ), 
+      'safari' => array(
+        'safari' => 1 
+      ), 
+      'drupal' => array(
+        'break' => 1 
+      ) 
+    ), 
+    
+    'toolbar_loc' => 'top', 
+    'toolbar_align' => 'left', 
+    'path_loc' => 'bottom', 
+    'resizing' => 1, 
+    'verify_html' => 1, 
+    'preformatted' => 0, 
+    'convert_fonts_to_spans' => 1, 
+    'remove_linebreaks' => 1, 
+    'apply_source_formatting' => 0, 
+    'paste_auto_cleanup_on_paste' => 1, 
+    'block_formats' => 'p,address,pre,h2,h3,h4,h5,h6', 
+    'css_setting' => 'theme', 
+    'css_path' => '', 
+    'css_classes' => '' 
+  )
+  ;
+  
+  $settings = serialize($settings);
+  
   $query = "SELECT format FROM {filter_formats} WHERE name='%s'";
-  $filter_name = db_result(db_query($query,'Filtered HTML'));
+  $filter_name = db_result(db_query($query, 'Filtered HTML'));
   $query = "INSERT INTO {wysiwyg} (format, editor, settings) VALUES ('%d', '%s', '%s')";
   db_query($query, $filter_name, 'tinymce', $settings);
 }
@@ -394,3 +462,215 @@ function _openscholar_create_roles(){
   install_add_role('scholar admin');
   install_add_role('scholar user');
 }
+
+/**
+ * Form definition for OS flavors
+ */
+function _openscholar_flavors_form($form_state, $url){
+  
+  $form = array();
+  
+  $form['#action'] = $url;
+  $form['#redirect'] = FALSE;
+  
+  $form['flavor'] = array(
+    '#tree' => TRUE, 
+    '#type' => 'radios', 
+    '#title' => t('Default options'), 
+    '#default_value' => 0,
+    '#options' => array(
+      t('Personal'), 
+      t('Project'),
+      t('Dev') 
+    ), 
+    '#description' => t('Chose a flavor to install') 
+  );
+  
+  $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => st('OK') 
+  );
+  
+  return $form;
+}
+
+/**
+ * Submit handler for the flavor form
+ */
+function _openscholar_flavors_form_submit(&$form, &$form_state){
+
+  $flavor = $form_state['values']['flavor'];
+
+  switch($flavor){
+    case 0:       // personal
+      $flavor = 'personal';
+      $modules = array('scholar', 'scholar_biocv');
+      $vsite_node_type = 'vsite';  // for historical reasons
+      break;
+    case 1:       // project
+      $flavor = 'project';
+      $modules = array('scholar_project');
+      $vsite_node_type = 'project';  // for historical reasons
+      break;
+      
+    case 2:       // dev
+      $flavor = 'development';
+      $modules = array('devel');
+      break;
+  
+  }
+
+  // install extra modules for each flavor
+  include_once './includes/install.inc';
+  drupal_install_modules($modules);
+  
+  // create vsite vocabs (interest, affiliation)
+  _openscholar_vsite_vocabs($vsite_node_type);
+  
+  variable_set('openscholar_flavor_installed', $flavor);
+  variable_set('openscholar_flavor_form_executed', TRUE);
+}
+
+function _openscholar_filefield_paths_config(){
+
+  $types = _openscholar_group_posts();
+  
+  $file_name = array(
+    'value' => '[filefield-onlyname-original].[filefield-extension-original]',
+    'tolower' => 0,
+    'pathauto' => 0,
+    'transliterate' => 0
+  );
+  
+  $file_path = array(
+    'value' => '[space-og-path-raw]/files',
+    'tolower' => 0,
+    'pathauto' => 0,
+    'transliterate' => 0
+  );
+  
+  $file_alias = array(
+    'value' => '[space-og-path-raw]/files/[filefield-onlyname-original].[filefield-extension-original]',
+    'tolower' => 0,
+    'pathauto' => 0,
+    'transliterate' => 0,
+    'display' => 1,
+  );
+  
+  
+  foreach ( $types as $type ) {
+    $file_alias['display'] = ($type == 'image')?0:1; //turn on display for all but image
+    db_query("INSERT INTO {filefield_paths} (type, field, filename, filepath, filealias) VALUES ('%s', '%s', '%s', '%s', '%s')", $type, "upload", serialize($file_name), serialize($file_path), serialize($file_alias));
+  }
+  
+  //set the "filefield" paths
+  reset($types);
+  foreach ( content_fields() as $field ) {
+    if (($field['module'] == 'filefield') && in_array($field['type_name'], $types)) {
+      //add settings to database if applicable
+      db_query("INSERT INTO {filefield_paths} (type, field, filename, filepath) VALUES ('%s', '%s', '%s', '%s')", $field['type_name'], $field['field_name'], serialize($file_name), serialize($file_path));
+    }
+  }
+  
+}
+
+/**
+ * Get an array of 'group_posts' content types names 
+ */
+function _openscholar_group_posts(){
+  //$types = og_get_types('group_post');  // not working !
+  
+  // get all 'group_post' content types
+  $group_types = array();
+  $map = spaces_features_map('node');
+  $features = spaces_features('og');
+  foreach ( $map as $type => $feature ) {
+    if (! empty($features[$feature])) {
+      $group_types[] = $type;
+    }
+  }
+  
+  return $group_types;
+}
+
+/**
+ * Create the taxonomy's that will be used by the vsite object
+ * @return success
+ */
+function _openscholar_vsite_vocabs($vsite_node_type){
+  
+  install_include(array(
+    'taxonomy' 
+  ));
+  
+  // Create the vsite tax for affiliation
+  $vocab = array(
+    'name' => 'Affiliation / Department', 
+    'multiple' => 1, 
+    'required' => 0, 
+    'hierarchy' => 0, 
+    'relations' => 0, 
+    'module' => 'taxonomy', 
+    'weight' => 0, 
+    'nodes' => array(
+      $vsite_node_type => 1 
+    ), 
+    'tags' => false, 
+    'help' => t('Affiliation'), 
+    'description' => t("A comma-separated list of affiliation that your site may have, for ex.(Math department)") 
+  );
+  taxonomy_save_vocabulary($vocab);
+  
+  $vid = db_last_insert_id('vocabulary', 'vid');
+  variable_set('vsite_taxonomy_affiliation', $vid);
+  
+  // Create the vsite tax for intrests
+  $vocab = array(
+    'name' => 'Related Interests', 
+    'description' => t("A comma-separated list of topics that may relate to the content of your site. ex.(zoology, evolutionary biology, casual inference)"), 
+    'multiple' => 0, 
+    'required' => 0, 
+    'hierarchy' => 0, 
+    'relations' => 0, 
+    'module' => 'taxonomy', 
+    'weight' => 0, 
+    'nodes' => array(
+      $vsite_node_type => 1 
+    ), 
+    'tags' => TRUE, 
+    'help' => t("A comma-separated list of topics that may relate to the content of your site. ex.(zoology, evolutionary biology, casual inference)"),
+  );
+  taxonomy_save_vocabulary($vocab);
+  
+  $vid = db_last_insert_id('vocabulary', 'vid');
+  variable_set('vsite_taxonomy_interests', $vid);
+}
+
+/*
+function _vsite_global_taxonomy(){
+  // Create the global vocab
+  $vocab_nodes = array();
+  $types =  _openscholar_group_posts();
+  foreach($types as $type){
+    $vocab_nodes[$type] = 1;
+  }
+  $vocab = array(
+    'name' => 'Scholar Taxonomy',
+    'multiple' => 0,
+    'required' => 0,
+    'hierarchy' => 0,
+    'relations' => 0,
+    'module' => 'vsite',
+    'weight' => 0,
+    'nodes' => $vocab_nodes,
+    'tags' => TRUE,
+    'help' => t('Scholar global taxonomy'),
+  );
+  taxonomy_save_vocabulary($vocab);
+  
+  $vid = db_last_insert_id('vocabulary', 'vid');
+  variable_set('scholar_global_taxonomy', $vid);
+}
+*/
+
+
