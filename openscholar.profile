@@ -283,12 +283,6 @@ function openscholar_profile_tasks(&$task, $url) {
     variable_set('scholar_content_type', 'vsite');
     variable_set('site_frontpage', 'welcome');
 
-    
-    $core = array('cache', 'cache_block', 'cache_filter', 'cache_page');
-    $cache_tables = array_merge(module_invoke_all('flush_caches'), $core);
-    foreach ($cache_tables as $table) {
-      cache_clear_all('*', $table, TRUE);
-    }
     cache_clear_all();
     
     //Make theme modifications last so that clearing the cache here does not mess up our work
