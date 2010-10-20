@@ -555,7 +555,8 @@ function _openscholar_filefield_paths_config(){
   foreach ( content_fields() as $field ) {
     if (($field['module'] == 'filefield') && in_array($field['type_name'], $types)) {
       //add settings to database if applicable
-      db_query("INSERT INTO {filefield_paths} (type, field, filename, filepath) VALUES ('%s', '%s', '%s', '%s')", $field['type_name'], $field['field_name'], serialize($file_name), serialize($file_path));
+      $alias = (empty($field['widget']['module']) || $field['widget']['module'] != 'imagefield')? serialize($file_alias):"";
+      db_query("INSERT INTO {filefield_paths} (type, field, filename, filepath, filealias) VALUES ('%s', '%s', '%s', '%s', '%s')", $field['type_name'], $field['field_name'], serialize($file_name), serialize($file_path), $alias);
     }
   }
   
