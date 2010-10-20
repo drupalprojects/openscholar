@@ -16,9 +16,9 @@ function openscholar_profile_details() {
  */
 function openscholar_profile_modules() {
   return array(
-    //core 
+    //core
     'block', 'book', 'comment', 'contact', 'filter', 'help',
-    'menu', 'node', 'system', 'search', 'user', 'path', 'php', 
+    'menu', 'node', 'system', 'search', 'user', 'path', 'php',
     'taxonomy', 'upload',
   
     //admin menu
@@ -110,7 +110,7 @@ function _openscholar_core_modules() {
 
     'text',
 
-    'views_attach', 
+    'views_attach',
     'views_bulk_operations',
     'views_export',
     'views_ui',
@@ -229,21 +229,24 @@ function openscholar_profile_tasks(&$task, $url) {
     batch_process($url, $url);
   }
   
-  // chose an openscholar flavor to install 
+  // chose an openscholar flavor to install
   if ($task == 'openscholar-flavor') {
       $output = drupal_get_form('_openscholar_flavors_form', $url);
     if (! variable_get('openscholar_flavor_form_executed', FALSE)) {
-      drupal_set_title('configuring flavors');
+      drupal_set_title('How will this OpenScholar installation be used?');
       return $output;
     }
     else {
       $task = 'openscholar-configure';
-    }    
+    }
   }
 
   // Run additional configuration tasks
   if ($task == 'openscholar-configure') {
-    install_include(_openscholar_core_modules());
+    //Include Modules that have been enabled
+    //We don't need to use install_include since the system table has been enabled
+    module_load_all();
+    
     // create roles
     _openscholar_create_roles();
     
@@ -277,19 +280,25 @@ function openscholar_profile_tasks(&$task, $url) {
       strongarm_init();
     }
 
-    // enable the themes
-    _openscholar_enable_themes();
-
     variable_set('scholar_content_type', 'vsite');
     variable_set('site_frontpage', 'welcome');
 
     
-        $core = array('cache', 'cache_block', 'cache_filter', 'cache_page');
-      $cache_tables = array_merge(module_invoke_all('flush_caches'), $core);
-      foreach ($cache_tables as $table) {
-        cache_clear_all('*', $table, TRUE);
-      }
-      cache_clear_all();
+    $core = array('cache', 'cache_block', 'cache_filter', 'cache_page');
+    $cache_tables = array_merge(module_invoke_all('flush_caches'), $core);
+    foreach ($cache_tables as $table) {
+      cache_clear_all('*', $table, TRUE);
+    }
+    cache_clear_all();
+    
+    //Make theme modifications last so that clearing the cache here does not mess up our work
+    
+    //Reset Theme Info
+    _openscholar_system_theme_data();
+    
+    // enable the themes
+    _openscholar_enable_themes();
+    
     // we are done let the installer know
     $task = 'profile-finished';
   }
@@ -311,10 +320,8 @@ function _openscholar_profile_batch_finished($success, $results) {
  */
 function _openscholar_enable_themes(){
   
-  // the default theme
-  install_default_theme('openscholar_default');
-  
   $themes = array(
+    'openscholar_default', //Default theme
     'zen',
     'cp_theme',
     'scholar_base',
@@ -334,10 +341,21 @@ function _openscholar_enable_themes(){
   );
   
   //enable the themes
-  install_enable_theme($themes);
+  foreach($themes as $theme){
+    db_query("UPDATE {system} SET status = 1 WHERE type = 'theme' and name = '%s'", $theme);
+    system_initialize_theme_blocks($theme);
+  }
+  
+  //Set default theme
+  global $theme_key;
+  variable_set('theme_default', 'openscholar_default');
+  // update the global variable too,
+  // mainly so that block functions work correctly
+  $theme_key = $theme;
   
   // disable all DB blocks
   db_query("UPDATE {blocks} SET status = 0, region = ''");
+
 }
 
 /**
@@ -388,62 +406,62 @@ COMMON;
  */
 function _openscholar_wysiwyg_config(){
   $settings = array(
-    'default' => 1, 
-    'user_choose' => 0, 
-    'show_toggle' => 1, 
-    'theme' => 'advanced', 
-    'language' => 'en', 
+    'default' => 1,
+    'user_choose' => 0,
+    'show_toggle' => 1,
+    'theme' => 'advanced',
+    'language' => 'en',
     'buttons' => array(
       'default' => array(
-        'bold' => 1, 
-        'italic' => 1, 
-        'strikethrough' => 1, 
-        'bullist' => 1, 
-        'numlist' => 1, 
-        'link' => 1, 
-        'unlink' => 1, 
-        'image' => 1, 
-        'code' => 1, 
-        'cut' => 1, 
-        'copy' => 1, 
-        'paste' => 1, 
-        'charmap' => 1 
-      ), 
+        'bold' => 1,
+        'italic' => 1,
+        'strikethrough' => 1,
+        'bullist' => 1,
+        'numlist' => 1,
+        'link' => 1,
+        'unlink' => 1,
+        'image' => 1,
+        'code' => 1,
+        'cut' => 1,
+        'copy' => 1,
+        'paste' => 1,
+        'charmap' => 1
+      ),
       
       'font' => array(
-        'formatselect' => 1 
-      ), 
+        'formatselect' => 1
+      ),
       'fullscreen' => array(
-        'fullscreen' => 1 
-      ), 
+        'fullscreen' => 1
+      ),
       'paste' => array(
-        'pastetext' => 1 
-      ), 
+        'pastetext' => 1
+      ),
       'table' => array(
-        'tablecontrols' => 1 
-      ), 
+        'tablecontrols' => 1
+      ),
       'safari' => array(
-        'safari' => 1 
-      ), 
+        'safari' => 1
+      ),
       'drupal' => array(
-        'break' => 1 
-      ) 
-    ), 
+        'break' => 1
+      )
+    ),
     
-    'toolbar_loc' => 'top', 
-    'toolbar_align' => 'left', 
-    'path_loc' => 'bottom', 
-    'resizing' => 1, 
-    'verify_html' => 1, 
-    'preformatted' => 0, 
-    'convert_fonts_to_spans' => 1, 
-    'remove_linebreaks' => 1, 
-    'apply_source_formatting' => 0, 
-    'paste_auto_cleanup_on_paste' => 1, 
-    'block_formats' => 'p,address,pre,h2,h3,h4,h5,h6', 
-    'css_setting' => 'theme', 
-    'css_path' => '', 
-    'css_classes' => '' 
+    'toolbar_loc' => 'top',
+    'toolbar_align' => 'left',
+    'path_loc' => 'bottom',
+    'resizing' => 1,
+    'verify_html' => 1,
+    'preformatted' => 0,
+    'convert_fonts_to_spans' => 1,
+    'remove_linebreaks' => 1,
+    'apply_source_formatting' => 0,
+    'paste_auto_cleanup_on_paste' => 1,
+    'block_formats' => 'p,address,pre,h2,h3,h4,h5,h6',
+    'css_setting' => 'theme',
+    'css_path' => '',
+    'css_classes' => ''
   )
   ;
   
@@ -474,21 +492,21 @@ function _openscholar_flavors_form($form_state, $url){
   $form['#redirect'] = FALSE;
   
   $form['flavor'] = array(
-    '#tree' => TRUE, 
-    '#type' => 'radios', 
-    '#title' => t('Default options'), 
+    '#tree' => TRUE,
+    '#type' => 'radios',
+    '#title' => t('Options'),
     '#default_value' => 0,
     '#options' => array(
-      t('Personal'), 
-      t('Project'),
-      t('Dev') 
-    ), 
-    '#description' => t('Chose a flavor to install') 
+      t('Scholars Personal Sites'),
+      t('Project Sites'),
+      t('Openscholar Development')
+    ),
+    '#description' => t('Chose a site type to install, each type can be customized further after install by enabling/disabling modules.')
   );
   
   $form['submit'] = array(
-    '#type' => 'submit', 
-    '#value' => st('OK') 
+    '#type' => 'submit',
+    '#value' => st('OK')
   );
   
   return $form;
@@ -575,7 +593,7 @@ function _openscholar_filefield_paths_config(){
 }
 
 /**
- * Get an array of 'group_posts' content types names 
+ * Get an array of 'group_posts' content types names
  */
 function _openscholar_group_posts(){
   //$types = og_get_types('group_post');  // not working !
@@ -600,24 +618,24 @@ function _openscholar_group_posts(){
 function _openscholar_vsite_vocabs($vsite_node_type){
   
   install_include(array(
-    'taxonomy' 
+    'taxonomy'
   ));
   
   // Create the vsite tax for affiliation
   $vocab = array(
-    'name' => 'Affiliation / Department', 
-    'multiple' => 1, 
-    'required' => 0, 
-    'hierarchy' => 0, 
-    'relations' => 0, 
-    'module' => 'taxonomy', 
-    'weight' => 0, 
+    'name' => 'Affiliation / Department',
+    'multiple' => 1,
+    'required' => 0,
+    'hierarchy' => 0,
+    'relations' => 0,
+    'module' => 'taxonomy',
+    'weight' => 0,
     'nodes' => array(
-      $vsite_node_type => 1 
-    ), 
-    'tags' => false, 
-    'help' => t('Affiliation'), 
-    'description' => t("A comma-separated list of affiliation that your site may have, for ex.(Math department)") 
+      $vsite_node_type => 1
+    ),
+    'tags' => false,
+    'help' => t('Affiliation'),
+    'description' => t("A comma-separated list of affiliation that your site may have, for ex.(Math department)")
   );
   taxonomy_save_vocabulary($vocab);
   
@@ -626,18 +644,18 @@ function _openscholar_vsite_vocabs($vsite_node_type){
   
   // Create the vsite tax for intrests
   $vocab = array(
-    'name' => 'Related Interests', 
-    'description' => t("A comma-separated list of topics that may relate to the content of your site. ex.(zoology, evolutionary biology, casual inference)"), 
-    'multiple' => 0, 
-    'required' => 0, 
-    'hierarchy' => 0, 
-    'relations' => 0, 
-    'module' => 'taxonomy', 
-    'weight' => 0, 
+    'name' => 'Related Interests',
+    'description' => t("A comma-separated list of topics that may relate to the content of your site. ex.(zoology, evolutionary biology, casual inference)"),
+    'multiple' => 0,
+    'required' => 0,
+    'hierarchy' => 0,
+    'relations' => 0,
+    'module' => 'taxonomy',
+    'weight' => 0,
     'nodes' => array(
-      $vsite_node_type => 1 
-    ), 
-    'tags' => TRUE, 
+      $vsite_node_type => 1
+    ),
+    'tags' => TRUE,
     'help' => t("A comma-separated list of topics that may relate to the content of your site. ex.(zoology, evolutionary biology, casual inference)"),
   );
   taxonomy_save_vocabulary($vocab);
@@ -646,31 +664,103 @@ function _openscholar_vsite_vocabs($vsite_node_type){
   variable_set('vsite_taxonomy_interests', $vid);
 }
 
-/*
-function _vsite_global_taxonomy(){
-  // Create the global vocab
-  $vocab_nodes = array();
-  $types =  _openscholar_group_posts();
-  foreach($types as $type){
-    $vocab_nodes[$type] = 1;
+
+/**
+ * Reimplementation of system_theme_data(). The core function's static cache
+ * is populated during install prior to active install profile awareness.
+ * This workaround makes enabling themes in profiles/[profile]/themes possible.
+ */
+function _openscholar_system_theme_data() {
+
+  // Find themes
+  $themes = drupal_system_listing('\.info$', 'themes');
+  // Find theme engines
+  $engines = drupal_system_listing('\.engine$', 'themes/engines');
+
+  $defaults = system_theme_default();
+
+  $sub_themes = array();
+  // Read info files for each theme
+  foreach ($themes as $key => $theme) {
+    $themes[$key]->info = drupal_parse_info_file($theme->filename) + $defaults;
+
+    // Invoke hook_system_info_alter() to give installed modules a chance to
+    // modify the data in the .info files if necessary.
+    drupal_alter('system_info', $themes[$key]->info, $themes[$key]);
+
+    if (!empty($themes[$key]->info['base theme'])) {
+      $sub_themes[] = $key;
+    }
+    if (empty($themes[$key]->info['engine'])) {
+      $filename = dirname($themes[$key]->filename) .'/'. $themes[$key]->name .'.theme';
+      if (file_exists($filename)) {
+        $themes[$key]->owner = $filename;
+        $themes[$key]->prefix = $key;
+      }
+    }
+    else {
+      $engine = $themes[$key]->info['engine'];
+      if (isset($engines[$engine])) {
+        $themes[$key]->owner = $engines[$engine]->filename;
+        $themes[$key]->prefix = $engines[$engine]->name;
+        $themes[$key]->template = TRUE;
+      }
+    }
+
+    // Give the stylesheets proper path information.
+    $pathed_stylesheets = array();
+    foreach ($themes[$key]->info['stylesheets'] as $media => $stylesheets) {
+      foreach ($stylesheets as $stylesheet) {
+        $pathed_stylesheets[$media][$stylesheet] = dirname($themes[$key]->filename) .'/'. $stylesheet;
+      }
+    }
+    $themes[$key]->info['stylesheets'] = $pathed_stylesheets;
+
+    // Give the scripts proper path information.
+    $scripts = array();
+    foreach ($themes[$key]->info['scripts'] as $script) {
+      $scripts[$script] = dirname($themes[$key]->filename) .'/'. $script;
+    }
+    $themes[$key]->info['scripts'] = $scripts;
+    // Give the screenshot proper path information.
+    if (!empty($themes[$key]->info['screenshot'])) {
+      $themes[$key]->info['screenshot'] = dirname($themes[$key]->filename) .'/'. $themes[$key]->info['screenshot'];
+    }
   }
-  $vocab = array(
-    'name' => 'Scholar Taxonomy',
-    'multiple' => 0,
-    'required' => 0,
-    'hierarchy' => 0,
-    'relations' => 0,
-    'module' => 'vsite',
-    'weight' => 0,
-    'nodes' => $vocab_nodes,
-    'tags' => TRUE,
-    'help' => t('Scholar global taxonomy'),
-  );
-  taxonomy_save_vocabulary($vocab);
-  
-  $vid = db_last_insert_id('vocabulary', 'vid');
-  variable_set('scholar_global_taxonomy', $vid);
+
+  // Now that we've established all our master themes, go back and fill in
+  // data for subthemes.
+  foreach ($sub_themes as $key) {
+    $themes[$key]->base_themes = system_find_base_themes($themes, $key);
+    // Don't proceed if there was a problem with the root base theme.
+    if (!current($themes[$key]->base_themes)) {
+      continue;
+    }
+    $base_key = key($themes[$key]->base_themes);
+    foreach (array_keys($themes[$key]->base_themes) as $base_theme) {
+      $themes[$base_theme]->sub_themes[$key] = $themes[$key]->info['name'];
+    }
+    // Copy the 'owner' and 'engine' over if the top level theme uses a
+    // theme engine.
+    if (isset($themes[$base_key]->owner)) {
+      if (isset($themes[$base_key]->info['engine'])) {
+        $themes[$key]->info['engine'] = $themes[$base_key]->info['engine'];
+        $themes[$key]->owner = $themes[$base_key]->owner;
+        $themes[$key]->prefix = $themes[$base_key]->prefix;
+      }
+      else {
+        $themes[$key]->prefix = $key;
+      }
+    }
+  }
+
+  // Extract current files from database.
+  system_get_files_database($themes, 'theme');
+  db_query("DELETE FROM {system} WHERE type = 'theme'");
+  foreach ($themes as $theme) {
+    $theme->owner = !isset($theme->owner) ? '' : $theme->owner;
+    db_query("INSERT INTO {system} (name, owner, info, type, filename, status, throttle, bootstrap) VALUES ('%s', '%s', '%s', '%s', '%s', %d, %d, %d)", $theme->name, $theme->owner, serialize($theme->info), 'theme', $theme->filename, isset($theme->status) ? $theme->status : 0, 0, 0);
+  }
 }
-*/
 
 
