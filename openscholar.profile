@@ -58,74 +58,47 @@ function openscholar_profile_modules() {
 function _openscholar_core_modules() {
  $contrib_modules = array(
 
-    'addthis',
-    'advanced_help',
-    'install_profile_api',
-    'content',
+    'addthis', 'advanced_help', 'install_profile_api', 'biblio', 'auto_nodetitle',
+    'diff', 'menu_node', 'override_node_options', 'schema', 'stringoverrides',
+    'strongarm', 'twitter_pull',
  
-    'biblio',
-    'auto_nodetitle',
-    'content_copy',
-    'content_profile',
-    'diff',
+    // cck
+    'content', 'content_copy', 'fieldgroup', 'filefield', 'filefield_paths',
+    'link', 'number', 'text', 'optionwidgets', 'nodereference', 'nodereference_url',
+    'dyntextfield',  'imagefield',   
  
+    // flag
     'flag',
-    'jquery_update',
-    'jquery_ui',
-    'lightbox2',
-    'litecal',
-    'menu_node',
-    'override_node_options',
-    'schema',
-    'stringoverrides',
-    'strongarm',
-    'twitter_pull',
+ 
+    //date, calendar
+    'date', 'date_popup', 'litecal',
+    
+    //js, jquery
+    'jquery_update', 'jquery_ui', 'lightbox2', 'vertical_tabs', 'itweak_upload', 
+    'dialog', 'imagefield_crop',
+ 
+    //views
+    'views_attach', 'views_bulk_operations', 'views_export', 'views_ui',
+    
+    // signup
+    'signup', 'signup_confirm_email',
+ 
+    // content profile
+    'content_profile', 'content_profile_registration',
 
-    'vertical_tabs',
-    'itweak_upload',
-
+    // data / feeds
+    'data', 'data_node', 'data_ui', 'feeds', 'feeds_defaults',
+ 
+  
+     // other
     'wysiwyg',
     'activity',
-
-    'content_profile_registration',
-
-    'data',
-
-    'dialog',
-    'dyntextfield',
-    'feeds',
-    'feeds_defaults',
-    'fieldgroup',
-    'filefield',
-    'filefield_paths',
     'imagecache_ui',
-    'imagefield',
-    'imagefield_crop',
-    'link',
-    'number',
-
-    'optionwidgets',
     'pathauto',
-
-
-    'text',
-
-    'views_attach',
-    'views_bulk_operations',
-    'views_export',
-    'views_ui',
- 
-    'data_node',
-    'data_ui',
-    'date',
-    'date_popup',
     'file_aliases',
-    'nodereference',
-    'nodereference_url',
 
-   // signup
-    'signup',
-    'signup_confirm_email',
+
+
   );
   
   return $contrib_modules;
@@ -138,7 +111,6 @@ function _openscholar_scholar_modules() {
   return array(
     'vsite',
     'vsite_widgets',
-    //'scholar',
     'vsite_content',
     'vsite_domain',
     'scholar_events',
@@ -283,7 +255,8 @@ function openscholar_profile_tasks(&$task, $url) {
     variable_set('scholar_content_type', 'vsite');
     variable_set('site_frontpage', 'welcome');
 
-    cache_clear_all();
+    // Rebuild the caches
+    drupal_flush_all_caches();
     
     //Make theme modifications last so that clearing the cache here does not mess up our work
     
@@ -511,6 +484,7 @@ function _openscholar_flavors_form($form_state, $url){
  */
 function _openscholar_flavors_form_submit(&$form, &$form_state){
 
+  install_include(array('user'));
   $flavor = $form_state['values']['flavor'];
 
   switch($flavor){
@@ -522,12 +496,13 @@ function _openscholar_flavors_form_submit(&$form, &$form_state){
     case 1:       // project
       $flavor = 'project';
       $modules = array('scholar_project');
-      $vsite_node_type = 'project';  // for historical reasons
+      $vsite_node_type = 'project';  
       break;
       
     case 2:       // dev
       $flavor = 'development';
-      $modules = array('devel');
+      $modules = array('scholar', 'scholar_biocv', 'devel', 'cvs_deploy');
+      install_add_permissions(1, array('switch users')); //  yes anon users can switch users!!
       break;
   
   }
