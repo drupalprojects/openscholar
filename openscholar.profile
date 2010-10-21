@@ -39,6 +39,8 @@ function openscholar_profile_modules() {
     'imageapi', 'imageapi_gd', 'imagecache',
     // token
     'token',
+    //trigger
+    'trigger',
     // transliteration
     'transliteration',
     // purl
@@ -65,7 +67,7 @@ function _openscholar_core_modules() {
     // cck
     'content', 'content_copy', 'fieldgroup', 'filefield', 'filefield_paths',
     'link', 'number', 'text', 'optionwidgets', 'nodereference', 'nodereference_url',
-    'dyntextfield',  'imagefield',   
+    'dyntextfield',  'imagefield',
  
     // flag
     'flag',
@@ -74,7 +76,7 @@ function _openscholar_core_modules() {
     'date', 'date_popup', 'litecal',
     
     //js, jquery
-    'jquery_update', 'jquery_ui', 'lightbox2', 'vertical_tabs', 'itweak_upload', 
+    'jquery_update', 'jquery_ui', 'lightbox2', 'vertical_tabs', 'itweak_upload',
     'dialog', 'imagefield_crop',
  
     //views
@@ -496,7 +498,7 @@ function _openscholar_flavors_form_submit(&$form, &$form_state){
     case 1:       // project
       $flavor = 'project';
       $modules = array('scholar_project');
-      $vsite_node_type = 'project';  
+      $vsite_node_type = 'project';
       break;
       
     case 2:       // dev
