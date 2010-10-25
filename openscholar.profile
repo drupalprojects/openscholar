@@ -380,7 +380,8 @@ function _openscholar_configure_biblio(){
 
   db_query('DELETE FROM {biblio_contributor_type_data}');
   foreach($biblio_contributor_type_data as $contrib_type_data){
-    drupal_write_record('biblio_contributor_type_data', $contrib_type_data);
+    //Run the query manually to override the serials
+    db_query("INSERT INTO {biblio_contributor_type_data} (auth_type, title, hint) VALUES ( %d, '%s', '%s')",array($contrib_type_data['auth_type'],$contrib_type_data['title'],$contrib_type_data['hint']));
   }
 }
 
