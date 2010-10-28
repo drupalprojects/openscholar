@@ -92,13 +92,15 @@ function _openscholar_core_modules() {
     'data', 'data_node', 'data_ui', 'feeds', 'feeds_defaults',
  
   
-     // other
+    // other
+
     'wysiwyg',
     'activity',
     'imagecache_ui',
     'pathauto',
     'file_aliases',
 
+    'better_formats',
 
 
   );
@@ -155,6 +157,8 @@ function _openscholar_scholar_modules() {
     'scholar_reader',
     'scholar_front',
     'scholar_profiles',
+  
+    
   );
 }
 
@@ -229,9 +233,11 @@ function openscholar_profile_tasks(&$task, $url) {
     
     // disable some flags
     _openscholar_flags();
-    
+     
     // configure wisywig/tinymce
     _openscholar_wysiwyg_config();
+    
+
 
     // Rebuild key tables/caches
     menu_rebuild();
@@ -389,72 +395,15 @@ function _openscholar_configure_biblio(){
  * wysiwyg configurations
  */
 function _openscholar_wysiwyg_config(){
-  $settings = array(
-    'default' => 1,
-    'user_choose' => 0,
-    'show_toggle' => 1,
-    'theme' => 'advanced',
-    'language' => 'en',
-    'buttons' => array(
-      'default' => array(
-        'bold' => 1,
-        'italic' => 1,
-        'strikethrough' => 1,
-        'bullist' => 1,
-        'numlist' => 1,
-        'link' => 1,
-        'unlink' => 1,
-        'image' => 1,
-        'code' => 1,
-        'cut' => 1,
-        'copy' => 1,
-        'paste' => 1,
-        'charmap' => 1
-      ),
-      
-      'font' => array(
-        'formatselect' => 1
-      ),
-      'fullscreen' => array(
-        'fullscreen' => 1
-      ),
-      'paste' => array(
-        'pastetext' => 1
-      ),
-      'table' => array(
-        'tablecontrols' => 1
-      ),
-      'safari' => array(
-        'safari' => 1
-      ),
-      'drupal' => array(
-        'break' => 1
-      )
-    ),
+  $wysiwyg_presets = _openscholar_wysiwyg_presets();
+  foreach ( $wysiwyg_presets as $filter_name => $settings ) {
+    $settings = serialize($settings);
     
-    'toolbar_loc' => 'top',
-    'toolbar_align' => 'left',
-    'path_loc' => 'bottom',
-    'resizing' => 1,
-    'verify_html' => 1,
-    'preformatted' => 0,
-    'convert_fonts_to_spans' => 1,
-    'remove_linebreaks' => 1,
-    'apply_source_formatting' => 0,
-    'paste_auto_cleanup_on_paste' => 1,
-    'block_formats' => 'p,address,pre,h2,h3,h4,h5,h6',
-    'css_setting' => 'theme',
-    'css_path' => '',
-    'css_classes' => ''
-  )
-  ;
-  
-  $settings = serialize($settings);
-  
-  $query = "SELECT format FROM {filter_formats} WHERE name='%s'";
-  $filter_name = db_result(db_query($query, 'Filtered HTML'));
-  $query = "INSERT INTO {wysiwyg} (format, editor, settings) VALUES ('%d', '%s', '%s')";
-  db_query($query, $filter_name, 'tinymce', $settings);
+    $query = "SELECT format FROM {filter_formats} WHERE name='%s'";
+    $format = db_result(db_query($query, $filter_name));
+    $query = "INSERT INTO {wysiwyg} (format, editor, settings) VALUES ('%d', '%s', '%s')";
+    db_query($query, $format, 'tinymce', $settings);
+  }
 }
 
 /**
@@ -751,3 +700,68 @@ function _openscholar_system_theme_data() {
 }
 
 
+function _openscholar_wysiwyg_presets(){
+  $settings = array();
+
+  
+  $settings['Filtered HTML'] = array(
+    'default' => 1,
+    'user_choose' => 0,
+    'show_toggle' => 1,
+    'theme' => 'advanced',
+    'language' => 'en',
+    'buttons' => array(
+      'default' => array(
+        'bold' => 1,
+        'italic' => 1,
+        'strikethrough' => 1,
+        'bullist' => 1,
+        'numlist' => 1,
+        'link' => 1,
+        'unlink' => 1,
+        'image' => 1,
+        'code' => 1,
+        'cut' => 1,
+        'copy' => 1,
+        'paste' => 1,
+        'charmap' => 1
+      ),
+      
+      'font' => array(
+        'formatselect' => 1
+      ),
+      'fullscreen' => array(
+        'fullscreen' => 1
+      ),
+      'paste' => array(
+        'pastetext' => 1
+      ),
+      'table' => array(
+        'tablecontrols' => 1
+      ),
+      'safari' => array(
+        'safari' => 1
+      ),
+      'drupal' => array(
+        'break' => 1
+      )
+    ),
+    
+    'toolbar_loc' => 'top',
+    'toolbar_align' => 'left',
+    'path_loc' => 'bottom',
+    'resizing' => 1,
+    'verify_html' => 1,
+    'preformatted' => 0,
+    'convert_fonts_to_spans' => 1,
+    'remove_linebreaks' => 1,
+    'apply_source_formatting' => 0,
+    'paste_auto_cleanup_on_paste' => 1,
+    'block_formats' => 'p,address,pre,h2,h3,h4,h5,h6',
+    'css_setting' => 'theme',
+    'css_path' => '',
+    'css_classes' => ''
+  );
+  
+  return $settings;
+}
