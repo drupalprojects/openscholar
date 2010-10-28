@@ -99,7 +99,6 @@ function _openscholar_core_modules() {
     'imagecache_ui',
     'pathauto',
     'file_aliases',
-
     'better_formats',
 
 
