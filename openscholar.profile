@@ -287,6 +287,10 @@ function openscholar_profile_tasks(&$task, $url) {
 function _openscholar_profile_batch_finished($success, $results) {
   //variable_set('install_task', 'openscholar-configure');
   variable_set('install_task', 'openscholar-flavor');
+  
+  // Now that vsites are enabled clear the cached processors
+  // This will allow vsite_domain etc to add to the ctools cache
+  cache_clear_all('plugins:purl:processor','cache');
 }
 
 /**
@@ -471,7 +475,7 @@ function _openscholar_flavors_form_submit(&$form, &$form_state){
       break;
   
   }
-
+  
   // install extra modules for each flavor
   include_once './includes/install.inc';
   drupal_install_modules($modules);
