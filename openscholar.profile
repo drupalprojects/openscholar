@@ -204,11 +204,19 @@ function openscholar_profile_tasks(&$task, $url) {
     variable_set('install_task', 'profile-install-batch');
     batch_set($batch);
     batch_process($url, $url);
+    return;
   }
   
   // chose an openscholar flavor to install
   if ($task == 'openscholar-flavor') {
+    
+    //If this is installed via drush skip the form
+    if (defined('DRUSH_BASE_PATH')) {
+      _openscholar_configure_flavor('personal');
+    }else{
       $output = drupal_get_form('_openscholar_flavors_form', $url);
+    }
+    
     if (! variable_get('openscholar_flavor_form_executed', FALSE)) {
       drupal_set_title('How will this OpenScholar installation be used?');
       return $output;
@@ -216,6 +224,7 @@ function openscholar_profile_tasks(&$task, $url) {
     else {
       $task = 'openscholar-configure';
     }
+    return;
   }
 
   // Run additional configuration tasks
@@ -236,8 +245,6 @@ function openscholar_profile_tasks(&$task, $url) {
     // configure wisywig/tinymce
     _openscholar_wysiwyg_config();
     
-
-
     // Rebuild key tables/caches
     menu_rebuild();
     module_rebuild_cache(); // Detects the newly added bootstrap modules
@@ -275,6 +282,8 @@ function openscholar_profile_tasks(&$task, $url) {
     
     // we are done let the installer know
     $task = 'profile-finished';
+    
+    return;
   }
   return $output;
 }
@@ -287,10 +296,6 @@ function openscholar_profile_tasks(&$task, $url) {
 function _openscholar_profile_batch_finished($success, $results) {
   //variable_set('install_task', 'openscholar-configure');
   variable_set('install_task', 'openscholar-flavor');
-  
-  // Now that vsites are enabled clear the cached processors
-  // This will allow vsite_domain etc to add to the ctools cache
-  cache_clear_all('plugins:purl:processor','cache');
 }
 
 /**
@@ -368,8 +373,8 @@ function _openscholar_flags(){
  */
 function _openscholar_configure_biblio(){
   
-	if(!file_exists(drupal_get_path('module', 'scholar_publications') .'/includes/biblio_settings.inc')) return;
-	
+  if(!file_exists(drupal_get_path('module', 'scholar_publications') .'/includes/biblio_settings.inc')) return;
+  
   list($biblio_field_type, $biblio_field_type_data, $biblio_contributor_type, $biblio_contributor_type_data) = include(drupal_get_path('module', 'scholar_publications') .'/includes/biblio_settings.inc');
   
   db_query('DELETE FROM {biblio_field_type}');
@@ -456,6 +461,11 @@ function _openscholar_flavors_form_submit(&$form, &$form_state){
   install_include(array('user'));
   $flavor = $form_state['values']['flavor'];
 
+  _openscholar_configure_flavor($flavor);
+}
+
+function _openscholar_configure_flavor($flavor){
+  
   switch($flavor){
     case 0:       // personal
       $flavor = 'personal';
@@ -475,7 +485,7 @@ function _openscholar_flavors_form_submit(&$form, &$form_state){
       break;
   
   }
-  
+
   // install extra modules for each flavor
   include_once './includes/install.inc';
   drupal_install_modules($modules);
