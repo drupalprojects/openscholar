@@ -224,7 +224,6 @@ function openscholar_profile_tasks(&$task, $url) {
     else {
       $task = 'openscholar-configure';
     }
-    return;
   }
 
   // Run additional configuration tasks
