@@ -99,7 +99,7 @@ function _openscholar_core_modules() {
     'pathauto',
     'file_aliases',
     'better_formats',
-
+    'nodeformcols',
 
   );
   
