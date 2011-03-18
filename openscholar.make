@@ -330,8 +330,16 @@ projects[rubik][version] = "3.0-beta2"
 projects[rubik][subdir] = "contrib"
 
 ; TODO OS THEMES
-;projects[openscholar_themes][location] = "http://openscholar.harvard.edu/scholar_software"
-;projects[openscholar_themes][version] = "2.0-beta5"
+projects[openscholar_themes][location] = "themes"
+projects[openscholar_themes][type] = "theme"
+projects[openscholar_themes][download][type] = "svn"
+projects[openscholar_themes][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/openscholar/"
+
+projects[openscholar_themes_custom][location] = "custom"
+projects[openscholar_themes_custom][type] = "theme"
+projects[openscholar_themes_custom][download][type] = "svn"
+projects[openscholar_themes_custom][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/"
+
 
 ; Libraries
 libraries[luceneapi][destination] = "modules/contrib/luceneapi"
