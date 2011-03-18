@@ -55,8 +55,8 @@ projects[crayon][version] = "1.0-beta2"
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.8"
 
-projects[cvs][subdir] = "contrib"
-projects[cvs][version] = "1.1"
+projects[cvs_deploy][subdir] = "contrib"
+projects[cvs_deploy][version] = "1.1"
 
 projects[data][subdir] = "contrib"
 projects[data][version] = "1.0-alpha14"
@@ -342,11 +342,82 @@ projects[openscholar_themes][type] = "theme"
 projects[openscholar_themes][download][type] = "svn"
 projects[openscholar_themes][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/openscholar/"
 
-projects[openscholar_themes_custom][location] = "custom"
-projects[openscholar_themes_custom][type] = "theme"
-projects[openscholar_themes_custom][download][type] = "svn"
-projects[openscholar_themes_custom][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/"
 
+; Custom themes
+projects[fairbanks_center][location] = "custom"
+projects[fairbanks_center][type] = "theme"
+projects[fairbanks_center][download][type] = "svn"
+projects[fairbanks_center][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/fairbanks_center"
+
+projects[gking][location] = "custom"
+projects[gking][type] = "theme"
+projects[gking][download][type] = "svn"
+projects[gking][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/gking"
+
+projects[kshepsle][location] = "custom"
+projects[kshepsle][type] = "theme"
+projects[kshepsle][download][type] = "svn"
+projects[kshepsle][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/kshepsle"
+
+projects[leap][location] = "custom"
+projects[leap][type] = "theme"
+projects[leap][download][type] = "svn"
+projects[leap][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/leap"
+
+projects[openscholar_theme][location] = "custom"
+projects[openscholar_theme][type] = "theme"
+projects[openscholar_theme][download][type] = "svn"
+projects[openscholar_theme][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/openscholar_theme"
+
+projects[projects_harvard][location] = "custom"
+projects[projects_harvard][type] = "theme"
+projects[projects_harvard][download][type] = "svn"
+projects[projects_harvard][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/projects_harvard"
+
+projects[psr][location] = "custom"
+projects[psr][type] = "theme"
+projects[psr][download][type] = "svn"
+projects[psr][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/psr"
+
+projects[ptr][location] = "custom"
+projects[ptr][type] = "theme"
+projects[ptr][download][type] = "svn"
+projects[ptr][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/ptr"
+
+projects[rbates][location] = "custom"
+projects[rbates][type] = "theme"
+projects[rbates][download][type] = "svn"
+projects[rbates][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/rbates"
+
+projects[rcss][location] = "custom"
+projects[rcss][type] = "theme"
+projects[rcss][download][type] = "svn"
+projects[rcss][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/rcss"
+
+projects[scholar_jwe][location] = "custom"
+projects[scholar_jwe][type] = "theme"
+projects[scholar_jwe][download][type] = "svn"
+projects[scholar_jwe][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/scholar_jwe"
+
+projects[scholars_harvard][location] = "custom"
+projects[scholars_harvard][type] = "theme"
+projects[scholars_harvard][download][type] = "svn"
+projects[scholars_harvard][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/scholars_harvard"
+
+projects[starter_installation_theme][location] = "custom"
+projects[starter_installation_theme][type] = "theme"
+projects[starter_installation_theme][download][type] = "svn"
+projects[starter_installation_theme][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/starter_installation_theme"
+
+projects[starter_vsite_theme][location] = "custom"
+projects[starter_vsite_theme][type] = "theme"
+projects[starter_vsite_theme][download][type] = "svn"
+projects[starter_vsite_theme][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/starter_vsite_theme"
+
+projects[thedata][location] = "custom"
+projects[thedata][type] = "theme"
+projects[thedata][download][type] = "svn"
+projects[thedata][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/themes/custom/thedata"
 
 ; Libraries
 libraries[luceneapi][destination] = "modules/contrib/luceneapi"
