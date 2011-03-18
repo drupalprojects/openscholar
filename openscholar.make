@@ -16,6 +16,9 @@ projects[drupal][type] = "core"
 projects[addthis][subdir] = "contrib"
 projects[addthis][version] = "2.x-dev"
 
+projects[admin][subdir] = "contrib"
+projects[admin][version] = "2.0"
+
 projects[advanced_help][subdir] = "contrib"
 projects[advanced_help][version] = "1.2"
 
@@ -51,6 +54,9 @@ projects[crayon][version] = "1.0-beta2"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.8"
+
+projects[cvs][subdir] = "contrib"
+projects[cvs][version] = "1.1"
 
 projects[data][subdir] = "contrib"
 projects[data][version] = "1.0-alpha14"
@@ -103,8 +109,8 @@ projects[ldap_integration][version] = "1.0-beta2"
 projects[link][subdir] = "contrib"
 projects[link][version] = "2.9"
 
-;projects[lightbox2][subdir] = "contrib"
-;projects[lightbox2][version] = "1.11"
+projects[lightbox2][subdir] = "contrib"
+projects[lightbox2][version] = "1.11"
 
 projects[luceneapi][subdir] = "contrib"
 projects[luceneapi][version] = "2.2"
@@ -185,6 +191,7 @@ projects[luceneapi_biblio][type] = "module"
 projects[luceneapi_biblio][download][type] = "svn"
 projects[luceneapi_biblio][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/branches/SCHOLAR-2-0-BETA5/sites/all/modules/contrib/luceneapi_biblio/"
 
+projects[luceneapi_og][subdir] = "contrib"
 projects[luceneapi_og][type] = module
 projects[luceneapi_og][download][type] = cvs
 projects[luceneapi_og][download][module] = contributions/modules/luceneapi_og
