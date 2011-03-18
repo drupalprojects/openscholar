@@ -2,9 +2,11 @@
 
 ;Core Version
 core = "6.x"
+api = "2"
    
 ;Drupal Core
-projects[drupal][version] = "6.20" 
+projects[drupal][version] = "6.20"
+projects[drupal][type] = "core" 
 
 ; Install Profile
 ; projects[openscholar][version] = "6.1" 
@@ -185,14 +187,16 @@ projects[admin_menu][version] = "1.6"
 ; Contrib (patched modules)
 projects[apachesolr][subdir] = "contrib"
 projects[apachesolr][version] = "2.0-beta2"
-projects[apachesolr][patch][] = "http://drupal.org/files/issues/804700-apachesolr_search.module.patch"
+; @todo NOT WORKING
+;projects[apachesolr][patch][] = "http://drupal.org/files/issues/804700-apachesolr_search.module.patch"
 
 projects[apachesolr_attachments][subdir] = "contrib"
 projects[apachesolr_attachments][version] = "1.0-beta1"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/812038-missing-argument.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/815104-reindex-failed-files.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/817066-fatal-error.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/apachesolr_attachments.admin_.inc-823854.patch"
+;@todo not working
+;projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/812038-missing-argument.patch"
+;projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/815104-reindex-failed-files.patch"
+;projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/817066-fatal-error.patch"
+;projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/apachesolr_attachments.admin_.inc-823854.patch"
 
 projects[apachesolr_biblio][subdir] = "contrib"
 projects[apachesolr_biblio][version] = "1.x-dev"
@@ -202,17 +206,20 @@ projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/apachesol
 ; @todo do we have some any uncommitted patches for biblio left?
 projects[biblio][subdir] = "contrib"
 projects[biblio][version] = "1.15"
-projects[biblio][patch][] = "http://drupal.org/files/issues/biblio.access_patch.patch"
-projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
-projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
+;@todo not working
+;projects[biblio][patch][] = "http://drupal.org/files/issues/biblio.access_patch.patch"
+;projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
+;projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
 
 projects[file_aliases][subdir] = "contrib"
 projects[file_aliases][version] = "1.1"
-projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_alias_nodeFormDescription.patch"
+;@todo not working
+;projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_alias_nodeFormDescription.patch"
 
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.0-beta4"
-projects[flag][patch][] = "http://drupal.org/files/issues/flag-846826.patch"
+;@todo not working
+;projects[flag][patch][] = "http://drupal.org/files/issues/flag-846826.patch"
 
 ;TODO Move Patch
 projects[itweak_upload][subdir] = "contrib"
@@ -221,7 +228,8 @@ projects[itweak_upload][patch][] = "http://scholar.svn.sourceforge.net/viewvc/sc
 
 projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "2.0-alpha1"
-projects[jquery_update][patch][] = "http://drupal.org/files/issues/draggable-329797-3.patch"
+;@todo not working
+;projects[jquery_update][patch][] = "http://drupal.org/files/issues/draggable-329797-3.patch"
 
 projects[purl][subdir] = "contrib"
 projects[purl][version] = "1.0-beta13"
@@ -247,12 +255,11 @@ projects[spaces][version] = "3.1"
 ; Open Atrium modules
 projects[litecal][subdir] = "contrib"
 projects[litecal][location] = "http://code.developmentseed.org/fserver"
-projects[litecal][version] = "6.x-1.0-alpha5"
+projects[litecal][version] = "1.0-alpha5"
 
 
 ; Themes
-projects[zen][version] = "1.0"
-projects[zen][subdir] = "contrib"
+
 
 ; TODO OS THEMES
 ;projects[openscholar_themes][location] = "http://openscholar.harvard.edu/scholar_software"
