@@ -277,17 +277,37 @@ projects[spaces][version] = "3.1"
 
 ; Custom modules
 ; TODO OS CUSTOM
-;projects[openscholar_features][location] = "http://openscholar.harvard.edu/scholar_software"
-;projects[openscholar_features][version] = "2.0-dev"
+projects[openscholar_features][location] = "modules"
+projects[openscholar_features][type] = "module"
+projects[openscholar_features][download][type] = "svn"
+projects[openscholar_features][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/modules/openscholar_features/"
 
-;projects[openscholar_vsite][location] = "http://openscholar.harvard.edu/scholar_software"
-;projects[openscholar_vsite][version] = "2.0-dev"
+projects[openscholar_scholar][location] = "modules"
+projects[openscholar_scholar][type] = "module"
+projects[openscholar_scholar][download][type] = "svn"
+projects[openscholar_scholar][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/modules/openscholar_scholar/"
 
-;projects[openscholar_scholar][location] = "http://openscholar.harvard.edu/scholar_software"
-;projects[openscholar_scholar][version] = "2.0-dev"
+projects[openscholar_sitewide][location] = "modules"
+projects[openscholar_sitewide][type] = "module"
+projects[openscholar_sitewide][download][type] = "svn"
+projects[openscholar_sitewide][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/modules/openscholar_sitewide/"
 
-;projects[openscholar_sitewide][location] = "http://openscholar.harvard.edu/scholar_software"
-;projects[openscholar_sitewide][version] = "2.0-dev"
+projects[openscholar_projects][location] = "modules"
+projects[openscholar_projects][type] = "module"
+projects[openscholar_projects][download][type] = "svn"
+projects[openscholar_projects][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/modules/openscholar_projects/"
+
+projects[os][location] = "modules"
+projects[os][type] = "module"
+projects[os][download][type] = "svn"
+projects[os][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/modules/os/"
+
+; includes adminformcols, harvard, iqss, openscholar_ldap
+projects[custom][location] = "modules"
+projects[custom][type] = "module"
+projects[custom][download][type] = "svn"
+projects[custom][download][url] = "https://scholar.svn.sourceforge.net/svnroot/scholar/trunk/sites/all/modules/custom/"
+
 
 ; Open Atrium modules
 projects[litecal][subdir] = "contrib"
@@ -298,6 +318,12 @@ projects[litecal][version] = "6.x-1.0-alpha5"
 ; Themes
 projects[zen][version] = "1.0"
 projects[zen][subdir] = "contrib"
+
+projects[tao][version] = "3.2"
+projects[tao][subdir] = "contrib"
+
+projects[rubik][version] = "3.0-BETA2"
+projects[rubik][subdir] = "contrib"
 
 ; TODO OS THEMES
 ;projects[openscholar_themes][location] = "http://openscholar.harvard.edu/scholar_software"
