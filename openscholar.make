@@ -44,7 +44,7 @@ projects[context][subdir] = "contrib"
 projects[context][version] = "3.0"
 
 projects[contextual_annotation][subdir] = "contrib"
-projects[contextual_annotation][version] = "xxx"
+projects[contextual_annotation][version] = "1.0-alpha1"
 
 projects[crayon][subdir] = "contrib"
 projects[crayon][version] = "1.0-BETA2"
