@@ -47,13 +47,10 @@ projects[contextual_annotation][subdir] = "contrib"
 projects[contextual_annotation][version] = "1.0-alpha1"
 
 projects[crayon][subdir] = "contrib"
-projects[crayon][version] = "1.0-BETA2"
+projects[crayon][version] = "1.0-beta2"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.8"
-
-projects[cvs_deploy][subdir] = "contrib"
-projects[cvs_deploy][version] = ""
 
 projects[data][subdir] = "contrib"
 projects[data][version] = "1.0-alpha14"
@@ -65,7 +62,7 @@ projects[diff][subdir] = "contrib"
 projects[diff][version] = "2.1"
 
 projects[dyntextfield][subdir] = "contrib"
-projects[dyntextfield][version] = "1.2"
+projects[dyntextfield][version] = "1.0-beta1"
 
 projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
@@ -101,7 +98,7 @@ projects[jquery_ui][subdir] = "contrib"
 projects[jquery_ui][version] = "1.4"
 
 projects[ldap_integration][subdir] = "contrib"
-projects[ldap_integration][version] = "1.0"
+projects[ldap_integration][version] = "1.0-beta2"
 
 projects[link][subdir] = "contrib"
 projects[link][version] = "2.9"
@@ -164,7 +161,7 @@ projects[ucreate][subdir] = "contrib"
 projects[ucreate][version] = "1.0-beta3"
 
 projects[vertical_tabs][subdir] = "contrib"
-projects[vertical_tabs][version] = "1.0-RC1"
+projects[vertical_tabs][version] = "1.0-rc1"
 
 projects[views][subdir] = "contrib"
 projects[views][version] = "2.12"
@@ -329,7 +326,7 @@ projects[litecal][version] = "1.0-alpha5"
 projects[tao][version] = "3.2"
 projects[tao][subdir] = "contrib"
 
-projects[rubik][version] = "3.0-BETA2"
+projects[rubik][version] = "3.0-beta2"
 projects[rubik][subdir] = "contrib"
 
 ; TODO OS THEMES
