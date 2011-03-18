@@ -339,8 +339,6 @@ libraries[luceneapi][type] = "get"
 libraries[luceneapi][url] = "http://downloads.sourceforge.net/project/luceneapi/luceneapi/6.x-2.0/luceneapi-lib-6.x-2.0.tar.gz"
 libraries[luceneapi][directory_name] = "lib"
 
-projects[libraries][subdir] = "libraries"
-
 ; TinyMCE 3.2.7
 libraries[tinymce][download][type] = "get"
 libraries[tinymce][download][url] = "http://downloads.sourceforge.net/project/tinymce/TinyMCE/3.3.8/tinymce_3_3_8.zip"
