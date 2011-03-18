@@ -1,4 +1,4 @@
-
+; $Id$
 
 ;Core Version
 core = "6.x"
