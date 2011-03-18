@@ -201,7 +201,7 @@ projects[activity][subdir] = "contrib"
 projects[activity][type] = "module"
 projects[activity][download][type] = "cvs"
 projects[activity][download][module] = "contributions/modules/activity"
-projects[activity][download][revision] = "DRUPAL-6--2:2010-06-30"
+projects[activity][download][revision] = "DRUPAL-6--2:2010-10-26"
 
 projects[imagecache][subdir] = "contrib"
 projects[imagecache][type] = "module"
