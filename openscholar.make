@@ -4,7 +4,7 @@
 core = "6.x"
    
 ;Drupal Core
-projects[drupal][version] = "6.17" 
+projects[drupal][version] = "6.20" 
 
 ; Install Profile
 ; projects[openscholar][version] = "6.1" 
@@ -12,7 +12,7 @@ projects[drupal][version] = "6.17"
 ; Contrib projects 
 
 projects[addthis][subdir] = "contrib"
-projects[addthis][version] = "2.9"
+projects[addthis][version] = "2.x-dev"
 
 projects[advanced_help][subdir] = "contrib"
 projects[advanced_help][version] = "1.2"
@@ -21,58 +21,58 @@ projects[auto_nodetitle][subdir] = "contrib"
 projects[auto_nodetitle][version] = "1.2"
 
 projects[cck][subdir] = "contrib"
-projects[cck][version] = "2.7"
+projects[cck][version] = "2.9"
 
 projects[content_profile][subdir] = "contrib"
 projects[content_profile][version] = "1.0"
 
 projects[context][subdir] = "contrib"
-projects[context][version] = "2.0"
+projects[context][version] = "3.0"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.6"
+projects[ctools][version] = "1.8"
 
 projects[data][subdir] = "contrib"
-projects[data][version] = "1.0-alpha11"
+projects[data][version] = "1.0-alpha14"
 
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.4"
+projects[date][version] = "2.7"
 
 projects[diff][subdir] = "contrib"
-projects[diff][version] = "2.0"
+projects[diff][version] = "2.1"
 
 projects[features][subdir] = "contrib"
-projects[features][version] = "1.0-beta8"
+projects[features][version] = "1.0"
 
 projects[feeds][subdir] = "contrib"
 projects[feeds][version] = "1.0-beta3"
 
 projects[filefield][subdir] = "contrib"
-projects[filefield][version] = "3.5"
+projects[filefield][version] = "3.9"
 
 projects[filefield_paths][subdir] = "contrib"
 projects[filefield_paths][version] = "1.4"
 
 projects[imageapi][subdir] = "contrib"
-projects[imageapi][version] = "1.8"
+projects[imageapi][version] = "1.9"
 
 projects[imagefield][subdir] = "contrib"
-projects[imagefield][version] = "3.3"
+projects[imagefield][version] = "3.9"
 
 projects[imagefield_crop][subdir] = "contrib"
 projects[imagefield_crop][version] = "1.0-rc2"
 
 projects[install_profile_api][subdir] = "contrib"
-projects[install_profile_api][version] = "2.1"
+projects[install_profile_api][version] = "2.x-dev"
 
 projects[jquery_ui][subdir] = "contrib"
-projects[jquery_ui][version] = "1.3"
+projects[jquery_ui][version] = "1.4"
 
 projects[link][subdir] = "contrib"
 projects[link][version] = "2.9"
 
 ;projects[lightbox2][subdir] = "contrib"
-;projects[lightbox2][version] = "1.9"
+;projects[lightbox2][version] = "1.11"
 
 projects[luceneapi][subdir] = "contrib"
 projects[luceneapi][version] = "2.2"
@@ -84,7 +84,7 @@ projects[menu_node][subdir] = "contrib"
 projects[menu_node][version] = "1.3"
 
 projects[mollom][subdir] = "contrib"
-projects[mollom][version] = "1.13"
+projects[mollom][version] = "1.15"
 
 projects[nodereference_url][subdir] = "contrib"
 projects[nodereference_url][version] = "1.6"
@@ -96,7 +96,7 @@ projects[og_vocab][subdir] = "contrib"
 projects[og_vocab][version] = "1.1"
 
 projects[override_node_options][subdir] = "contrib"
-projects[override_node_options][version] = "1.10"
+projects[override_node_options][version] = "1.11"
 
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.3"
