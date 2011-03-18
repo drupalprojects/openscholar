@@ -208,7 +208,7 @@ projects[activity][subdir] = "contrib"
 projects[activity][type] = "module"
 projects[activity][download][type] = "cvs"
 projects[activity][download][module] = "contributions/modules/activity"
-projects[activity][download][revision] = "DRUPAL-6--2:2010-06-30"
+projects[activity][download][revision] = "DRUPAL-6--2:2010-10-26"
 
 projects[imagecache][subdir] = "contrib"
 projects[imagecache][type] = "module"
@@ -350,8 +350,8 @@ projects[openscholar_themes_custom][download][url] = "https://scholar.svn.source
 
 ; Libraries
 libraries[luceneapi][destination] = "modules/contrib/luceneapi"
-libraries[luceneapi][type] = "get"
-libraries[luceneapi][url] = "http://downloads.sourceforge.net/project/luceneapi/luceneapi/6.x-2.0/luceneapi-lib-6.x-2.0.tar.gz"
+libraries[luceneapi][download][type] = "get"
+libraries[luceneapi][download][url] = "http://downloads.sourceforge.net/project/luceneapi/luceneapi/6.x-2.0/luceneapi-lib-6.x-2.0.tar.gz"
 libraries[luceneapi][directory_name] = "lib"
 
 ; TinyMCE 3.2.7
