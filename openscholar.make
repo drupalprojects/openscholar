@@ -1,4 +1,4 @@
-; $Id$
+
 
 ;Core Version
 core = "6.x"
@@ -20,8 +20,20 @@ projects[advanced_help][version] = "1.2"
 projects[auto_nodetitle][subdir] = "contrib"
 projects[auto_nodetitle][version] = "1.2"
 
+projects[better_formats][subdir] = "contrib"
+projects[better_formats][version] = "1.2"
+
+projects[calendar][subdir] = "contrib"
+projects[calendar][version] = "2.2"
+
 projects[cck][subdir] = "contrib"
 projects[cck][version] = "2.9"
+
+projects[coder][subdir] = "contrib"
+projects[coder][version] = "2.0-beta1"
+
+projects[conditional_styles][subdir] = "contrib"
+projects[conditional_styles][version] = "1.1"
 
 projects[content_profile][subdir] = "contrib"
 projects[content_profile][version] = "1.0"
@@ -29,8 +41,17 @@ projects[content_profile][version] = "1.0"
 projects[context][subdir] = "contrib"
 projects[context][version] = "3.0"
 
+projects[contextual_annotation][subdir] = "contrib"
+projects[contextual_annotation][version] = "xxx"
+
+projects[crayon][subdir] = "contrib"
+projects[crayon][version] = "1.0-BETA2"
+
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.8"
+
+projects[cvs_deploy][subdir] = "contrib"
+projects[cvs_deploy][version] = ""
 
 projects[data][subdir] = "contrib"
 projects[data][version] = "1.0-alpha14"
@@ -40,6 +61,9 @@ projects[date][version] = "2.7"
 
 projects[diff][subdir] = "contrib"
 projects[diff][version] = "2.1"
+
+projects[dyntextfield][subdir] = "contrib"
+projects[dyntextfield][version] = "1.2"
 
 projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
@@ -53,6 +77,9 @@ projects[filefield][version] = "3.9"
 projects[filefield_paths][subdir] = "contrib"
 projects[filefield_paths][version] = "1.4"
 
+projects[image_resize_filter][subdir] = "contrib"
+projects[image_resize_filter][version] = "1.9"
+
 projects[imageapi][subdir] = "contrib"
 projects[imageapi][version] = "1.9"
 
@@ -62,11 +89,17 @@ projects[imagefield][version] = "3.9"
 projects[imagefield_crop][subdir] = "contrib"
 projects[imagefield_crop][version] = "1.0-rc2"
 
+projects[insert][subdir] = "contrib"
+projects[insert][version] = "1.0"
+
 projects[install_profile_api][subdir] = "contrib"
 projects[install_profile_api][version] = "2.x-dev"
 
 projects[jquery_ui][subdir] = "contrib"
 projects[jquery_ui][version] = "1.4"
+
+projects[ldap_integration][subdir] = "contrib"
+projects[ldap_integration][version] = "1.0"
 
 projects[link][subdir] = "contrib"
 projects[link][version] = "2.9"
@@ -85,6 +118,12 @@ projects[menu_node][version] = "1.3"
 
 projects[mollom][subdir] = "contrib"
 projects[mollom][version] = "1.15"
+
+projects[nodeorder][subdir] = "contrib"
+projects[nodeorder][version] = "1.1"
+
+projects[nodeformcols][subdir] = "contrib"
+projects[nodeformcols][version] = "1.6"
 
 projects[nodereference_url][subdir] = "contrib"
 projects[nodereference_url][version] = "1.6"
@@ -122,6 +161,9 @@ projects[twitter_pull][version] = "1.1"
 projects[ucreate][subdir] = "contrib"
 projects[ucreate][version] = "1.0-beta3"
 
+projects[vertical_tabs][subdir] = "contrib"
+projects[vertical_tabs][version] = "1.0-RC1"
+
 projects[views][subdir] = "contrib"
 projects[views][version] = "2.11"
 
@@ -133,6 +175,9 @@ projects[views_bulk_operations][version] = "1.9"
 
 projects[wysiwyg][subdir]="contrib"
 projects[wysiwyg][version]= "2.1"
+
+projects[wysiwyg_imagefield][subdir]="contrib"
+projects[wysiwyg_imagefield][version]= "1.x-dev"
 
 
 
