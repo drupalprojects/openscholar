@@ -138,22 +138,22 @@ projects[override_node_options][subdir] = "contrib"
 projects[override_node_options][version] = "1.11"
 
 projects[pathauto][subdir] = "contrib"
-projects[pathauto][version] = "1.3"
+projects[pathauto][version] = "1.5"
 
 projects[schema][subdir] = "contrib"
 projects[schema][version] = "1.7"
 
 projects[stringoverrides][subdir] = "contrib"
-projects[stringoverrides][version] = "1.7"
+projects[stringoverrides][version] = "1.8"
 
 projects[strongarm][subdir] = "contrib"
-projects[strongarm][version] = "1.1"
+projects[strongarm][version] = "2.0"
 
 projects[token][subdir] = "contrib"
-projects[token][version] = "1.13"
+projects[token][version] = "1.15"
 
 projects[transliteration][subdir] = "contrib"
-projects[transliteration][version] = "2.1"
+projects[transliteration][version] = "3.0"
 
 projects[twitter_pull][subdir] = "contrib"
 projects[twitter_pull][version] = "1.1"
@@ -165,21 +165,19 @@ projects[vertical_tabs][subdir] = "contrib"
 projects[vertical_tabs][version] = "1.0-RC1"
 
 projects[views][subdir] = "contrib"
-projects[views][version] = "2.11"
+projects[views][version] = "2.12"
 
 projects[views_attach][subdir] = "contrib"
 projects[views_attach][version] = "2.2"
 
 projects[views_bulk_operations][subdir] = "contrib"
-projects[views_bulk_operations][version] = "1.9"
+projects[views_bulk_operations][version] = "1.10"
 
 projects[wysiwyg][subdir]="contrib"
-projects[wysiwyg][version]= "2.1"
+projects[wysiwyg][version]= "2.2"
 
 projects[wysiwyg_imagefield][subdir]="contrib"
 projects[wysiwyg_imagefield][version]= "1.x-dev"
-
-
 
 ;Contrib (Drupal Modules without official Releases - Pulling from stable tested revision)
 
@@ -224,7 +222,7 @@ projects[devel][subdir] = "contrib"
 projects[devel][version] = "1.23"
 
 projects[admin_menu][subdir] = "contrib"
-projects[admin_menu][version] = "1.5"
+projects[admin_menu][version] = "1.6"
 
 
 
@@ -242,7 +240,7 @@ projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/8170
 projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/apachesolr_attachments.admin_.inc-823854.patch"
 
 projects[apachesolr_biblio][subdir] = "contrib"
-projects[apachesolr_biblio][version] = "1"
+projects[apachesolr_biblio][version] = "1.x-dev"
 projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/785370_features_integration.patch"
 projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/apachesolr_biblio-821660_1.patch"
 
@@ -258,9 +256,10 @@ projects[file_aliases][version] = "1.1"
 projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_alias_nodeFormDescription.patch"
 
 projects[flag][subdir] = "contrib"
-projects[flag][version] = "2.0-beta3"
+projects[flag][version] = "2.0-beta4"
 projects[flag][patch][] = "http://drupal.org/files/issues/flag-846826.patch"
 
+;TODO Move Patch
 projects[itweak_upload][subdir] = "contrib"
 projects[itweak_upload][version] = "2.3"
 projects[itweak_upload][patch][] = "http://scholar.svn.sourceforge.net/viewvc/scholar/trunk/sites/all/modules/contrib/itweak_upload/itweak_upload_dataPersistance.patch?revision=3654&content-type=text/plain"
@@ -270,41 +269,39 @@ projects[jquery_update][version] = "2.0-alpha1"
 projects[jquery_update][patch][] = "http://drupal.org/files/issues/draggable-329797-3.patch"
 
 projects[purl][subdir] = "contrib"
-projects[purl][version] = "1.0-beta12"
+projects[purl][version] = "1.0-beta13"
 projects[purl][patch][] = "http://drupal.org/files/issues/dynamic_modifier.Beta12.patch"
 
 projects[spaces][subdir] = "contrib"
-projects[spaces][version] = "2.0-beta6"
-projects[spaces][patch][] = "http://drupal.org/files/issues/hook_spaces_types_alter.patch"
-projects[spaces][patch][] = "http://drupal.org/files/issues/spaces.alter_customizers.patch"
-projects[spaces][patch][] = "http://drupal.org/files/issues/spaces.saving_blk_customizer_as_default.patch"
-projects[spaces][patch][] = "http://drupal.org/files/issues/spaces.static_call_fix_1.patch"
+projects[spaces][version] = "3.1"
 
 ; Custom modules
-projects[openscholar_features][location] = "http://openscholar.harvard.edu/scholar_software"
-projects[openscholar_features][version] = "2.0-dev"
+; TODO OS CUSTOM
+;projects[openscholar_features][location] = "http://openscholar.harvard.edu/scholar_software"
+;projects[openscholar_features][version] = "2.0-dev"
 
-projects[openscholar_vsite][location] = "http://openscholar.harvard.edu/scholar_software"
-projects[openscholar_vsite][version] = "2.0-dev"
+;projects[openscholar_vsite][location] = "http://openscholar.harvard.edu/scholar_software"
+;projects[openscholar_vsite][version] = "2.0-dev"
 
-projects[openscholar_scholar][location] = "http://openscholar.harvard.edu/scholar_software"
-projects[openscholar_scholar][version] = "2.0-dev"
+;projects[openscholar_scholar][location] = "http://openscholar.harvard.edu/scholar_software"
+;projects[openscholar_scholar][version] = "2.0-dev"
 
-projects[openscholar_sitewide][location] = "http://openscholar.harvard.edu/scholar_software"
-projects[openscholar_sitewide][version] = "2.0-dev"
+;projects[openscholar_sitewide][location] = "http://openscholar.harvard.edu/scholar_software"
+;projects[openscholar_sitewide][version] = "2.0-dev"
 
 ; Open Atrium modules
 projects[litecal][subdir] = "contrib"
 projects[litecal][location] = "http://code.developmentseed.org/fserver"
-projects[litecal][version] = "1.0-alpha4"
+projects[litecal][version] = "6.x-1.0-alpha5"
 
 
 ; Themes
 projects[zen][version] = "1.0"
 projects[zen][subdir] = "contrib"
 
-projects[openscholar_themes][location] = "http://openscholar.harvard.edu/scholar_software"
-projects[openscholar_themes][version] = "2.0-beta5"
+; TODO OS THEMES
+;projects[openscholar_themes][location] = "http://openscholar.harvard.edu/scholar_software"
+;projects[openscholar_themes][version] = "2.0-beta5"
 
 ; Libraries
 libraries[luceneapi][destination] = "modules/contrib/luceneapi"
@@ -316,7 +313,7 @@ projects[libraries][subdir] = "libraries"
 
 ; TinyMCE 3.2.7
 libraries[tinymce][download][type] = "get"
-libraries[tinymce][download][url] = "http://downloads.sourceforge.net/project/tinymce/TinyMCE/3.2.7/tinymce_3_2_7.zip"
+libraries[tinymce][download][url] = "http://downloads.sourceforge.net/project/tinymce/TinyMCE/3.3.8/tinymce_3_3_8.zip"
 libraries[tinymce][directory_name] = "tinymce"
 
 ; jQuery UI
