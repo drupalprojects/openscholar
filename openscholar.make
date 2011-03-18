@@ -176,7 +176,7 @@ projects[signup][patch][] = "http://drupal.org/files/issues/signup-fieldset-weig
 
 ;Contrib (Non-Patched Included but not enabled by default in the profile)
 projects[devel][subdir] = "contrib"
-projects[devel][version] = "1.20"
+projects[devel][version] = "1.23"
 
 projects[admin_menu][subdir] = "contrib"
 projects[admin_menu][version] = "1.5"
@@ -203,7 +203,7 @@ projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/apachesol
 
 ; @todo do we have some any uncommitted patches for biblio left?
 projects[biblio][subdir] = "contrib"
-projects[biblio][version] = "1.13"
+projects[biblio][version] = "1.15"
 projects[biblio][patch][] = "http://drupal.org/files/issues/biblio.access_patch.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
