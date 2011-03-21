@@ -167,8 +167,7 @@ projects[transliteration][version] = "3.0"
 
 projects[twitter_pull][subdir] = "contrib"
 projects[twitter_pull][version] = "1.1"
-; ./sites/all/modules/contrib/twitter_pull/twitter_pull-6x-1-1.patch
-
+projects[twitter_pull][patch][] = "http://drupal.org/files/issues/twitter_pull-6x-1-1.patch"
 
 projects[ucreate][subdir] = "contrib"
 projects[ucreate][version] = "1.0-beta3"
@@ -254,7 +253,7 @@ projects[apachesolr_attachments][version] = "1.0-beta1"
 ;projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/815104-reindex-failed-files.patch"
 ;projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/817066-fatal-error.patch"
 ;projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/apachesolr_attachments.admin_.inc-823854.patch"
-; ./sites/all/modules/contrib/apachesolr_attachments/solrconfig.tika.patch
+; distributed but unused: ./sites/all/modules/contrib/apachesolr_attachments/solrconfig.tika.patch
 
 
 projects[apachesolr_biblio][subdir] = "contrib"
@@ -269,15 +268,15 @@ projects[biblio][version] = "1.15"
 ;projects[biblio][patch][] = "http://drupal.org/files/issues/biblio.access_patch.patch"
 ;projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
 ;projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
-; ./sites/all/modules/contrib/biblio/biblio_update_date_teaser.patch
-; ./sites/all/modules/contrib/biblio/export_hook.patch
+;projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_update_date_teaser.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/export_hook.patch"
 
 
 projects[file_aliases][subdir] = "contrib"
 projects[file_aliases][version] = "1.1"
 ;@todo not working
 ;projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_alias_nodeFormDescription.patch"
-; ./sites/all/modules/contrib/file_aliases/drupal_cache_fix.patch
+;projects[file_aliases][patch][] = "http://drupal.org/files/issues/drupal_cache_fix.patch"
 
 
 projects[flag][subdir] = "contrib"
@@ -289,20 +288,20 @@ projects[flag][version] = "2.0-beta4"
 projects[itweak_upload][subdir] = "contrib"
 projects[itweak_upload][version] = "2.3"
 projects[itweak_upload][patch][] = "http://scholar.svn.sourceforge.net/viewvc/scholar/trunk/sites/all/modules/contrib/itweak_upload/itweak_upload_dataPersistance.patch?revision=3654&content-type=text/plain"
-;./sites/all/modules/contrib/itweak_upload/remove_jcarosel_func.patch
+projects[itweak_upload][patch][] = "http://drupal.org/files/issues/remove_jcarosel_func.patch"
 
 
 projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "2.0-alpha1"
 ;@todo not working
 ;projects[jquery_update][patch][] = "http://drupal.org/files/issues/draggable-329797-3.patch"
-; ./sites/all/modules/contrib/jquery_update/replace/tabledrag.js__8.patch
+projects[jquery_update][patch][] = "http://drupal.org/files/issues/tabledrag.js__8.patch" 
 
 
 projects[purl][subdir] = "contrib"
 projects[purl][version] = "1.0-beta13"
 projects[purl][patch][] = "http://drupal.org/files/issues/dynamic_modifier.Beta12.patch"
-; ./sites/all/modules/contrib/purl/check_class.Beta13.patch
+projects[purl][patch][] = "http://drupal.org/files/issues/check_class.Beta13.patch"
 
 
 projects[spaces][subdir] = "contrib"
