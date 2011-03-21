@@ -93,7 +93,7 @@ projects[imagefield][version] = "3.9"
 
 projects[imagefield_crop][subdir] = "contrib"
 projects[imagefield_crop][version] = "1.0-rc2"
-; ./sites/all/modules/contrib/imagefield_crop/imagefield_crop.patch
+projects[imagefield_crop[patch][] = "http://drupal.org/files/issues/imagefield_crop.patch"
 
 
 projects[insert][subdir] = "contrib"
@@ -101,8 +101,8 @@ projects[insert][version] = "1.0"
 
 projects[install_profile_api][subdir] = "contrib"
 projects[install_profile_api][version] = "2.x-dev"
-;./sites/all/modules/contrib/install_profile_api/ipa-486424.patch
-;./sites/all/modules/contrib/install_profile_api/enable_multiple_themes.patch
+projects[install_profile_api][patch][] = "http://drupal.org/files/issues/ipa-486424.patch"
+projects[install_profile_api][patch][] = "http://drupal.org/files/issues/enable_multiple_themes.patch"
 
 
 projects[jquery_ui][subdir] = "contrib"
@@ -216,7 +216,7 @@ projects[activity][type] = "module"
 projects[activity][download][type] = "cvs"
 projects[activity][download][module] = "contributions/modules/activity"
 projects[activity][download][revision] = "DRUPAL-6--2:2010-10-26"
-; ./sites/all/modules/contrib/activity/activity_warning.patch
+projects[activity][patch][] = "http://drupal.org/files/issues/activity_warning.patch"
 
 projects[imagecache][subdir] = "contrib"
 projects[imagecache][type] = "module"
