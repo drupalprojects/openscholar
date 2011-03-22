@@ -243,8 +243,7 @@ projects[admin_menu][version] = "1.6"
 ; Contrib (patched modules)
 projects[apachesolr][subdir] = "contrib"
 projects[apachesolr][version] = "2.0-beta2"
-; @todo NOT WORKING
-projects[apachesolr][patch][] = "http://drupal.org/files/issues/804700-apachesolr_search.module.patch"
+projects[apachesolr][patch][] = "http://drupal.org/files/issues/804700-apachesolr_search2.module.patch"
 
 projects[apachesolr_attachments][subdir] = "contrib"
 projects[apachesolr_attachments][version] = "1.0-beta1"
