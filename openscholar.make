@@ -264,10 +264,10 @@ projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/apachesol
 ; @todo do we have some any uncommitted patches for biblio left?
 projects[biblio][subdir] = "contrib"
 projects[biblio][version] = "1.15"
-;@todo not working
-projects[biblio][patch][] = "http://drupal.org/files/issues/biblio.access_patch.patch"
-projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
-projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
+;projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
+;projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_theme_filefield_paths_115.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls2.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_update_date_teaser.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/export_hook.patch"
 
