@@ -286,7 +286,7 @@ projects[flag][version] = "2.0-beta4"
 projects[itweak_upload][subdir] = "contrib"
 projects[itweak_upload][version] = "2.3"
 projects[itweak_upload][patch][] = "http://scholar.svn.sourceforge.net/viewvc/scholar/trunk/sites/all/modules/contrib/itweak_upload/itweak_upload_dataPersistance.patch?revision=3654&content-type=text/plain"
-projects[itweak_upload][patch][] = "http://drupal.org/files/issues/remove_jcarosel_func.patch"
+projects[itweak_upload][patch][] = "http://drupal.org/files/issues/remove_jcarosel_func2.patch"
 
 
 projects[jquery_update][subdir] = "contrib"
