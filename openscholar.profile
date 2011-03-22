@@ -29,7 +29,7 @@ function openscholar_profile_modules() {
     //ctools
     'ctools',
     // context
-    'context', 'context_contrib', 'context_ui',
+    'context', 'context_ui',
     // date
     'date_api', 'date_timezone',
     // features
