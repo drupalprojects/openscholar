@@ -29,7 +29,7 @@ function openscholar_profile_modules() {
     //ctools
     'ctools',
     // context
-    'context', 'context_contrib', 'context_ui',
+    'context', 'context_ui',
     // date
     'date_api', 'date_timezone',
     // features
@@ -303,7 +303,8 @@ function _openscholar_enable_themes(){
   
   $themes = array(
     'openscholar_default', //Default theme
-    'zen',
+    'tao',
+    'rubik',
     'cp_theme',
     'scholar_base',
     'scholar_airstream',
@@ -318,7 +319,8 @@ function _openscholar_enable_themes(){
     'scholar_quinn',
     'scholar_redhead',
     'scholar_stripy',
-    'scholar_weft'
+    'scholar_weft',
+    'scholar_aglet',
   );
   
   //enable the themes
@@ -543,13 +545,14 @@ function _openscholar_filefield_paths_config(){
  * Get an array of 'group_posts' content types names
  */
 function _openscholar_group_posts(){
-  //$types = og_get_types('group_post');  // not working !
+  $types = og_get_types('group_post');  // not working !
   
   // get all 'group_post' content types
   $group_types = array();
-  $map = spaces_features_map('node');
+  $map = features_get_component_map('node');
   $features = spaces_features('og');
   foreach ( $map as $type => $feature ) {
+  	if(is_array($feature)) $feature = current($feature);
     if (! empty($features[$feature])) {
       $group_types[] = $type;
     }
