@@ -274,9 +274,8 @@ projects[biblio][patch][] = "http://drupal.org/files/issues/export_hook.patch"
 
 projects[file_aliases][subdir] = "contrib"
 projects[file_aliases][version] = "1.1"
-;@todo not working
-projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_alias_nodeFormDescription.patch"
-projects[file_aliases][patch][] = "http://drupal.org/files/issues/drupal_cache_fix.patch"
+projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_aliases_nodeFormDescription2.patch"
+projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_aliases_drupal_cache.patch"
 
 
 projects[flag][subdir] = "contrib"
