@@ -167,7 +167,7 @@ projects[transliteration][version] = "3.0"
 
 projects[twitter_pull][subdir] = "contrib"
 projects[twitter_pull][version] = "1.1"
-projects[twitter_pull][patch][] = "http://drupal.org/files/issues/twitter_pull-6x-1-1.patch"
+projects[twitter_pull][patch][] = "http://drupal.org/files/issues/twitter_pull-6x-1-1_2.patch"
 
 projects[ucreate][subdir] = "contrib"
 projects[ucreate][version] = "1.0-beta3"
@@ -285,11 +285,8 @@ projects[itweak_upload][patch][] = "http://drupal.org/files/issues/remove_jcaros
 
 projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "2.0-alpha1"
-;@todo not working
 projects[jquery_update][patch][] = "http://drupal.org/files/issues/draggable-329797-4.patch"
 projects[jquery_update][patch][] = "http://drupal.org/files/issues/tabledrag_after_draggable-329797.js_.patch"
-;projects[jquery_update][patch][] = "http://drupal.org/files/issues/draggable-329797-3.patch"
-;projects[jquery_update][patch][] = "http://drupal.org/files/issues/tabledrag.js__8.patch" 
 
 
 projects[purl][subdir] = "contrib"
