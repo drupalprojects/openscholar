@@ -247,12 +247,8 @@ projects[apachesolr][patch][] = "http://drupal.org/files/issues/804700-apachesol
 
 projects[apachesolr_attachments][subdir] = "contrib"
 projects[apachesolr_attachments][version] = "1.0-beta1"
-;@todo not working
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/812038-missing-argument.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/815104-reindex-failed-files.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/817066-fatal-error.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/apachesolr_attachments.admin_.inc-823854.patch"
-; distributed but unused: ./sites/all/modules/contrib/apachesolr_attachments/solrconfig.tika.patch
+projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/815104-bad-file-handling-10.patch"
+projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/apachesolr_attachments.admin_.inc-823854-7_0.patch"
 
 
 projects[apachesolr_biblio][subdir] = "contrib"
