@@ -101,8 +101,6 @@ projects[insert][version] = "1.0"
 
 projects[install_profile_api][subdir] = "contrib"
 projects[install_profile_api][version] = "2.x-dev"
-projects[install_profile_api][patch][] = "http://drupal.org/files/issues/ipa-486424.patch"
-projects[install_profile_api][patch][] = "http://drupal.org/files/issues/enable_multiple_themes.patch"
 
 
 projects[jquery_ui][subdir] = "contrib"
