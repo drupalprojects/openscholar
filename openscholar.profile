@@ -303,8 +303,6 @@ function _openscholar_enable_themes(){
   
   $themes = array(
     'openscholar_default', //Default theme
-    'tao',
-    'rubik',
     'cp_theme',
     'scholar_base',
     'scholar_airstream',
