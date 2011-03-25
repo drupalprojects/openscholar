@@ -101,8 +101,6 @@ projects[insert][version] = "1.0"
 
 projects[install_profile_api][subdir] = "contrib"
 projects[install_profile_api][version] = "2.x-dev"
-projects[install_profile_api][patch][] = "http://drupal.org/files/issues/ipa-486424.patch"
-projects[install_profile_api][patch][] = "http://drupal.org/files/issues/enable_multiple_themes.patch"
 
 
 projects[jquery_ui][subdir] = "contrib"
@@ -167,7 +165,7 @@ projects[transliteration][version] = "3.0"
 
 projects[twitter_pull][subdir] = "contrib"
 projects[twitter_pull][version] = "1.1"
-projects[twitter_pull][patch][] = "http://drupal.org/files/issues/twitter_pull-6x-1-1.patch"
+projects[twitter_pull][patch][] = "http://drupal.org/files/issues/twitter_pull-6x-1-1_2.patch"
 
 projects[ucreate][subdir] = "contrib"
 projects[ucreate][version] = "1.0-beta3"
@@ -243,17 +241,12 @@ projects[admin_menu][version] = "1.6"
 ; Contrib (patched modules)
 projects[apachesolr][subdir] = "contrib"
 projects[apachesolr][version] = "2.0-beta2"
-; @todo NOT WORKING
-projects[apachesolr][patch][] = "http://drupal.org/files/issues/804700-apachesolr_search.module.patch"
+projects[apachesolr][patch][] = "http://drupal.org/files/issues/804700-apachesolr_search2.module.patch"
 
 projects[apachesolr_attachments][subdir] = "contrib"
 projects[apachesolr_attachments][version] = "1.0-beta1"
-;@todo not working
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/812038-missing-argument.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/815104-reindex-failed-files.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/817066-fatal-error.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/apachesolr_attachments.admin_.inc-823854.patch"
-; distributed but unused: ./sites/all/modules/contrib/apachesolr_attachments/solrconfig.tika.patch
+projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/815104-bad-file-handling-10.patch"
+projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/apachesolr_attachments.admin_.inc-823854-7_0.patch"
 
 
 projects[apachesolr_biblio][subdir] = "contrib"
@@ -264,10 +257,10 @@ projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/apachesol
 ; @todo do we have some any uncommitted patches for biblio left?
 projects[biblio][subdir] = "contrib"
 projects[biblio][version] = "1.15"
-;@todo not working
-projects[biblio][patch][] = "http://drupal.org/files/issues/biblio.access_patch.patch"
-projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
-projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
+;projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
+;projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_theme_filefield_paths_115.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls2.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_update_date_teaser.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/export_hook.patch"
 
@@ -290,9 +283,8 @@ projects[itweak_upload][patch][] = "http://drupal.org/files/issues/remove_jcaros
 
 projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "2.0-alpha1"
-;@todo not working
-projects[jquery_update][patch][] = "http://drupal.org/files/issues/draggable-329797-3.patch"
-projects[jquery_update][patch][] = "http://drupal.org/files/issues/tabledrag.js__8.patch" 
+projects[jquery_update][patch][] = "http://drupal.org/files/issues/draggable-329797-4.patch"
+projects[jquery_update][patch][] = "http://drupal.org/files/issues/tabledrag_after_draggable-329797.js_.patch"
 
 
 projects[purl][subdir] = "contrib"
