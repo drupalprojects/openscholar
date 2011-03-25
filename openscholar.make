@@ -280,8 +280,8 @@ projects[oembed][patch][] = patch_goes_where
 
 projects[creativecommons][subdir] = "contrib"
 projects[creativecommons][version] = "6.x-1.x"
-projects[creativecommons][patch][] = patch_goes_where
-projects[creativecommons][patch][] = patch_goes_where
+projects[creativecommons][patch][] = "http://drupal.org/files/issues/creativecommons_install-1055080.patch"
+projects[creativecommons][patch][] = "http://drupal.org/files/issues/creativecommons_class-1050180.patch"
 
 ;TODO Move Patch
 projects[itweak_upload][subdir] = "contrib"
