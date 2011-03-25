@@ -274,6 +274,15 @@ projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_aliases_d
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.0-beta4"
 
+projects[oembed][subdir] = "contrib"
+projects[oembed][version] = "master"
+projects[oembed][patch][] = patch_goes_where
+
+projects[creativecommons][subdir] = "contrib"
+projects[creativecommons][version] = "6.x-1.x"
+projects[creativecommons][patch][] = patch_goes_where
+projects[creativecommons][patch][] = patch_goes_where
+
 ;TODO Move Patch
 projects[itweak_upload][subdir] = "contrib"
 projects[itweak_upload][version] = "2.3"
