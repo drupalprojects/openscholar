@@ -111,6 +111,7 @@ function _openscholar_core_modules() {
  */
 function _openscholar_scholar_modules() {
   return array(
+    'os',
     'vsite',
     'vsite_widgets',
     'vsite_content',
