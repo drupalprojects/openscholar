@@ -444,3 +444,10 @@ libraries[jquery_ui][download][type] = "get"
 libraries[jquery_ui][download][url] = "http://jquery-ui.googlecode.com/files/jquery-ui-1.7.2.zip"
 libraries[jquery_ui][directory_name] = "jquery.ui"
 libraries[jquery_ui][destination] = "modules/contrib/jquery_ui"
+
+; SolrPhpClient
+libraries[apachesolr][download][type] = "get"
+libraries[apachesolr][download][url]  = "http://solr-php-client.googlecode.com/files/SolrPhpClient.r22.2009-11-09.tgz"
+libraries[apachesolr][directory_name] = "SolrPhpClient"
+libraries[apachesolr][destination]    = "modules/contrib/apachesolr"
+
