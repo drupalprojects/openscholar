@@ -93,7 +93,7 @@ projects[imagefield][version] = "3.9"
 
 projects[imagefield_crop][subdir] = "contrib"
 projects[imagefield_crop][version] = "1.0-rc2"
-projects[imagefield_crop[patch][] = "http://drupal.org/files/issues/imagefield_crop.patch"
+projects[imagefield_crop][patch][] = "http://drupal.org/files/issues/imagefield_crop.patch"
 
 
 projects[insert][subdir] = "contrib"
@@ -267,7 +267,7 @@ projects[biblio][patch][] = "http://drupal.org/files/issues/export_hook.patch"
 
 projects[file_aliases][subdir] = "contrib"
 projects[file_aliases][version] = "1.1"
-projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_aliases_nodeFormDescription2.patch"
+projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_aliases_nodeFormDescription3.patch"
 projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_aliases_drupal_cache.patch"
 
 
