@@ -289,7 +289,7 @@ projects[jquery_update][patch][] = "http://drupal.org/files/issues/tabledrag_aft
 
 projects[purl][subdir] = "contrib"
 projects[purl][version] = "1.0-beta13"
-projects[purl][patch][] = "http://drupal.org/files/issues/dynamic_modifier.Beta12.patch"
+;projects[purl][patch][] = "http://drupal.org/files/issues/dynamic_modifier.Beta12.patch"
 projects[purl][patch][] = "http://drupal.org/files/issues/check_class.Beta13.patch"
 
 
