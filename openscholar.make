@@ -100,7 +100,7 @@ projects[insert][subdir] = "contrib"
 projects[insert][version] = "1.0"
 
 projects[install_profile_api][subdir] = "contrib"
-projects[install_profile_api][version] = "2.x-dev"
+projects[install_profile_api][version] = "2.1"
 
 
 projects[jquery_ui][subdir] = "contrib"
