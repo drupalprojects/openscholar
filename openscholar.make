@@ -26,7 +26,7 @@ projects[auto_nodetitle][subdir] = "contrib"
 projects[auto_nodetitle][version] = "1.2"
 
 projects[better_formats][subdir] = "contrib"
-projects[better_formats][version] = "1.2"
+projects[better_formats][version] = "2.x-dev"
 
 projects[calendar][subdir] = "contrib"
 projects[calendar][version] = "2.2"
