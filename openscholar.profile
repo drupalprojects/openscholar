@@ -151,6 +151,7 @@ function _openscholar_scholar_modules() {
     'scholar_classes',
     'scholar_image_gallery',
     'scholar_publications',
+    'scholar_presentations',
     'scholar_software',
     'scholar_pages',
     'scholar_reader',
