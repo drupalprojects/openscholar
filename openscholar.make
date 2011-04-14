@@ -164,8 +164,8 @@ projects[transliteration][subdir] = "contrib"
 projects[transliteration][version] = "3.0"
 
 projects[twitter_pull][subdir] = "contrib"
-projects[twitter_pull][version] = "1.1"
-projects[twitter_pull][patch][] = "http://drupal.org/files/issues/twitter_pull-6x-1-1_2.patch"
+projects[twitter_pull][version] = "1.2"
+projects[twitter_pull][patch][] = "http://drupal.org/files/issues/1100270-twitter_pull-cache.patch"
 
 projects[ucreate][subdir] = "contrib"
 projects[ucreate][version] = "1.0-beta3"
