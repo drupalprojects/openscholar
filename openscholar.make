@@ -257,12 +257,13 @@ projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/apachesol
 ; @todo do we have some any uncommitted patches for biblio left?
 projects[biblio][subdir] = "contrib"
 projects[biblio][version] = "1.15"
-;projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
-;projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
-projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_theme_filefield_paths_115.patch"
-projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls2.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/683868.biblio_access_patch2.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/830770.biblio.path_alias.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/830726.endnote8_export.escape_urls3.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_update_date_teaser.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/export_hook.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/1127508.biblio.contributor_count.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/1127514.biblio.chicago.patch"
 
 
 projects[file_aliases][subdir] = "contrib"
