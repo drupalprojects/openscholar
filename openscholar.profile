@@ -59,7 +59,7 @@ function openscholar_profile_modules() {
 function _openscholar_core_modules() {
  $contrib_modules = array(
 
-    'addthis', 'advanced_help', 'install_profile_api', 'biblio', 'auto_nodetitle',
+    'addthis', 'advanced_help', 'biblio', 'auto_nodetitle',
     'diff', 'menu_node', 'override_node_options', 'schema', 'stringoverrides',
     'strongarm', 'twitter_pull',
  
@@ -151,6 +151,7 @@ function _openscholar_scholar_modules() {
     'scholar_classes',
     'scholar_image_gallery',
     'scholar_publications',
+    'scholar_presentations',
     'scholar_software',
     'scholar_pages',
     'scholar_reader',
@@ -417,8 +418,9 @@ function _openscholar_wysiwyg_config(){
  *  Creates roles and permissions
  */
 function _openscholar_create_roles(){
-  install_add_role('scholar admin');
-  install_add_role('scholar user');
+  os_include('os.crud');
+  os_add_role('scholar admin');
+  os_add_role('scholar user');
 }
 
 /**
@@ -457,7 +459,7 @@ function _openscholar_flavors_form($form_state, $url){
  */
 function _openscholar_flavors_form_submit(&$form, &$form_state){
 
-  install_include(array('user'));
+  os_include('os.crud');
   $flavor = $form_state['values']['flavor'];
 
   _openscholar_configure_flavor($flavor);
@@ -480,7 +482,7 @@ function _openscholar_configure_flavor($flavor){
     case 2:       // dev
       $flavor = 'development';
       $modules = array('scholar', 'scholar_biocv', 'devel', 'cvs_deploy');
-      install_add_permissions(1, array('switch users')); //  yes anon users can switch users!!
+      os_add_permissions(1, array('switch users')); //  yes anon users can switch users!!
       break;
   
   }
@@ -565,10 +567,6 @@ function _openscholar_group_posts(){
  * @return success
  */
 function _openscholar_vsite_vocabs($vsite_node_type){
-  
-  install_include(array(
-    'taxonomy'
-  ));
   
   // Create the vsite tax for affiliation
   $vocab = array(
