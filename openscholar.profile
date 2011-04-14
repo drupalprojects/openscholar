@@ -232,10 +232,7 @@ function openscholar_profile_tasks(&$task, $url) {
     //Include Modules that have been enabled
     //We don't need to use install_include since the system table has been enabled
     module_load_all();
-    
-    // create roles
-    _openscholar_create_roles();
-    
+
     // create a default contact form
     _vsite_default_contact_form();
     
@@ -428,15 +425,6 @@ function _openscholar_wysiwyg_config(){
     $query = "INSERT INTO {wysiwyg} (format, editor, settings) VALUES ('%d', '%s', '%s')";
     db_query($query, $format, 'tinymce', $settings);
   }
-}
-
-/**
- *  Creates roles and permissions
- */
-function _openscholar_create_roles(){
-  os_include('os.crud');
-  os_add_role('scholar admin');
-  os_add_role('scholar user');
 }
 
 /**
