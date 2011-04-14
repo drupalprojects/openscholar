@@ -457,7 +457,7 @@ function _openscholar_flavors_form($form_state, $url){
     '#options' => array(
       t('Scholars Personal Sites'),
       t('Project Sites'),
-      t('Openscholar Development')
+      t('Openscholar Development - not to be used in produciton !!')
     ),
     '#description' => t('Chose a site type to install, each type can be customized further after install by enabling/disabling modules.')
   );
@@ -498,7 +498,7 @@ function _openscholar_configure_flavor($flavor){
     case 2:       // dev
       $flavor = 'development';
       $modules = array('scholar', 'scholar_biocv', 'devel', 'cvs_deploy');
-//      os_add_permissions(1, array('switch users')); //  yes anon users can switch users!!
+      os_add_permissions(1, array('switch users')); //  yes anon users can switch users!!
       break;
   
   }
