@@ -494,10 +494,7 @@ function _openscholar_configure_flavor($flavor){
   // install extra modules for each flavor
   include_once './includes/install.inc';
   drupal_install_modules($modules);
-  
-  // create vsite vocabs (interest, affiliation)
-  _openscholar_vsite_vocabs($vsite_node_type);
-  
+
   variable_set('openscholar_flavor_installed', $flavor);
   variable_set('openscholar_flavor_form_executed', TRUE);
 }
@@ -565,56 +562,6 @@ function _openscholar_group_posts(){
   
   return $group_types;
 }
-
-/**
- * Create the taxonomy's that will be used by the vsite object
- * @return success
- */
-function _openscholar_vsite_vocabs($vsite_node_type){
-  
-  // Create the vsite tax for affiliation
-  $vocab = array(
-    'name' => 'Affiliation / Department',
-    'multiple' => 1,
-    'required' => 0,
-    'hierarchy' => 0,
-    'relations' => 0,
-    'module' => 'taxonomy',
-    'weight' => 0,
-    'nodes' => array(
-      $vsite_node_type => 1
-    ),
-    'tags' => false,
-    'help' => t('Affiliation'),
-    'description' => t("A comma-separated list of affiliation that your site may have, for ex.(Math department)")
-  );
-  taxonomy_save_vocabulary($vocab);
-  
-  $vid = db_last_insert_id('vocabulary', 'vid');
-  variable_set('vsite_taxonomy_affiliation', $vid);
-  
-  // Create the vsite tax for intrests
-  $vocab = array(
-    'name' => 'Related Interests',
-    'description' => t("A comma-separated list of topics that may relate to the content of your site. ex.(zoology, evolutionary biology, casual inference)"),
-    'multiple' => 0,
-    'required' => 0,
-    'hierarchy' => 0,
-    'relations' => 0,
-    'module' => 'taxonomy',
-    'weight' => 0,
-    'nodes' => array(
-      $vsite_node_type => 1
-    ),
-    'tags' => TRUE,
-    'help' => t("A comma-separated list of topics that may relate to the content of your site. ex.(zoology, evolutionary biology, casual inference)"),
-  );
-  taxonomy_save_vocabulary($vocab);
-  
-  $vid = db_last_insert_id('vocabulary', 'vid');
-  variable_set('vsite_taxonomy_interests', $vid);
-}
-
 
 /**
  * Reimplementation of system_theme_data(). The core function's static cache
