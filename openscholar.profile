@@ -266,9 +266,6 @@ function openscholar_profile_tasks(&$task, $url) {
       strongarm_init();
     }
 
-    variable_set('scholar_content_type', 'vsite');
-    variable_set('site_frontpage', 'welcome');
-
     // Rebuild the caches
     drupal_flush_all_caches();
     
@@ -279,6 +276,9 @@ function openscholar_profile_tasks(&$task, $url) {
     
     // enable the themes
     _openscholar_enable_themes();
+    
+    // Revert to default any variables that were overridden in the install process
+    _openscholar_revert_strongarm_overrides();
     
     // we are done let the installer know
     $task = 'profile-finished';
@@ -331,13 +331,29 @@ function _openscholar_enable_themes(){
   
   //Set default theme
   global $theme_key;
-  variable_set('theme_default', 'openscholar_default');
-  // update the global variable too,
-  // mainly so that block functions work correctly
   $theme_key = $theme;
   
   // disable all DB blocks
   db_query("UPDATE {blocks} SET status = 0, region = ''");
+
+}
+
+/**
+ * This will revert all strongarm values back to thier default state
+ */
+function _openscholar_revert_strongarm_overrides(){
+  
+  if(module_exists('strongarm')){
+
+    $vars = strongarm_vars_load(true,true);
+    foreach ($vars as $name => $variable) {
+    	$default = ctools_get_default_object('variable', $name);
+      if($default && $variable->value != $default->value){
+        variable_del($name);
+      }
+    }
+    strongarm_flush_caches();
+  }
 
 }
 
@@ -482,7 +498,7 @@ function _openscholar_configure_flavor($flavor){
     case 2:       // dev
       $flavor = 'development';
       $modules = array('scholar', 'scholar_biocv', 'devel', 'cvs_deploy');
-      os_add_permissions(1, array('switch users')); //  yes anon users can switch users!!
+//      os_add_permissions(1, array('switch users')); //  yes anon users can switch users!!
       break;
   
   }
