@@ -232,10 +232,7 @@ function openscholar_profile_tasks(&$task, $url) {
     //Include Modules that have been enabled
     //We don't need to use install_include since the system table has been enabled
     module_load_all();
-    
-    // create roles
-    _openscholar_create_roles();
-    
+
     // create a default contact form
     _vsite_default_contact_form();
     
@@ -266,9 +263,6 @@ function openscholar_profile_tasks(&$task, $url) {
       strongarm_init();
     }
 
-    variable_set('scholar_content_type', 'vsite');
-    variable_set('site_frontpage', 'welcome');
-
     // Rebuild the caches
     drupal_flush_all_caches();
     
@@ -279,6 +273,9 @@ function openscholar_profile_tasks(&$task, $url) {
     
     // enable the themes
     _openscholar_enable_themes();
+    
+    // Revert to default any variables that were overridden in the install process
+    _openscholar_revert_strongarm_overrides();
     
     // we are done let the installer know
     $task = 'profile-finished';
@@ -331,13 +328,29 @@ function _openscholar_enable_themes(){
   
   //Set default theme
   global $theme_key;
-  variable_set('theme_default', 'openscholar_default');
-  // update the global variable too,
-  // mainly so that block functions work correctly
   $theme_key = $theme;
   
   // disable all DB blocks
   db_query("UPDATE {blocks} SET status = 0, region = ''");
+
+}
+
+/**
+ * This will revert all strongarm values back to thier default state
+ */
+function _openscholar_revert_strongarm_overrides(){
+  
+  if(module_exists('strongarm')){
+
+    $vars = strongarm_vars_load(true,true);
+    foreach ($vars as $name => $variable) {
+    	$default = ctools_get_default_object('variable', $name);
+      if($default && $variable->value != $default->value){
+        variable_del($name);
+      }
+    }
+    strongarm_flush_caches();
+  }
 
 }
 
@@ -415,15 +428,6 @@ function _openscholar_wysiwyg_config(){
 }
 
 /**
- *  Creates roles and permissions
- */
-function _openscholar_create_roles(){
-  os_include('os.crud');
-  os_add_role('scholar admin');
-  os_add_role('scholar user');
-}
-
-/**
  * Form definition for OS flavors
  */
 function _openscholar_flavors_form($form_state, $url){
@@ -441,7 +445,7 @@ function _openscholar_flavors_form($form_state, $url){
     '#options' => array(
       t('Scholars Personal Sites'),
       t('Project Sites'),
-      t('Openscholar Development')
+      t('Openscholar Development - not to be used in produciton !!')
     ),
     '#description' => t('Chose a site type to install, each type can be customized further after install by enabling/disabling modules.')
   );
@@ -490,10 +494,7 @@ function _openscholar_configure_flavor($flavor){
   // install extra modules for each flavor
   include_once './includes/install.inc';
   drupal_install_modules($modules);
-  
-  // create vsite vocabs (interest, affiliation)
-  _openscholar_vsite_vocabs($vsite_node_type);
-  
+
   variable_set('openscholar_flavor_installed', $flavor);
   variable_set('openscholar_flavor_form_executed', TRUE);
 }
@@ -561,56 +562,6 @@ function _openscholar_group_posts(){
   
   return $group_types;
 }
-
-/**
- * Create the taxonomy's that will be used by the vsite object
- * @return success
- */
-function _openscholar_vsite_vocabs($vsite_node_type){
-  
-  // Create the vsite tax for affiliation
-  $vocab = array(
-    'name' => 'Affiliation / Department',
-    'multiple' => 1,
-    'required' => 0,
-    'hierarchy' => 0,
-    'relations' => 0,
-    'module' => 'taxonomy',
-    'weight' => 0,
-    'nodes' => array(
-      $vsite_node_type => 1
-    ),
-    'tags' => false,
-    'help' => t('Affiliation'),
-    'description' => t("A comma-separated list of affiliation that your site may have, for ex.(Math department)")
-  );
-  taxonomy_save_vocabulary($vocab);
-  
-  $vid = db_last_insert_id('vocabulary', 'vid');
-  variable_set('vsite_taxonomy_affiliation', $vid);
-  
-  // Create the vsite tax for intrests
-  $vocab = array(
-    'name' => 'Related Interests',
-    'description' => t("A comma-separated list of topics that may relate to the content of your site. ex.(zoology, evolutionary biology, casual inference)"),
-    'multiple' => 0,
-    'required' => 0,
-    'hierarchy' => 0,
-    'relations' => 0,
-    'module' => 'taxonomy',
-    'weight' => 0,
-    'nodes' => array(
-      $vsite_node_type => 1
-    ),
-    'tags' => TRUE,
-    'help' => t("A comma-separated list of topics that may relate to the content of your site. ex.(zoology, evolutionary biology, casual inference)"),
-  );
-  taxonomy_save_vocabulary($vocab);
-  
-  $vid = db_last_insert_id('vocabulary', 'vid');
-  variable_set('vsite_taxonomy_interests', $vid);
-}
-
 
 /**
  * Reimplementation of system_theme_data(). The core function's static cache
