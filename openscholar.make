@@ -253,6 +253,8 @@ projects[apachesolr_biblio][subdir] = "contrib"
 projects[apachesolr_biblio][version] = "1.x-dev"
 projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/785370_features_integration.patch"
 projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/apachesolr_biblio-821660_1.patch"
+projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/785370_features_integration.get_fields.patch"
+projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/1128598.apachesolr_biblio.text_search.patch"
 
 ; @todo do we have some any uncommitted patches for biblio left?
 projects[biblio][subdir] = "contrib"
