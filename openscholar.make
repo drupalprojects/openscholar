@@ -244,9 +244,7 @@ projects[apachesolr][version] = "2.0-beta2"
 projects[apachesolr][patch][] = "http://drupal.org/files/issues/804700-apachesolr_search2.module.patch"
 
 projects[apachesolr_attachments][subdir] = "contrib"
-projects[apachesolr_attachments][version] = "1.0-beta1"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/815104-bad-file-handling-10.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/apachesolr_attachments.admin_.inc-823854-7_0.patch"
+projects[apachesolr_attachments][version] = "2.0-alpha2"
 
 
 projects[apachesolr_biblio][subdir] = "contrib"
