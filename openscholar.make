@@ -246,6 +246,8 @@ projects[apachesolr][patch][] = "http://drupal.org/files/issues/804700-apachesol
 projects[apachesolr_attachments][subdir] = "contrib"
 projects[apachesolr_attachments][version] = "2.0-alpha2"
 
+projects[apachesolr_og][subdir] = "contrib"
+projects[apachesolr_og][version] = "2.x-dev"
 
 projects[apachesolr_biblio][subdir] = "contrib"
 projects[apachesolr_biblio][version] = "1.x-dev"
