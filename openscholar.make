@@ -74,7 +74,7 @@ projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
 
 projects[feeds][subdir] = "contrib"
-projects[feeds][version] = "1.0-beta3"
+projects[feeds][version] = "1.0-beta10"
 
 projects[filefield][subdir] = "contrib"
 projects[filefield][version] = "3.9"
@@ -102,6 +102,8 @@ projects[insert][version] = "1.0"
 projects[install_profile_api][subdir] = "contrib"
 projects[install_profile_api][version] = "2.1"
 
+projects[job_scheduler][subdir] = "contrib"
+projects[job_scheduler][version] = "1.0-beta3"
 
 projects[jquery_ui][subdir] = "contrib"
 projects[jquery_ui][version] = "1.4"
