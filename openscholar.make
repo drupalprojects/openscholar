@@ -112,8 +112,8 @@ projects[ldap_integration][version] = "1.0-beta2"
 projects[link][subdir] = "contrib"
 projects[link][version] = "2.9"
 
-projects[lightbox2][subdir] = "contrib"
-projects[lightbox2][version] = "1.11"
+projects[shadowbox][subdir] = "contrib"
+projects[shadowbox][version] = "4.2"
 
 projects[luceneapi][subdir] = "contrib"
 projects[luceneapi][version] = "2.2"
