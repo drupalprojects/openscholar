@@ -168,7 +168,7 @@ projects[twitter_pull][version] = "1.2"
 projects[twitter_pull][patch][] = "http://drupal.org/files/issues/1100270-twitter_pull-cache.patch"
 
 projects[ucreate][subdir] = "contrib"
-projects[ucreate][version] = "1.0-beta3"
+projects[ucreate][version] = "1.0-beta4"
 
 projects[vertical_tabs][subdir] = "contrib"
 projects[vertical_tabs][version] = "1.0-rc1"
