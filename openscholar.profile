@@ -88,7 +88,7 @@ function _openscholar_core_modules() {
     'content_profile', 'content_profile_registration',
 
     // data / feeds
-    'data', 'data_node', 'data_ui', 'feeds', 'feeds_defaults',
+    'data', 'data_node', 'data_ui', 'feeds', 'job_scheduler',
  
   
     // other
