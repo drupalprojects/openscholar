@@ -14,7 +14,7 @@ projects[drupal][type] = "core"
 ; Contrib projects 
 
 projects[addthis][subdir] = "contrib"
-projects[addthis][version] = "2.x-dev"
+projects[addthis][version] = "3.0-beta1"
 
 projects[admin][subdir] = "contrib"
 projects[admin][version] = "2.0"
