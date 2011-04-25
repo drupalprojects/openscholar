@@ -14,7 +14,7 @@ projects[drupal][type] = "core"
 ; Contrib projects 
 
 projects[addthis][subdir] = "contrib"
-projects[addthis][version] = "2.x-dev"
+projects[addthis][version] = "3.0-beta1"
 
 projects[admin][subdir] = "contrib"
 projects[admin][version] = "2.0"
@@ -26,7 +26,7 @@ projects[auto_nodetitle][subdir] = "contrib"
 projects[auto_nodetitle][version] = "1.2"
 
 projects[better_formats][subdir] = "contrib"
-projects[better_formats][version] = "1.2"
+projects[better_formats][version] = "2.x-dev"
 
 projects[calendar][subdir] = "contrib"
 projects[calendar][version] = "2.2"
@@ -74,7 +74,7 @@ projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
 
 projects[feeds][subdir] = "contrib"
-projects[feeds][version] = "1.0-beta3"
+projects[feeds][version] = "1.0-beta10"
 
 projects[filefield][subdir] = "contrib"
 projects[filefield][version] = "3.9"
@@ -93,15 +93,17 @@ projects[imagefield][version] = "3.9"
 
 projects[imagefield_crop][subdir] = "contrib"
 projects[imagefield_crop][version] = "1.0-rc2"
-projects[imagefield_crop[patch][] = "http://drupal.org/files/issues/imagefield_crop.patch"
+projects[imagefield_crop][patch][] = "http://drupal.org/files/issues/imagefield_crop.patch"
 
 
 projects[insert][subdir] = "contrib"
 projects[insert][version] = "1.0"
 
 projects[install_profile_api][subdir] = "contrib"
-projects[install_profile_api][version] = "2.x-dev"
+projects[install_profile_api][version] = "2.1"
 
+projects[job_scheduler][subdir] = "contrib"
+projects[job_scheduler][version] = "1.0-beta3"
 
 projects[jquery_ui][subdir] = "contrib"
 projects[jquery_ui][version] = "1.4"
@@ -112,8 +114,8 @@ projects[ldap_integration][version] = "1.0-beta2"
 projects[link][subdir] = "contrib"
 projects[link][version] = "2.9"
 
-projects[lightbox2][subdir] = "contrib"
-projects[lightbox2][version] = "1.11"
+projects[shadowbox][subdir] = "contrib"
+projects[shadowbox][version] = "4.2"
 
 projects[luceneapi][subdir] = "contrib"
 projects[luceneapi][version] = "2.2"
@@ -164,11 +166,11 @@ projects[transliteration][subdir] = "contrib"
 projects[transliteration][version] = "3.0"
 
 projects[twitter_pull][subdir] = "contrib"
-projects[twitter_pull][version] = "1.1"
-projects[twitter_pull][patch][] = "http://drupal.org/files/issues/twitter_pull-6x-1-1_2.patch"
+projects[twitter_pull][version] = "1.2"
+projects[twitter_pull][patch][] = "http://drupal.org/files/issues/1100270-twitter_pull-cache.patch"
 
 projects[ucreate][subdir] = "contrib"
-projects[ucreate][version] = "1.0-beta3"
+projects[ucreate][version] = "1.0-beta4"
 
 projects[vertical_tabs][subdir] = "contrib"
 projects[vertical_tabs][version] = "1.0-rc1"
@@ -244,30 +246,33 @@ projects[apachesolr][version] = "2.0-beta2"
 projects[apachesolr][patch][] = "http://drupal.org/files/issues/804700-apachesolr_search2.module.patch"
 
 projects[apachesolr_attachments][subdir] = "contrib"
-projects[apachesolr_attachments][version] = "1.0-beta1"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/815104-bad-file-handling-10.patch"
-projects[apachesolr_attachments][patch][] = "http://drupal.org/files/issues/apachesolr_attachments.admin_.inc-823854-7_0.patch"
+projects[apachesolr_attachments][version] = "2.0-alpha2"
 
+projects[apachesolr_og][subdir] = "contrib"
+projects[apachesolr_og][version] = "2.x-dev"
 
 projects[apachesolr_biblio][subdir] = "contrib"
 projects[apachesolr_biblio][version] = "1.x-dev"
 projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/785370_features_integration.patch"
 projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/apachesolr_biblio-821660_1.patch"
+projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/785370_features_integration.get_fields.patch"
+projects[apachesolr_biblio][patch][] = "http://drupal.org/files/issues/1128598.apachesolr_biblio.text_search.patch"
 
 ; @todo do we have some any uncommitted patches for biblio left?
 projects[biblio][subdir] = "contrib"
 projects[biblio][version] = "1.15"
-;projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls.patch"
-;projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_filefield_paths.patch"
-projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_theme_filefield_paths_115.patch"
-projects[biblio][patch][] = "http://drupal.org/files/issues/endnote8_export.escape_urls2.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/683868.biblio_access_patch2.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/830770.biblio.path_alias.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/830726.endnote8_export.escape_urls3.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_update_date_teaser.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/export_hook.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/1127508.biblio.contributor_count.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/1127514.biblio.chicago.patch"
 
 
 projects[file_aliases][subdir] = "contrib"
 projects[file_aliases][version] = "1.1"
-projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_aliases_nodeFormDescription2.patch"
+projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_aliases_nodeFormDescription3.patch"
 projects[file_aliases][patch][] = "http://drupal.org/files/issues/file_aliases_drupal_cache.patch"
 
 
@@ -285,9 +290,9 @@ projects[creativecommons][patch][] = "http://drupal.org/files/issues/creativecom
 
 ;TODO Move Patch
 projects[itweak_upload][subdir] = "contrib"
-projects[itweak_upload][version] = "2.3"
-projects[itweak_upload][patch][] = "http://scholar.svn.sourceforge.net/viewvc/scholar/trunk/sites/all/modules/contrib/itweak_upload/itweak_upload_dataPersistance.patch?revision=3654&content-type=text/plain"
-projects[itweak_upload][patch][] = "http://drupal.org/files/issues/remove_jcarosel_func2.patch"
+projects[itweak_upload][version] = "2.4"
+projects[itweak_upload][patch][] = "http://drupal.org/files/issues/include_thumbs_in_node_object.patch"
+projects[itweak_upload][patch][] = "http://drupal.org/files/issues/optional_jcarousel_0.patch"
 
 
 projects[jquery_update][subdir] = "contrib"
@@ -298,7 +303,7 @@ projects[jquery_update][patch][] = "http://drupal.org/files/issues/tabledrag_aft
 
 projects[purl][subdir] = "contrib"
 projects[purl][version] = "1.0-beta13"
-projects[purl][patch][] = "http://drupal.org/files/issues/dynamic_modifier.Beta12.patch"
+;projects[purl][patch][] = "http://drupal.org/files/issues/dynamic_modifier.Beta12.patch"
 projects[purl][patch][] = "http://drupal.org/files/issues/check_class.Beta13.patch"
 
 
@@ -453,3 +458,10 @@ libraries[jquery_ui][download][type] = "get"
 libraries[jquery_ui][download][url] = "http://jquery-ui.googlecode.com/files/jquery-ui-1.7.2.zip"
 libraries[jquery_ui][directory_name] = "jquery.ui"
 libraries[jquery_ui][destination] = "modules/contrib/jquery_ui"
+
+; SolrPhpClient
+libraries[apachesolr][download][type] = "get"
+libraries[apachesolr][download][url]  = "http://solr-php-client.googlecode.com/files/SolrPhpClient.r22.2009-11-09.tgz"
+libraries[apachesolr][directory_name] = "SolrPhpClient"
+libraries[apachesolr][destination]    = "modules/contrib/apachesolr"
+
