@@ -300,6 +300,7 @@ projects[purl][patch][] = "http://drupal.org/files/issues/check_class.Beta13.pat
 
 projects[spaces][subdir] = "contrib"
 projects[spaces][version] = "3.1"
+projects[spaces][patch][] = "http://drupal.org/files/issues/maintain_openscholar_privacy_settings-1142684.patch"
 
 ; Custom modules
 ; TODO OS CUSTOM
