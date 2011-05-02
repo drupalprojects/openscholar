@@ -100,6 +100,9 @@ function _openscholar_core_modules() {
     'file_aliases',
     'better_formats',
     'nodeformcols',
+    'formcolumns',
+    'formcolumns_ui',
+    'vsite_shields',
 
   );
   
