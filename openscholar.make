@@ -153,6 +153,9 @@ projects[pathauto][version] = "1.5"
 projects[schema][subdir] = "contrib"
 projects[schema][version] = "1.7"
 
+projects[shorten][subdir] = "contrib"
+projects[shorten][version] = "1.11"
+
 projects[stringoverrides][subdir] = "contrib"
 projects[stringoverrides][version] = "1.8"
 

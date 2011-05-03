@@ -103,6 +103,7 @@ function _openscholar_core_modules() {
     'formcolumns',
     'formcolumns_ui',
     'vsite_shields',
+    'shorten',
 
   );
   
