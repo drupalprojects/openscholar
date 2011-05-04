@@ -104,6 +104,14 @@ function _openscholar_core_modules() {
     'formcolumns_ui',
     'vsite_shields',
     'shorten',
+    'creativecommons',
+    'oembedcore',
+    'oembed',
+    'oembedfield',
+    'oembedembedly',
+    'formcolumns',
+    'vsite_cc',
+    'vsite_shields',
 
   );
   
