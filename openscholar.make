@@ -77,7 +77,7 @@ projects[feeds][subdir] = "contrib"
 projects[feeds][version] = "1.0-beta10"
 
 projects[filefield][subdir] = "contrib"
-projects[filefield][version] = "3.9"
+projects[filefield][version] = "3.10"
 
 projects[filefield_paths][subdir] = "contrib"
 projects[filefield_paths][version] = "1.4"
@@ -89,7 +89,7 @@ projects[imageapi][subdir] = "contrib"
 projects[imageapi][version] = "1.9"
 
 projects[imagefield][subdir] = "contrib"
-projects[imagefield][version] = "3.9"
+projects[imagefield][version] = "3.10"
 
 projects[imagefield_crop][subdir] = "contrib"
 projects[imagefield_crop][version] = "1.0-rc2"
@@ -136,7 +136,7 @@ projects[nodeformcols][subdir] = "contrib"
 projects[nodeformcols][version] = "1.6"
 
 projects[nodereference_url][subdir] = "contrib"
-projects[nodereference_url][version] = "1.6"
+projects[nodereference_url][version] = "1.10"
 
 projects[og][subdir] = "contrib"
 projects[og][version] = "2.1"
@@ -152,6 +152,9 @@ projects[pathauto][version] = "1.5"
 
 projects[schema][subdir] = "contrib"
 projects[schema][version] = "1.7"
+
+projects[shorten][subdir] = "contrib"
+projects[shorten][version] = "1.11"
 
 projects[stringoverrides][subdir] = "contrib"
 projects[stringoverrides][version] = "1.8"
@@ -309,6 +312,7 @@ projects[purl][patch][] = "http://drupal.org/files/issues/check_class.Beta13.pat
 
 projects[spaces][subdir] = "contrib"
 projects[spaces][version] = "3.1"
+projects[spaces][patch][] = "http://drupal.org/files/issues/maintain_openscholar_privacy_settings-1142684.patch"
 
 ; Custom modules
 ; TODO OS CUSTOM
