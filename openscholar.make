@@ -136,7 +136,7 @@ projects[nodeformcols][subdir] = "contrib"
 projects[nodeformcols][version] = "1.6"
 
 projects[nodereference_url][subdir] = "contrib"
-projects[nodereference_url][version] = "1.6"
+projects[nodereference_url][version] = "1.10"
 
 projects[og][subdir] = "contrib"
 projects[og][version] = "2.1"
