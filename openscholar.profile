@@ -145,6 +145,7 @@ function _openscholar_scholar_modules() {
     'vsite_comments',
 
     'cp',
+    'confirm_popup',
     'bkn',
     'cite_distribute',
     'repec_meta',
