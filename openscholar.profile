@@ -170,8 +170,7 @@ function _openscholar_scholar_modules() {
     'scholar_reader',
     'scholar_front',
     'scholar_profiles',
-
-
+    'os_wysiwyg',
   );
 }
 
