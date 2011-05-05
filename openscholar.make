@@ -89,7 +89,7 @@ projects[imageapi][subdir] = "contrib"
 projects[imageapi][version] = "1.9"
 
 projects[imagefield][subdir] = "contrib"
-projects[imagefield][version] = "3.9"
+projects[imagefield][version] = "3.10"
 
 projects[imagefield_crop][subdir] = "contrib"
 projects[imagefield_crop][version] = "1.0-rc2"
