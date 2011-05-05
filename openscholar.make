@@ -77,7 +77,7 @@ projects[feeds][subdir] = "contrib"
 projects[feeds][version] = "1.0-beta10"
 
 projects[filefield][subdir] = "contrib"
-projects[filefield][version] = "3.9"
+projects[filefield][version] = "3.10"
 
 projects[filefield_paths][subdir] = "contrib"
 projects[filefield_paths][version] = "1.4"
