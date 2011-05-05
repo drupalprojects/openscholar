@@ -113,6 +113,7 @@ function _openscholar_core_modules() {
     'vsite_cc',
     'vsite_shields',
     'crayon',
+    'conditional_styles',
 
   );
 
