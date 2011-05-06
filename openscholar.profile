@@ -60,7 +60,7 @@ function _openscholar_core_modules() {
  $contrib_modules = array(
 
     'addthis', 'advanced_help', 'biblio', 'auto_nodetitle',
-    'diff', 'menu_node', 'override_node_options', 'schema', 'stringoverrides',
+    'diff', 'menu_node', 'nfcbiblio', 'override_node_options', 'schema', 'stringoverrides',
     'strongarm', 'twitter_pull',
 
     // cck
@@ -112,6 +112,8 @@ function _openscholar_core_modules() {
     'formcolumns',
     'vsite_cc',
     'vsite_shields',
+    'crayon',
+    'conditional_styles',
 
   );
 
