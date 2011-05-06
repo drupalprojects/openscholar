@@ -266,9 +266,6 @@ function openscholar_profile_tasks(&$task, $url) {
     // create a global taxonomy (not really used right now)
     // _vsite_global_taxonomy();
 
-    //filefield_path /alias config
-    _openscholar_filefield_paths_config();
-
     // biblio configuraitons
     _openscholar_configure_biblio();
 
@@ -458,7 +455,7 @@ function _openscholar_flavors_form($form_state, $url){
     '#options' => array(
       t('Scholars Personal Sites'),
       t('Project Sites'),
-      t('Openscholar Development - not to be used in produciton !!')
+      t('Openscholar Development - not to be used in production !!')
     ),
     '#description' => t('Chose a site type to install, each type can be customized further after install by enabling/disabling modules.')
   );
@@ -510,50 +507,6 @@ function _openscholar_configure_flavor($flavor){
 
   variable_set('openscholar_flavor_installed', $flavor);
   variable_set('openscholar_flavor_form_executed', TRUE);
-}
-
-function _openscholar_filefield_paths_config(){
-
-  $types = _openscholar_group_posts();
-
-  $file_name = array(
-    'value' => '[filefield-onlyname-original].[filefield-extension-original]',
-    'tolower' => 0,
-    'pathauto' => 0,
-    'transliterate' => 0
-  );
-
-  $file_path = array(
-    'value' => '[space-og-path-raw]/files',
-    'tolower' => 0,
-    'pathauto' => 0,
-    'transliterate' => 0
-  );
-
-  $file_alias = array(
-    'value' => '[space-og-path-raw]/files/[filefield-onlyname-original].[filefield-extension-original]',
-    'tolower' => 0,
-    'pathauto' => 0,
-    'transliterate' => 0,
-    'display' => 1,
-  );
-
-
-  foreach ( $types as $type ) {
-    $file_alias['display'] = ($type == 'image')?0:1; //turn on display for all but image
-    db_query("INSERT INTO {filefield_paths} (type, field, filename, filepath, filealias) VALUES ('%s', '%s', '%s', '%s', '%s')", $type, "upload", serialize($file_name), serialize($file_path), serialize($file_alias));
-  }
-
-  //set the "filefield" paths
-  reset($types);
-  foreach ( content_fields() as $field ) {
-    if (($field['module'] == 'filefield') && in_array($field['type_name'], $types)) {
-      //add settings to database if applicable
-      $alias = (empty($field['widget']['module']) || $field['widget']['module'] != 'imagefield')? serialize($file_alias):"";
-      db_query("INSERT INTO {filefield_paths} (type, field, filename, filepath, filealias) VALUES ('%s', '%s', '%s', '%s', '%s')", $field['type_name'], $field['field_name'], serialize($file_name), serialize($file_path), $alias);
-    }
-  }
-
 }
 
 /**
