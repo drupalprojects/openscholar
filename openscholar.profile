@@ -114,6 +114,7 @@ function _openscholar_core_modules() {
     'vsite_shields',
     'crayon',
     'conditional_styles',
+    'prepopulate',
 
   );
 

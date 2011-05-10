@@ -95,7 +95,6 @@ projects[imagefield_crop][subdir] = "contrib"
 projects[imagefield_crop][version] = "1.0-rc2"
 projects[imagefield_crop][patch][] = "http://drupal.org/files/issues/imagefield_crop.patch"
 
-
 projects[insert][subdir] = "contrib"
 projects[insert][version] = "1.0"
 
@@ -149,6 +148,9 @@ projects[override_node_options][version] = "1.11"
 
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.5"
+
+projects[prepopulate][subdir] = "contrib"
+projects[prepopulate][version] = "2.1"
 
 projects[schema][subdir] = "contrib"
 projects[schema][version] = "1.7"
