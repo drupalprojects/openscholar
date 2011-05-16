@@ -73,9 +73,6 @@ projects[dyntextfield][version] = "1.0-beta1"
 projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
 
-projects[feeds][subdir] = "contrib"
-projects[feeds][version] = "1.0-beta10"
-
 projects[filefield][subdir] = "contrib"
 projects[filefield][version] = "3.10"
 
@@ -274,6 +271,9 @@ projects[biblio][patch][] = "http://drupal.org/files/issues/export_hook.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/1127508.biblio.contributor_count.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/1127514.biblio.chicago.patch"
 
+projects[feeds][subdir] = "contrib"
+projects[feeds][version] = "1.0-beta10"
+projects[file_aliases][patch][] = "http://drupal.org/files/issues/null_nodetype-625196-67.patch"
 
 projects[file_aliases][subdir] = "contrib"
 projects[file_aliases][version] = "1.1"
