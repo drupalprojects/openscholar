@@ -316,6 +316,7 @@ projects[spaces][subdir] = "contrib"
 projects[spaces][version] = "3.1"
 projects[spaces][patch][] = "http://drupal.org/files/issues/maintain_openscholar_privacy_settings-1142684.patch"
 projects[spaces][patch][] = "http://drupal.org/files/issues/og_vocab_compatibility-848638-4.patch"
+projects[spaces][patch][] = "http://drupal.org/files/issues/preserve_block_subject_customizer-1160126.patch" 
 
 ; Custom modules
 ; TODO OS CUSTOM
