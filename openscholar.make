@@ -271,6 +271,7 @@ projects[biblio][patch][] = "http://drupal.org/files/issues/export_hook.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/1127508.biblio.contributor_count.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/1127514.biblio.chicago.patch"
 projects[biblio][patch][] = "http://drupal.org/files/issues/biblio.etal-override.1166426.patch"
+projects[biblio][patch][] = "http://drupal.org/files/issues/biblio_default_sorting.1168676.patch"
 
 projects[feeds][subdir] = "contrib"
 projects[feeds][version] = "1.0-beta10"
