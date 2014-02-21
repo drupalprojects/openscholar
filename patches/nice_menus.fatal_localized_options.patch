@@ -1,0 +1,13 @@
+diff --git a/nice_menus.module b/nice_menus.module
+index 280e403..04eefd1 100644
+--- a/nice_menus.module
++++ b/nice_menus.module
+@@ -472,7 +472,7 @@ function theme_nice_menus_build($variables) {
+           '#below' => '',
+           '#title' => $menu_item['link']['title'],
+           '#href' =>  $menu_item['link']['href'],
+-          '#localized_options' => $menu_item['link']['localized_options'],
++          '#localized_options' => isset($menu_item['link']['localized_options'])?$menu_item['link']['localized_options']:array(),
+           '#attributes' => array(
+             'class' => array('menu-' . $mlid, $class, $first_class, $oddeven_class, $last_class),
+           ),

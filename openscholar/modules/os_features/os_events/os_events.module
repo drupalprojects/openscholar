@@ -1,0 +1,1026 @@
+<?php
+// $Id$
+
+include_once 'os_events.features.inc';
+
+/**
+ * Implements hook_os_app_info().
+ */
+function os_events_os_app_info() {
+  $apps = array();
+
+  $apps['os_events'] = array(
+    'path' => 'calendar',
+    'nodetypes' => array(
+      'event',
+    ),
+    'views tabs' => array(
+      'os_events' => array(
+        'page_1' => array('calendar'), // Month display
+        'page_2' => array('calendar'), // Week display
+        'page_3' => array('calendar'), // Year display
+        'page_4', // Upcoming
+        'feed_1', // iCal
+        'feed_2', // rss
+      ),
+    ),
+    'importers' => array(
+      'event' => array(
+        'ical' => 'os_ical',
+        'csv' => 'os_events_csv',
+      ),
+    ),
+    'browse_pages' => array(
+      'event' => array(
+        'url' => 'browse/events',
+        'title' => t('Events'),
+        'display_mode' => 'teaser',
+        'menu_item' => 'events',
+      ),
+    ),
+  );
+
+  return $apps;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function os_events_theme() {
+  return array(
+    'os_events_export_links' => array(
+      'variables' => array(
+        'register' => NULL,
+        'ical' => NULL,
+        'subscribe' => NULL,
+      ),
+      'template' => 'os-events-export-links',
+      'path' => drupal_get_path('module', 'os_events') . '/template',
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function os_events_menu() {
+  $items = array();
+
+  $items['os_events/%ctools_js/registration/%node'] = array(
+    'title callback' => 'os_events_register_form_title',
+    'title arguments' => array('node', 3),
+    'page callback' => 'os_events_events_register',
+    'page arguments' => array(1, 3),
+    'access arguments' => array('create event_signup_simple registration'),
+  );
+
+  return $items;
+}
+
+/**
+ * Check the capacity if the event reach it's capacity.
+ */
+function os_events_event_registration_reach_capacity($node) {
+  // Check how much registration exists for this event.
+  $query = new EntityFieldQuery();
+  $registrations_number = $query
+    ->entityCondition('entity_type', 'registration')
+    ->propertyCondition('entity_id', $node->nid)
+    ->propertyCondition('entity_type', 'node')
+    ->count()
+    ->execute();
+
+  // Get the settings of the registration for this event.
+  $settings = registration_entity_settings('node', $node->nid);
+
+  // When the capacity set to 0 the registration number is unlimited. When not,
+  // check if the registration number didn't pass the capacity number.
+  if ($settings['status'] && ($settings['capacity'] == 0 xor $registrations_number < $settings['capacity'])) {
+    return user_access('create event_signup_simple registration');
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Title callback for the event registration menu item.
+ *  The entity type.
+ *
+ * @param $entity_type
+ *  The entity type.
+ * @param $entity_id
+ *  The entity ID.
+ *
+ * @return string
+ *  The title of the menu item.
+ */
+function os_events_register_form_title($entity_type, $entity_id) {
+  $wrapper = entity_metadata_Wrapper($entity_type, $entity_id);
+  return t('Register to @title', array('@title' => $wrapper->label()));
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function os_events_admin_paths() {
+  return array(
+    'os_events/registration/*' => TRUE,
+  );
+}
+
+/**
+ * Implements hook_os_entity_view_modes()
+ */
+function os_events_os_entity_view_modes() {
+  return array('node' =>
+    array('event' => array('sidebar_teaser')
+  ));
+}
+
+/**
+ * hook os_widget
+ *
+ * Events blocks that can be used on an OpenScholar site
+ */
+function os_events_os_widget() {
+  $items = array();
+
+  //Mini calendar that displays events by month
+  $items['views-os_events-block_1'] = array(
+    'module' => 'views',
+    'delta' => 'os_events-block_1',
+    'region' => 'sidebar_second',
+    'weight' => '-10',
+    'info' => t('Mini Calendar'),
+  );
+
+  //List of upcoming events
+  $items['views-os_events-block_2'] = array(
+    'module' => 'views',
+    'delta' => 'os_events-block_2',
+    'region' => 'sidebar_second',
+    'weight' => '-15',
+    'info' => t('Upcoming Events'),
+  );
+
+  return $items;
+}
+
+// TODO: Remove when os_layout_get is refactored to handle widget titles better
+function os_events_os_widget_alter(&$widget) {
+  if ($widget['delta'] == 'os_events-block_1') {
+    $widget['info'] = t('Mini Calendar');
+  }
+}
+
+/**
+ * Implements hook_vsite_og_node_type_info().
+ */
+function os_events_vsite_og_node_type_info() {
+  return array(
+    'event' => 'group content',
+  );
+}
+
+/**
+ * Implements hook_default_registration_type().
+ */
+function os_events_default_registration_type() {
+  $items = array();
+  $items['event_signup_simple'] = entity_import('registration_type', '{
+    "name" : "event_signup_simple",
+    "label" : "Event signup",
+    "locked" : "0",
+    "weight" : "0",
+    "data" : null,
+    "rdf_mapping" : []
+  }');
+  return $items;
+}
+
+/**
+ * Implements hook_process_node().
+ */
+function os_events_process_node(&$variables) {
+  if ($variables['type'] != 'event') {
+    return;
+  }
+
+  // Move the terms to the top of the node display.
+  if(isset($variables['content']['og_vocabulary'])) {
+    $variables['content']['og_vocabulary']['#weight'] = 0;
+  }
+  // Move the event date above the event description.
+  if(isset($variables['content']['field_date'])) {
+    $variables['content']['field_date']['#weight'] = 0;
+    // Append <p></p> tags for spacing.
+    if(isset($variables['content']['field_date'][0]['#markup'])) {
+      $variables['content']['field_date'][0]['#markup'] .= '<p></p>';
+    }
+  }
+
+  $variables['link_title_text'] = '';
+  if (isset($variables['date_id'])) {
+    list(,,$field,$delta) = explode('.', is_array($variables['date_id']) ? reset($variables['date_id']) : $variables['date_id']);
+    $delta = intval($delta);
+    $date = field_get_items('node', $variables['node'], $field);
+    $date = $date[$delta]['value'];
+    $variables['link_title_text'] = t('On @date', array('@date' => gmdate('D M j', strtotime($date))));
+    if (isset($variables['content']['links']['node']['#links']['node-readmore'])) {
+      $variables['content']['links']['node']['#links']['node-readmore']['attributes']['title'] .= ' on '.gmdate('D M j', strtotime($date));
+    }
+  }
+
+  if ($variables['page']) {
+    $options = array('absolute' => TRUE, 'attributes' => array('class' => array('subscribe')));
+    $subscribe = l(t('subscribe'), 'calendar/export.ics/' . $variables['node']->nid, $options);
+    $subscribe = str_replace('http://', 'webcal://', $subscribe);
+
+    // Hiding the original registration link because we are using our own link
+    // with a ctools modal effect and because we placing the registration link
+    // in the export area.
+    hide($variables['content']['field_event_registration']);
+
+    $ical = l(t('iCal'), 'calendar/export.ics/' . $variables['node']->nid, array('attributes' => array('class' => array('ical'))));
+
+    $registrations_type = !empty($variables['node']->field_event_registration[LANGUAGE_NONE][0]['registration_type']);
+
+    // Show the signup link uf capacity isn't reached and no repeat rule is used.
+    if ($registrations_type && os_events_event_registration_reach_capacity($variables['node']) && !$variables['field_date'][0]['rrule'] ) {
+      $register = os_events_generate_modal_register_link($variables['node']->nid);
+    }
+    else {
+      $register = '';
+    }
+
+    $params = array(
+      'register' => $register,
+      'ical' => $ical,
+      'subscribe' => $subscribe,
+    );
+    $variables['content']['export'] = array(
+      '#markup' => theme('os_events_export_links', $params),
+      '#weight' => 10,
+    );
+  }
+  
+  //hide the repeat rule summary from sidebar_teaser
+  if ($variables['view_mode'] == 'sidebar_teaser' && $variables['content']['field_date']['#items']) {
+    $rule = theme_date_repeat_display(array('item' => array('rrule' => $variables['content']['field_date']['#items'][0]['rrule'])));
+    $variables['content']['field_date'][0]['#markup'] = str_replace($rule, '', $variables['content']['field_date'][0]['#markup'] );
+  }
+}
+
+/**
+ * Generate the link for revealing the modal registration form.
+ *
+ * @param $nid
+ *  The event NID.
+ * @param $modal_settings
+ *  Ctools modal settings.
+ *
+ * @return string
+ *  Link for the revealing the modal.
+ */
+function os_events_generate_modal_register_link($nid, $modal_settings = array()) {
+  $modal_settings += array(
+    'modalSize' => array(
+      'type' => 'fixed',
+      'width' => 700,
+      'height' => 500,
+      'addWidth' => 10,
+      'addHeight' => 10,
+      'contentRight' => 0,
+      'contentBottom' => 0,
+    ),
+  );
+
+  ctools_include('ajax');
+  ctools_include('modal');
+  ctools_modal_add_js();
+  $modal_style = array(
+    'events-modal-style' => $modal_settings,
+  );
+  drupal_add_js($modal_style, 'setting');
+
+  return ctools_ajax_text_button(t('Sign up for this event'), 'os_events/nojs/registration/' . $nid, '', 'ctools-use-modal ctools-modal-events-modal-style register use-ajax');
+}
+
+/**
+ * Menu callback; Display the registration form in modal window.
+ *
+ * @param $js
+ *  Ctools JS settings.
+ * @param $node
+ *  The node object.
+ */
+function os_events_events_register($js, $node) {
+  ctools_include('modal');
+  ctools_include('ajax');
+
+  $registration_type = registration_get_entity_registration_type('node', $node);
+  $registration = entity_get_controller('registration')->create(array(
+    'entity_type' => 'node',
+    'entity_id' => $node->nid,
+    'type' => $registration_type,
+  ));
+
+  $registration->ajax = $js;
+  $registration_form = drupal_get_form('registration_form', $registration);
+
+  if (!$js) {
+    return $registration_form;
+  }
+
+  if (!os_events_event_registration_reach_capacity($node)) {
+    drupal_set_message(t('The event has reached his maximum capacity of registrations. Sorry.'), 'error');
+    $commands = array();
+
+    // dismiss the window
+    $commands[] = ctools_modal_command_display(t('Error'), theme('status_messages'));
+
+    print ajax_render($commands);
+    drupal_exit();
+    return;
+  }
+
+  $form_state = array(
+    'title' => os_events_register_form_title('node', $node->nid),
+    'ajax' => $js,
+    'use_ctools' => TRUE,
+  );
+
+  $output = ctools_modal_form_render($form_state, $registration_form);
+  print ajax_render($output);
+  drupal_exit();
+}
+
+/**
+ * Submit handler; Dismissing the ctools modal window and display a message
+ * when the registration is completed.
+ */
+function os_events_modal_submit($form, &$form_state) {
+  if (!$form_state['registration']->ajax) {
+    // The AJAX is disabled. Don't invoke the ajax_render command.
+    return;
+  }
+
+  $commands = array();
+
+  // dismiss the window
+  $commands[] = ctools_modal_command_dismiss();
+  // Display messages.
+  $commands[] = ajax_command_before('#columns', theme('status_messages'));
+
+  // Clean any message.
+  drupal_get_messages();
+
+  print ajax_render($commands);
+  drupal_exit();
+}
+
+/**
+ * Calendar datebox preprocess.
+ *
+ * RE-build the links to use query strings, instead of "clean urls".
+ */
+function os_events_preprocess_calendar_datebox(&$vars) {
+  $date = $vars['date'];
+  $view = $vars['view'];
+  $vars['day'] = intval(substr($date, 8, 2));
+  $day_path = calendar_granularity_path($view, 'day');
+
+  $options = array(
+    'query' => array(
+      'type' => 'day',
+      'day' => $vars['date'],
+    ),
+    'absolute' => TRUE,
+  );
+
+  $vars['link'] = !empty($day_path) ? l($vars['day'], 'calendar', $options) : $vars['day'];
+}
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function os_events_views_pre_view(&$view, &$display_id, &$args) {
+  if ($view->name != 'os_events') {
+    return;
+  }
+
+  if (!in_array($display_id, array('block_2', 'block_1'))) {
+    $buttons = array(
+      'subscribe' => 'calendar/export.ics',
+      'iCal' => 'calendar/export.ics',
+      'rss' => 'calendar/rss.xml'
+    );
+
+    foreach ($buttons as $label => $path) {
+
+      // When the user is filtering events by taxonomy term we need to add the
+      // path to the iCal/rss export path.
+      if (os_taxonomy_in_taxonomy_term_context($view)) {
+        // Get the current taxonomy term path from the $_GET['q'] and remove the
+        // word calendar for prevent duplication of the word.
+        $path .= str_replace('calendar', '', $_GET['q']);
+      }
+
+      $links[$label] = array(
+        'title' => t($label),
+        'href' => $path,
+        'attributes' => array('class' => array(strtolower($label))),
+      );
+    }
+
+    // Make sure webcal link uses webcal protocol.
+    $links['subscribe']['href'] = str_replace('http://', 'webcal://', url($links['subscribe']['href'], array('absolute' => TRUE)));
+
+    $view->attachment_before .= theme('links', array(
+      'links' => $links,
+      "attributes" => array('class' => array('links', 'inline')),
+    ));
+  }
+
+  if (empty($view->display_handler->display->display_options['pager']['options']['date_id'])) {
+    // Not a calendar view, or a mini-calendar
+    return;
+  }
+
+  if (empty($_GET['type']) || !in_array($_GET['type'], array('day', 'week', 'month', 'year'))) {
+    return;
+  }
+
+  $handler = &$view->display_handler;
+
+  // Adding the JS for side by side events display for the week view mode.
+  if ($_GET['type'] == 'week') {
+    drupal_add_js(drupal_get_path('module', 'os_events') . '/js/os_events.js');
+  }
+
+  if (!empty($view->display_handler->display->display_options['style_options']['mini'])) {
+    // Set the default date of the mini calendar to the date the user watching.
+    $format = array('year' => 'Y', 'month' => 'Y-m', 'week' => 'Y-\W', 'day' => 'Y-m-d');
+
+    if ($_GET['type'] == 'year') {
+      // The user watch a year, return him the current time.
+      $time = time();
+    }
+    else {
+      $time = strtotime($_GET[$_GET['type']]);
+    }
+
+    $view->args[0] = date($format['month'], $time);
+    return;
+  }
+
+  if ($_GET['type'] != 'month') {
+    $handler->set_option('style_plugin', 'calendar_style');
+  }
+
+  $values = $handler->get_option('style_options');
+  $values['calendar_type'] = $_GET['type'];
+  $values['groupby_times'] = 'hour';
+  $handler->set_option('style_options', $values);
+
+  $values = $handler->get_option('pager');
+  $values['options']['date_id'] = $_GET['type'];
+  $handler->set_option('pager', $values);
+
+
+  $values = $handler->get_option('arguments');
+  $values['date_argument']['granularity'] = $_GET['type'];
+  $handler->set_option('arguments', $values);
+}
+
+/**
+ * Implements hook_preprocess_date_views_pager().
+ *
+ * Dealing with different context of the calendar view modes.
+ */
+function os_events_preprocess_date_views_pager(&$variables) {
+  if ($variables['plugin']->options['date_id'] == 'mini') {
+    return;
+  }
+
+  // Define some variables.
+  $plugin = $variables['plugin'];
+  $view = $plugin->view;
+  $date_info = $view->date_info;
+  $next_url = &$variables['next_url'];
+  $prev_url = &$variables['prev_url'];
+  $granularity = !empty($date_info->calendar_type) ? $date_info->calendar_type : 'month';
+  $format = array('year' => 'Y', 'month' => 'Y-m', 'week' => 'Y-\W', 'day' => 'Y-m-d');
+
+  // Get information about dates.
+  $min_date = $date_info->min_date;
+
+  $prev_date = clone($min_date);
+  $next_date = clone($min_date);
+
+  $prev_date->modify('-1 ' . $granularity);
+  $next_date->modify('+1 ' . $granularity);
+
+  switch ($granularity) {
+    case 'week':
+      $next_week = date_week(date_format($next_date, 'Y-m-d'));
+      $prev_week = date_week(date_format($prev_date, 'Y-m-d'));
+      $next_arg = date_format($next_date, $format[$granularity]) . date_pad($next_week);
+      $prev_arg = date_format($prev_date, $format[$granularity]) . date_pad($prev_week);
+      break;
+    default:
+      $next_arg = date_format($next_date, $format[$granularity]);
+      $prev_arg = date_format($prev_date, $format[$granularity]);
+  }
+
+  // Change the link URL and arguments.
+  $variables['next_options']['query'] = array($granularity => $next_arg, 'type' => $granularity);
+  $variables['prev_options']['query'] = array($granularity => $prev_arg, 'type' => $granularity);
+  $next_url = $_GET['q'];
+  $prev_url = $_GET['q'];
+}
+
+/**
+ * Implements hook_views_query_alter().
+ *
+ * Setting a default value to the $_GET['month'] or $_GET['type'] if not exists.
+ *
+ * When filtering by terms there could be a case when the type or the month are
+ * not defined in the $_GET variables.
+ */
+function os_events_views_query_alter($view, $query) {
+  if ($view->name != 'os_events' ) {
+    return;
+  }
+  $format = array('year' => 'Y', 'month' => 'Y-m', 'week' => 'Y-\W', 'day' => 'Y-m-d');
+
+  // Determine the type of the displayed month by the argument from the address.
+  $_GET['type'] = isset($_GET['type']) ? $_GET['type'] : 'month';
+
+  // Determine the value of the calendar view mode(day, year, month) argument
+  // value.
+  $_GET[$_GET['type']] = isset($_GET[$_GET['type']]) ? $_GET[$_GET['type']] : date($format[$_GET['type']], time());
+}
+
+/**
+ * Implements hook_url_outbound_alter().
+ *
+ * Change the url of the prev and next links.
+ */
+function os_events_url_outbound_alter(&$path, &$options, $original_path) {
+  $view_modes = array(
+    'calendar/week',
+    'calendar/day',
+    'calendar/year',
+  );
+
+  if (!in_array($original_path, $view_modes) && strpos($path, 'calendar/month/') === FALSE) {
+    return;
+  }
+
+  $mini_calendar = strpos($path, 'calendar/month/') !== FALSE;
+  $data = explode('/', $original_path);
+  $path = $data[0];
+
+  $format = array('year' => 'Y', 'month' => 'Y-m', 'week' => 'Y-\W', 'day' => 'Y-m-d');
+  $date_format = new DateTime;
+
+  if (isset($_GET[$data[1]])) {
+    if ($_GET['type'] == 'year') {
+      // The user watch in a year, return him to the first day of the year.
+      $time = mktime(12, 0, 0, 1, 1, $_GET[$data[1]]);
+    }
+    else {
+      $time = strtotime($_GET[$data[1]]);
+    }
+    $date_format->setTimestamp($time);
+  }
+
+  if ($data[1] == 'week') {
+    $date = date_format($date_format, $format[$data[1]]) . date_week(date_format($date_format, 'Y-m-d'));
+  }
+  else {
+    $date = date_format($date_format, $format[$data[1]]);
+  }
+
+  $type = $data[1];
+
+  if ($mini_calendar) {
+    $type = 'month';
+    $date = $data[2];
+  }
+
+  $options['query'] = array(
+    'type' => $type,
+    $data[1] => $date,
+  );
+}
+
+/**
+ * Implements hook_preprocess_menu_local_task().
+ *
+ * Remove the active from any tab in the calendar page and add active to the
+ * correct tab.
+ */
+function os_events_preprocess_menu_local_task(&$variables) {
+  if ($_GET['q'] != 'calendar' || !isset($_GET['type'])) {
+    return;
+  }
+  $element = &$variables['element'];
+  $element['#active'] = FALSE;
+
+  $cases = array(
+    'day' => 'calendar/day',
+    'week' => 'calendar/week',
+    'year' => 'calendar/year',
+    'month' => 'calendar/month',
+  );
+
+  if (isset($cases[$_GET['type']]) && $cases[$_GET['type']] == $element['#link']['path']) {
+    $element['#active'] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_preprocess_link().
+ *
+ * Remove the active from any link in the calendar page and add active class to
+ * the correct link.
+ */
+function os_events_preprocess_link(&$variables) {
+  if ($_GET['q'] != 'calendar') {
+    return;
+  }
+
+  if ($variables['path'] == 'calendar' && $variables['text'] == t('Month')) {
+    // The user watch different view modes of the calendar, remove the active
+    // from the the month link.
+    if (!in_array($_GET, array('day', 'week', 'year')) && !empty($_GET['type'])) {
+      $key = array_search('active', $variables['options']['attributes']['class']);
+      unset($variables['options']['attributes']['class'][$key]);
+    }
+  }
+
+  $view_modes = array(
+    'calendar/week',
+    'calendar/day',
+    'calendar/year',
+  );
+
+  if (empty($_GET['type']) || !in_array($variables['path'], $view_modes)) {
+    return;
+  }
+
+  $cases = array(
+    'day' => 'calendar/day',
+    'week' => 'calendar/week',
+    'year' => 'calendar/year',
+    'month' => 'calendar/month',
+  );
+
+  if (isset($cases[$_GET['type']]) && $cases[$_GET['type']] == $variables['path']) {
+    $variables['options']['attributes']['class'][] = 'active';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function os_events_form_registration_entity_settings_form_alter(&$form, $form_state) {
+  $wrapper = entity_metadata_wrapper('node', $form_state['entity']['entity_id']);
+  // Hide the tokens list for sending messages to registrants.
+  unset($form['token_tree']);
+
+  // Default value of the From field should be the author of the event's e-mail
+  $from_default_value = $wrapper->author->mail->value();
+
+  $form['status']['#title'] = t('Enable registrations');
+  $form['status']['#description'] = t('Users must register their attendance in advance.');
+
+  $open_date = $form['scheduling']['open']['#default_value'];
+  $close_date = $form['scheduling']['close']['#default_value'];
+  $reminder_date = $form['reminder']['reminder_settings']['reminder_date']['#default_value'];
+
+  $format = 'M d Y H:i';
+  // Replace textual date fields in favor of date popup.
+  $form['scheduling']['open'] = array(
+    '#type' => 'date_popup',
+    '#title' => t('Open date'),
+    '#description' => t('When to automatically open registrations'),
+    '#default_value' => empty($open_date) ? '' : date('Y-m-d H:i', strtotime($open_date)),
+    '#date_format' => $format,
+  );
+
+  $form['scheduling']['close'] = array(
+    '#type' => 'date_popup',
+    '#title' => t('Close date'),
+    '#description' => t('When to automatically close registrations.'),
+    '#default_value' => empty($close_date) ? '' : date('Y-m-d H:i', strtotime($close_date)),
+    '#date_format' => $format,
+  );
+
+  // Add 'from' field.
+  $form['from'] = array(
+    '#type' =>'textfield',
+    '#title' => t('From'),
+    '#required' => TRUE,
+    '#description' => t('Email address to be displayed as the message\'s sender.'),
+    '#default_value' => $from_default_value,
+    '#element_validate' => array('os_events_validate_mail'),
+  );
+
+  // Set the default time for a reminder to be a day before the event.
+  $event_date = reset($wrapper->field_date->value());
+  $reminder = empty($reminder_date) ? strtotime('-1 day', strtotime($event_date['value'])) : strtotime($reminder_date);
+  $form['reminder']['reminder_settings']['reminder_date'] = array(
+    '#type' => 'date_popup',
+    '#title' => t('Reminder Date'),
+    '#description' => t('When to send reminders.'),
+    '#default_value' => date('Y-m-d H:i', $reminder),
+    '#date_format' => $format,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="reminder[send_reminder]"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+
+  // Remove the template, reminder date is no longer inside a container.
+  $form['reminder']['reminder_settings']['reminder_template'] = $form['reminder']['reminder_settings']['reminder_template'] + array(
+    '#access' => FALSE,
+    '#value' => variable_get('os_reminder_template', "
+Hello [registration:author:name],
+
+You request to send a reminder for the event <a href='[node:url]'>[node:title]</a>.
+    "),
+  );
+  $form['reminder']['reminder_settings']['token_tree']['#access'] = FALSE;
+  $form['reminder']['reminder_settings']['#type'] = 'container';
+  $form['reminder']['#type'] = 'container';
+  $form['settings']['#access'] = FALSE;
+
+  $form['reminder']['#weight'] = 9;
+  $form['scheduling']['#weight'] = 10;
+  $form['save']['#weight'] = 11;
+}
+
+/**
+ * Element validate; Validate the email of the user.
+ */
+function os_events_validate_mail($element, $form_state, $form) {
+  if (!valid_email_address($element['#value'])) {
+    form_error($element, t('This is not a valid email address.'));
+  }
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function os_events_field_widget_registration_select_form_alter(&$element, &$form_state, $context) {
+  $element['registration_type']['#type'] = 'checkbox';
+
+  // Set the "return value" to our default signup.
+  $element['registration_type']['#return_value'] = 'event_signup_simple';
+
+  $items = $context['items'];
+  $element['registration_type']['#default_value'] = !empty($items[0]['registration_type']);
+
+  // Remove the options, so they won't fail our validation.
+  unset($element['registration_type']['#options']);
+
+  $element['registration_type']['#title'] = t('Signup');
+  $element['registration_type']['#description'] = t('If checked, users will be able to signup for this event.');
+
+  // Disable signup for repeated events.
+  $element['registration_type']['#states']['enabled'][':input[name="field_date[und][0][show_repeat_settings]"]'] = array('checked' => FALSE);
+
+  // Add JS to change button description,
+  $element['registration_type']['#attached']['js'] = array(
+    drupal_get_path('module', 'os_events') . '/js/os_events_signup_description.js'
+  );
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function os_events_menu_alter(&$items) {
+  $items['node/%entity_object/register']['access callback'] = FALSE;
+  $items['admin/structure/registration/registration_states']['access callback'] = FALSE;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function os_events_form_registration_registrations_broadcast_form_alter(&$form, $form_state) {
+  // Hide the tokens list for sending messages to registrants.
+  unset($form['token_tree']);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function os_events_form_registration_form_alter(&$form, &$form_state) {
+  // Remove the entity from the form - we don't need it and it disable the
+  // header.
+  // @TODO: figure out why the $form['#entity'] disable the header.
+  unset($form['#entity']);
+
+  $form['who_is_registering'] = array(
+    '#type' => 'value',
+    '#value' => 'registration_registrant_type_anon',
+  );
+
+  $form['actions']['cancel']['#access'] = FALSE;
+  $form['actions']['submit']['#value'] = t('Signup');
+
+  $form['event_register'] = array(
+    '#type' => 'container',
+    '#title' => t('Sign up for this event'),
+
+    'field_full_name' => $form['field_full_name'],
+    'field_department' => $form['field_department'],
+    'anon_mail' => $form['anon_mail'],
+    'actions' => $form['actions'],
+  );
+
+  // Make sure the form it rebuilt, so if there's a validation error, we can
+  // keep the event registration fieldset open.
+  $form_state['rebuild'] = TRUE;
+  unset($form['actions'], $form['field_full_name'], $form['field_department'], $form['anon_mail'], $form['user']);
+
+  $form['#submit'][] = 'os_events_modal_submit';
+}
+
+/**
+ * Implements hook_preprocess_table().
+ */
+function os_events_preprocess_table(&$variables) {
+  $menu = menu_get_item();
+
+  if ($menu['path'] != 'node/%/registrations') {
+    return;
+  }
+
+  // Change the title of the registrations table.
+  $variables['caption'] = t('List of registrations for %title.', array(
+    '%title' => entity_label('node', $menu['map'][1]),
+  ));
+
+  // Remove the "count" and the "states" from the table head.
+  unset($variables['header'][4], $variables['header'][6]);
+
+  // Remove the "count" and the "states" from each table row.
+  foreach (array_keys($variables['rows']) as $delta) {
+    unset($variables['rows'][$delta][4], $variables['rows'][$delta][6]);
+  }
+}
+
+/**
+ * Implements hook_mollom_form_list().
+ */
+function os_events_mollom_form_list() {
+  $forms = array();
+  $forms['registration_form'] = array(
+    'title' => t('Registration form'),
+    'entity' => 'registration',
+    'bundle' => 'event_signup_simple',
+  );
+  return $forms;
+}
+
+/**
+ * Implements hook_mollom_form_info().
+ */
+function os_events_mollom_form_info($form_id) {
+  $form_info = array(
+    'bundle' => 'event_signup_simple',
+    'elements' => array(),
+    'mapping' => array(
+      'author_email' => 'anon_email',
+    ),
+  );
+
+  mollom_form_info_add_fields($form_info, 'registration', 'event_signup_simple');
+
+  return $form_info;
+}
+
+/**
+ * Save the settings for the mollom form.
+ */
+function os_events_save_mollom_settings() {
+  $mollom_form = array(
+    'form_id' => 'registration_form',
+    'mode' => '1',
+    'checks' => array('spam'),
+    'enabled_fields' => array('field_department][und][0][value','field_full_name][und][0][value'),
+    'strictness' => 'normal',
+    'discard' => '1',
+    'moderation' => 0,
+    'entity' => 'registration',
+    'bundle' => 'event_signup_simple',
+    'module' => 'os_events',
+    'title' => 'Registration form',
+    'elements' => array(
+      'field_department][und][0][value' => 'Department',
+      'field_full_name][und][0][value' => 'Full Name',
+    ),
+    'mapping' => array(
+      'author_email' => 'anon_email',
+      'post_id' => 'registration_id',
+    ),
+    'bypass access' => array(),
+    'mail ids' => array(),
+  );
+
+  mollom_form_save($mollom_form);
+}
+
+/**
+ * Implements hook_modules_enabled().
+ *
+ * When enabling the mollom module we need to add the event registration form
+ * to mollom form protection list.
+ */
+function os_events_modules_enabled($modules) {
+  if (!in_array('mollom', $modules)) {
+    return;
+  }
+
+  os_events_save_mollom_settings();
+}
+
+/**
+ * Implements hook_date_ical_feed_event_render_alter().
+ */
+function os_events_date_ical_feed_event_render_alter(&$event, $view, &$context) {
+  // Prevent placing a backslash before a colon, because it makes iCal crash.
+  $event['description'] = str_replace('\:', ':', $event['description']);
+}
+
+/**
+ * Implements hook_entity_insert().
+ *
+ * Sending notification for user when subscribing to event.
+ */
+function os_events_entity_insert($entity, $type) {
+  if ($type != 'registration') {
+    return;
+  }
+  $wrapper = entity_metadata_Wrapper($type, $entity);
+  $node = node_load($entity->entity_id);
+
+  $module = 'os_events';
+  $key = 'registration_confirmation';
+  $language = language_default();
+  $params = array(
+    '@url' => url('node/' . $node->nid, array('absolute' => TRUE)),
+    '@title' => $node->title,
+    '@user-name' => $wrapper->field_full_name->value(),
+  );
+
+  // Pass the entity type and ID to give modules implementing
+  // hook_mail_alter() more context.
+  $params['context'] = array(
+    'entity_type' => 'node',
+    'entity_id' => $node->nid,
+  );
+
+  drupal_mail($module, $key, $wrapper->anon_mail->value(), $language, $params);
+}
+
+/**
+ * Implements hook_mail().
+ */
+function os_events_mail($key, &$message, $params) {
+  $message['subject'] = t("@title event registration confirmation", $params);
+  $message['body'] = array();
+  $message['body'][] = t("Hello @user-name", $params);
+  $message['body'][] = t("You have successfully registered for @title (@url).", $params);
+}
+
+/**
+ * Implements hook_mail_alter().
+ */
+function os_events_mail_alter(&$message) {
+  if (!in_array($message['id'], array('registration_broadcast', 'os_events_registration_confirmation'))) {
+    return;
+  }
+
+  // Get event default email address.
+  $wrapper = entity_metadata_wrapper($message['params']['context']['entity_type'], $message['params']['context']['entity_id']);
+
+  // Set default email as the message's sender.
+  $message['headers']['From'] = $wrapper->author->mail->value();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Include JS to update the End Date field according to the Start Date field on
+ * event node form.
+ */
+function os_events_form_event_node_form_alter(&$form, &$form_state) {
+  $form['#attached']['js'][] = drupal_get_path('module', 'os_events') . '/js/os_events.js';
+}

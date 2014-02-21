@@ -1,0 +1,45 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+body {
+	background: #f8f9fa;
+	color: #4e5860;
+	}
+	
+#columns {
+background: #FFF;
+margin-top: 0;
+margin-bottom: 20px;
+border: 1px solid #d9e0e2;
+border-top:none;
+padding:0 20px;
+}	
+
+#header {
+background: #FFF;
+color: #555;
+}
+
+
+#menu-bar {
+background: #FFF;
+border-bottom: 3px solid #d9e0e2;
+}
+
+#menu-bar ul.nice-menu a,
+h1#page-title,
+#boxes-box-site_info a,
+#boxes-box-site_info h2,
+#boxes-box-site_info p {
+font-family: 'Source Sans Pro', arial,sans-serif;
+}
+
+h1#page-title {
+	color:#D16103;
+}
+
+
+
+#search-block-form input.form-submit, 
+#search-block-form #edit-submit, #search-form #edit-submit {
+background-position:  2px -373px;
+}

@@ -1,0 +1,6 @@
+name = Orange Flare
+description = A light version of the Classic theme with orange accents
+screenshot = screenshot.png
+
+css[] = orange_flare.css
+css[] = responsive.orange_flare.css
